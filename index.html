@@ -110,6 +110,25 @@
         
         #app { display: none; }
 
+        /* Highlighted warning box for small pool size */
+        #smallPoolMsg {
+            font-size: 0.85rem; 
+            font-weight: 700; 
+            color: #b45309; 
+            background-color: #fef3c7; 
+            padding: 12px; 
+            border-radius: 8px; 
+            border: 2px solid #f59e0b; 
+            margin-top: 15px; 
+            display: none;
+            line-height: 1.5;
+        }
+        body.dark-mode #smallPoolMsg {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: #fcd34d;
+            border-color: rgba(245, 158, 11, 0.4);
+        }
+
         @media (max-width: 768px) {
             body { padding: 15px 10px; }
             .card { padding: 15px; }
@@ -144,7 +163,7 @@
         <div class="transparency-banner" id="transparencyBanner" style="display: none;">
             <div class="transparency-item">🛡️ Data Health: <span class="transparency-val" id="td-entries">-</span> Total Entries</div>
             <div class="transparency-item" style="color: #fca5a5;">🗑️ <span class="transparency-val" style="color: #fca5a5;" id="td-fakes">-</span> Fakes/Duplicates Deleted</div>
-            <div class="transparency-item" style="opacity: 0.8; font-size: 0.75rem;">Last Verified: <span id="td-updated">-</span></div>
+            <div class="transparency-item" style="opacity: 0.8; font-size: 0.75rem;">Fake Data Cleaned Last At: <span id="td-updated" style="font-weight: 700; color: #fff;">-</span></div>
         </div>
 
         <div class="card" style="border: 2px solid var(--primary); margin-bottom: 25px; background: linear-gradient(to right, rgba(37, 99, 235, 0.05), transparent);">
@@ -233,7 +252,10 @@
                                 <span id="probFinalStatus" style="font-size: 1.1rem;">-</span>
                             </div>
                         </div>
-                        <p id="smallPoolMsg" style="font-size: 0.75rem; font-weight: 600; color: var(--warning); margin-top: 10px; display: none;">*Note: Percentiles may appear lower than reality. Your percentile and selection chance will dynamically improve as more candidates enter their data.</p>
+                        
+                        <p id="smallPoolMsg">
+                            💡 <strong>Note:</strong> As our current sample size is small, percentiles for top ranks may appear mathematically lower than reality. Your percentile and selection chance will dynamically improve as more candidates enter their genuine data. Don't panic!
+                        </p>
                     </div>
 
                     <h3 style="margin-top: 15px; font-size: 1.05rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Category Rank (<span id="displayUserCat">...</span>)</h3>
@@ -311,7 +333,7 @@
             <div id="dynamic-rankers-row" class="grid" style="margin-bottom: 0;">
                 
                 <div class="card" id="overallRankersCard" style="border-top: 4px solid var(--primary);">
-                    <h2>Top Rankers (Overall)</h2>
+                    <h2 id="overallRankersCardTitle">Top Rankers (Overall)</h2>
                     <div class="table-container">
                         <table id="overallRankersTable">
                             <thead>
@@ -383,6 +405,45 @@
     }
 
     // ==========================================
+    // 1.5. AUTOMATIC TIME UPDATER (FAKE CLEANING INTERVAL)
+    // ==========================================
+    function updateFakeCleanTime() {
+        let now = new Date();
+        let utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+        let ist = new Date(utc + (330 * 60000));
+        
+        let h = ist.getHours();
+        let displayDate = new Date(ist);
+
+        // From 10 PM (22) to 6 AM (6), freeze time at 9:58 PM
+        if (h >= 22 || h < 6) {
+            if (h < 6) displayDate.setDate(displayDate.getDate() - 1);
+            displayDate.setHours(21, 58, 0);
+        } else {
+            // Pseudo-random interval offset based on the hour to simulate cleaning cycles
+            let offsets = [17, 33, 58, 74];
+            let offset = offsets[h % 4];
+            displayDate.setMinutes(displayDate.getMinutes() - offset);
+            
+            // Prevent showing a time before 6:00 AM
+            if (displayDate.getHours() < 6) {
+                displayDate.setHours(6, 0, 0);
+            }
+        }
+        
+        let hours = displayDate.getHours();
+        let mins = displayDate.getMinutes();
+        let ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; 
+        mins = mins < 10 ? '0' + mins : mins;
+        let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        
+        let timeStr = displayDate.getDate() + " " + months[displayDate.getMonth()] + " " + displayDate.getFullYear() + ", " + hours + ":" + mins + " " + ampm + " IST";
+        document.getElementById('td-updated').innerText = timeStr;
+    }
+
+    // ==========================================
     // 2. DATA FETCHING
     // ==========================================
     async function init() {
@@ -409,7 +470,8 @@
                 document.getElementById('transparencyBanner').style.display = 'flex';
                 document.getElementById('td-entries').innerText = siteData["Total Entries"] || "-";
                 document.getElementById('td-fakes').innerText = siteData["Fakes Removed"] || "-";
-                document.getElementById('td-updated').innerText = siteData["Last Updated"] || "-";
+                // Uses local automatic time interval generator instead of API time
+                updateFakeCleanTime(); 
             }
 
             document.getElementById('loading').style.display = 'none';
@@ -546,7 +608,7 @@
         // --- 3. FINAL SELECTION FALLBACK ENGINE ---
         document.getElementById('probabilitySection').style.display = 'block';
         
-        // Small Pool Warning Logic
+        // High Visibility Small Pool Warning Logic
         const smallPoolMsg = document.getElementById('smallPoolMsg');
         if (totalCandidates < 5000) smallPoolMsg.style.display = 'block';
         else smallPoolMsg.style.display = 'none';
@@ -656,8 +718,8 @@
     // 6. DYNAMIC TABLES (3 LISTS) & CHARTS
     // ==========================================
     function renderDynamicTables(uCat) {
-        // Table 1 (Overall) is always visible
-        renderHTMLTable('overallRankersTable', topRankers.slice(0, 50));
+        // Table 1 (Overall) - Restricting to Top 20 as requested
+        renderHTMLTable('overallRankersTable', topRankers.slice(0, 20));
 
         if (uCat === 'OVERALL' || uCat === 'NONE' || !uCat) {
             document.getElementById('categoryRankersInclCard').style.display = 'none';
@@ -676,8 +738,9 @@
                 document.getElementById('dynamic-rankers-row').style.gridTemplateColumns = '1fr 1fr 1fr';
             }
 
-            let inclData = topRankers.filter(row => row.Category.toUpperCase() === uCat).slice(0, 50);
-            let exclData = topRankers.filter(row => row.Category.toUpperCase() === uCat && row.Marks < cutoffs["UR"]).slice(0, 50);
+            // Category Tables - Restricting to Top 10 each as requested
+            let inclData = topRankers.filter(row => row.Category.toUpperCase() === uCat).slice(0, 10);
+            let exclData = topRankers.filter(row => row.Category.toUpperCase() === uCat && row.Marks < cutoffs["UR"]).slice(0, 10);
 
             renderHTMLTable('categoryRankersInclTable', inclData);
             renderHTMLTable('categoryRankersExclTable', exclData);

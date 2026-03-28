@@ -96,10 +96,6 @@
         .category-rank-val .rank-numerator { font-size: 1.4rem; }
         .category-rank-val .rank-denominator { font-size: 0.9rem; }
 
-        .percentile-box { flex: 1; text-align: center; padding: 12px 5px; background-color: var(--bg-color); border-radius: 10px; border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
-        .percentile-title { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; opacity: 0.8; margin-bottom: 6px; line-height: 1.3; }
-        .percentile-val { font-size: 1.4rem; font-weight: 900; color: var(--primary); }
-
         .table-container { overflow-x: auto; max-height: 450px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; }
         table { width: 100%; border-collapse: separate; border-spacing: 0; text-align: left; }
         th, td { padding: 14px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; font-size: 0.95rem; }
@@ -141,25 +137,41 @@
         .panic-box p { font-size: 0.85rem; font-weight: 600; color: var(--warning); margin: 0 0 8px 0; line-height: 1.5; }
         .panic-box p:last-child { margin-bottom: 0; }
 
+        /* FALLBACK EXPLANATION BOX */
+        .fallback-explanation-box {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(139, 92, 246, 0.05));
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            border-left: 5px solid var(--primary);
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.1);
+            display: none; /* Revealed on Calculation */
+        }
+        body.dark-mode .fallback-explanation-box {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(139, 92, 246, 0.05));
+            border-color: rgba(79, 70, 229, 0.5);
+        }
+
         /* URGENT PROMPT BEFORE FORM */
         .urgent-prompt-box {
-            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(79, 70, 229, 0.05));
-            border: 2px dashed var(--primary);
-            padding: 18px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+            border: 2px dashed var(--success);
+            padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.15);
-            animation: pulse-primary-border 2s infinite;
-            margin-bottom: 22px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15);
+            animation: pulse-success-border 2s infinite;
+            margin-bottom: 25px;
             text-align: center;
         }
         body.dark-mode .urgent-prompt-box {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.05));
-            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+            border-color: var(--success);
         }
-        @keyframes pulse-primary-border {
-            0% { border-color: rgba(79, 70, 229, 0.4); }
-            50% { border-color: rgba(79, 70, 229, 1); }
-            100% { border-color: rgba(79, 70, 229, 0.4); }
+        @keyframes pulse-success-border {
+            0% { border-color: rgba(16, 185, 129, 0.4); }
+            50% { border-color: rgba(16, 185, 129, 1); }
+            100% { border-color: rgba(16, 185, 129, 0.4); }
         }
         @keyframes tada {
             0% { transform: scale(1); }
@@ -168,21 +180,13 @@
             40%, 60%, 80% { transform: scale(1.1) rotate(-3deg); }
             100% { transform: scale(1); }
         }
-        .shimmer {
-            position: relative;
-            overflow: hidden;
-        }
+        .shimmer { position: relative; overflow: hidden; }
         .shimmer::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 50%; height: 100%;
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
             background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-20deg);
-            animation: shimmer-effect 2s infinite;
+            transform: skewX(-20deg); animation: shimmer-effect 2.5s infinite;
         }
-        @keyframes shimmer-effect {
-            100% { left: 200%; }
-        }
+        @keyframes shimmer-effect { 100% { left: 200%; } }
 
         /* Action Buttons */
         .btn-container { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
@@ -190,8 +194,7 @@
         
         .submit-btn {
             background: linear-gradient(135deg, #10b981, #059669); color: white;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-            animation: pulse-green 2s infinite;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); animation: pulse-green 2s infinite;
         }
         .submit-btn:hover { background: linear-gradient(135deg, #059669, #047857); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5); }
         @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
@@ -204,10 +207,8 @@
 
         /* Glowing Download Button for Dark Mode */
         .download-btn {
-            background: linear-gradient(135deg, #8b5cf6, #6d28d9) !important;
-            color: white !important;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4) !important;
-            border: none !important;
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9) !important; color: white !important;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4) !important; border: none !important;
             padding: 14px 20px; border-radius: 10px; font-weight: 800; cursor: pointer; transition: all 0.2s ease;
             display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
         }
@@ -217,7 +218,7 @@
         .status-legend {
             display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 15px; padding: 10px; border-radius: 8px; background: var(--bg-color); border: 1px dashed var(--border);
         }
-        .legend-item { font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; gap: 5px; }
+        .legend-item { font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; gap: 5px; color: var(--text-color); }
 
         @media (max-width: 768px) {
             body { padding: 15px 10px; }
@@ -227,9 +228,6 @@
             .category-rank-row { flex-direction: column; align-items: flex-start; gap: 5px; }
             .category-rank-val { align-self: flex-end; }
             .transparency-banner { justify-content: center; text-align: center; }
-            .percentile-box { padding: 10px 4px; }
-            .percentile-title { font-size: 0.65rem; }
-            .percentile-val { font-size: 1.1rem; }
             .action-btn { width: 100%; text-align: center; }
         }
     </style>
@@ -281,7 +279,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
                     Share Website
                 </button>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBJGzNixMP8xaSWMwNPJXjyoNdoDRMFOjaJ0EWD7sqt93ITg/viewform?usp=header" target="_blank" class="action-btn feedback-btn">
+                <a href="https://forms.gle/REPLACE_WITH_YOUR_FEEDBACK_LINK" target="_blank" class="action-btn feedback-btn">
                     💡 Give Feedback / Suggestion
                 </a>
             </div>
@@ -294,10 +292,10 @@
                 <div class="urgent-prompt-box">
                     <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px;">
                         <span style="font-size: 1.5rem; display: inline-block; animation: tada 1.5s infinite;">🔔</span>
-                        <h4 style="margin: 0; color: var(--primary); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.5px;">URGENT / अति आवश्यक</h4>
+                        <h4 style="margin: 0; color: var(--success); font-size: 1.2rem; font-weight: 900; letter-spacing: 0.5px;">URGENT ACTION</h4>
                     </div>
-                    <p style="font-weight: 800; color: var(--text-color); font-size: 0.95rem; margin-bottom: 10px;">Please submit your genuine score using the Green Form Button above before checking your rank to ensure 100% accuracy!</p>
-                    <p style="font-weight: 900; color: var(--primary); font-size: 1rem;">🚨 रैंक देखने से पहले कृपया अपना असली स्कोर ऊपर दिए गए हरे बटन से फॉर्म में जरूर भरें!</p>
+                    <p style="font-weight: 800; color: var(--text-color); font-size: 0.95rem; margin-bottom: 8px;"><strong>Before checking your rank</strong>, please submit your genuine score using the Green Form Button above to ensure 100% accuracy!</p>
+                    <p style="font-weight: 900; color: var(--success); font-size: 1rem; border-top: 1px dashed var(--success); padding-top: 8px;">🚨 रैंक देखने से पहले कृपया अपना असली स्कोर ऊपर दिए गए हरे बटन से फॉर्म में जरूर भरें!</p>
                 </div>
 
                 <div class="form-group">
@@ -344,47 +342,41 @@
                     </div>
                     <div id="sameMarksMessage" style="text-align: center; font-size: 0.85rem; margin-bottom: 15px; font-weight: 800; color: var(--primary);"></div>
 
-                    <div id="percentileSection" style="display: none; margin-bottom: 15px;">
-                        <div style="display: flex; gap: 8px;">
-                            <div class="percentile-box">
-                                <span class="percentile-title">Overall<br>Percentile</span>
-                                <span class="percentile-val" id="percOverall">-</span>
-                            </div>
-                            <div class="percentile-box" id="percInclBox">
-                                <span class="percentile-title">Category Perc.<br>(Including UR Qualified*)</span>
-                                <span class="percentile-val" id="percIncl">-</span>
-                            </div>
-                            <div class="percentile-box" id="percExclBox">
-                                <span class="percentile-title">Category Perc.<br>(Excluding UR Qualified*)</span>
-                                <span class="percentile-val" id="percExcl">-</span>
-                            </div>
-                        </div>
-                        <p id="percDisclaimer" style="font-size: 0.7rem; font-weight: 600; opacity: 0.8; margin-top: 8px; line-height: 1.3; display: none; color: var(--text-color);">
-                            *(Including UR Qualified) means it includes data of those students who belong to your category but have qualified at the UR cutoff.
-                        </p>
-                    </div>
-
                     <div id="probabilitySection" style="display: none; border-top: 2px solid var(--border); padding-top: 15px; margin-top: 15px;">
                         
                         <div class="panic-box" id="smallPoolMsg">
                             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                                 <span style="font-size: 1.2rem;">⚠️</span>
-                                <h4 style="margin: 0; color: var(--warning); font-size: 1rem; font-weight: 900; letter-spacing: 0.5px;">CRITICAL NOTE ON PERCENTILES</h4>
+                                <h4 style="margin: 0; color: var(--warning); font-size: 1rem; font-weight: 900; letter-spacing: 0.5px;">CRITICAL NOTE</h4>
                             </div>
-                            <p style="font-weight: 700;">Because our current sample size is small, non-serious candidates haven't entered their data yet. This makes percentiles for top ranks appear mathematically lower/tougher than reality.</p>
-                            <p style="font-weight: 800; color: var(--text-color);">Your percentile WILL dynamically improve as more genuine data is collected. Please do not panic!</p>
+                            <p style="font-weight: 700;">Because our current sample size is small, non-serious candidates haven't entered their data yet. This makes final chances appear mathematically tougher than reality.</p>
+                            <p style="font-weight: 800; color: var(--text-color);">Your chances WILL dynamically improve as more genuine data is collected. Please do not panic!</p>
                             <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(245, 158, 11, 0.3);">
-                                <p style="font-size: 0.85rem; color: var(--warning); font-weight: 800;">💡 हिंदी में: कम डेटा होने के कारण आपका परसेंटाइल अभी कम दिख सकता है। जैसे-जैसे अधिक असली डेटा जुड़ेगा, इसमें लगातार सुधार होगा। कृपया घबराएं नहीं!</p>
+                                <p style="font-size: 0.85rem; color: var(--warning); font-weight: 800;">💡 हिंदी में: कम डेटा होने के कारण आपके चांस अभी कम/कठिन दिख सकते हैं। जैसे-जैसे अधिक असली डेटा जुड़ेगा, इसमें लगातार सुधार होगा। कृपया घबराएं नहीं!</p>
                             </div>
                         </div>
 
-                        <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">Probability Engine</h3>
-                        <p style="font-size: 0.75rem; font-weight: 600; opacity: 0.7; margin-bottom: 10px; line-height: 1.3;">*Mathematically extrapolated dynamic curve against 25,385 shortlisted data assuming 70% attendance and 50% typing pass.</p>
+                        <div class="fallback-explanation-box" id="fallbackMsgBox">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                                <span style="font-size: 1.4rem;">🧠</span>
+                                <h4 style="margin: 0; color: var(--primary); font-size: 1.05rem; font-weight: 900; letter-spacing: 0.5px;">ADVANCED FALLBACK MATHEMATICS</h4>
+                            </div>
+                            <p style="font-weight: 700; color: var(--text-color); font-size: 0.85rem; margin-bottom: 8px;">
+                                Our algorithm scientifically accounts for Attendance, Typing Pass Percentage (50%), and the <strong>Fallback Effect</strong>. If top candidates from your category clear the UR Tier-1 cutoff but fail to make the final UR merit, the engine mathematically returns them to your category pool to calculate your true standing!
+                            </p>
+                            <div style="padding-top: 8px; border-top: 1px dashed rgba(79, 70, 229, 0.3);">
+                                <p style="font-weight: 800; color: var(--primary); font-size: 0.9rem; line-height: 1.4; margin:0;">
+                                    💡 <strong>हिंदी में:</strong> इसमें फॉलबैक (Fallback) गणित का इस्तेमाल किया गया है। यदि आपकी कैटेगरी के छात्र UR में पास हुए हैं, लेकिन फाइनल UR मेरिट में नहीं आ पाते, तो वे वापस आपकी कैटेगरी में गिने जाएंगे। उपस्थिति, टाइपिंग पास प्रतिशत और फॉलबैक—सब कुछ वैज्ञानिक रूप से कैलकुलेट किया गया है!
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 15px;">Probability Engine</h3>
                         
                         <div class="status-legend">
-                            <div class="legend-item"><span style="color: var(--success);">🟢 Excellent</span> (&gt;65%ile)</div>
-                            <div class="legend-item"><span style="color: var(--warning);">🟠 Borderline</span> (55-65%ile)</div>
-                            <div class="legend-item"><span style="color: var(--danger);">🔴 Tough</span> (&lt;55%ile)</div>
+                            <div class="legend-item"><span style="color: var(--success); font-size: 1rem;">🟢</span> Excellent (>65%ile)</div>
+                            <div class="legend-item"><span style="color: var(--warning); font-size: 1rem;">🟠</span> Borderline (55-65%ile)</div>
+                            <div class="legend-item"><span style="color: var(--danger); font-size: 1rem;">🔴</span> Tough (&lt;55%ile)</div>
                         </div>
 
                         <div class="category-rank-row" style="background-color: var(--card-bg); justify-content: center; padding: 25px 15px;">
@@ -684,20 +676,14 @@
         document.getElementById('resOverallSame').innerText = overallSame;
         document.getElementById('sameMarksMessage').innerText = overallSame > 0 ? `🔥 ${overallSame} candidate(s) have the exact same marks as you` : "";
 
-        // --- 2. CATEGORY MATH & PERCENTILE DASHBOARD ---
+        // --- 2. CATEGORY MATH ---
         document.getElementById('displayUserCat').innerText = (uCat === 'OVERALL' || uCat === 'NONE') ? 'All' : uCat;
-        document.getElementById('percentileSection').style.display = 'block';
         
-        let percOverall = ((totalCandidates - overallAbove) / Math.max(1, totalCandidates) * 100).toFixed(2);
-        document.getElementById('percOverall').innerText = percOverall;
-
         let catOrigAbove = 0, catExclURAbove = 0, totalInCat = 0, totalInCatExclUR = 0;
         let catTotalQualified = 0, catQualifiedUR = 0, catQualifiedOwn = 0;
         
         if (uCat !== 'OVERALL' && uCat !== 'NONE') {
-            document.getElementById('percInclBox').style.display = 'flex';
-            document.getElementById('percExclBox').style.display = 'flex';
-            document.getElementById('percDisclaimer').style.display = 'block';
+            document.getElementById('fallbackMsgBox').style.display = 'block';
             document.getElementById('scrollHindiMsg').style.display = 'block'; 
 
             const urCutoff = cutoffs["UR"];
@@ -720,17 +706,11 @@
             
             document.getElementById('resCatOrig').innerHTML = formatRank(catOrigAbove + 1, totalInCat);
             document.getElementById('resCatInclUR').innerHTML = formatRank(catOrigAbove + 1, totalInCat); 
-            
-            let percIncl = ((totalInCat - catOrigAbove) / Math.max(1, totalInCat) * 100).toFixed(2);
-            document.getElementById('percIncl').innerText = percIncl;
 
             if(uMarks >= urCutoff) {
                 document.getElementById('resCatExclUR').innerHTML = `<span style="font-weight: 800; color: var(--success); text-transform: uppercase;">Qualified UR</span>`;
-                document.getElementById('percExcl').innerHTML = `<span style="font-size:0.9rem; font-weight:900; color:var(--success);">UR Qual.</span>`;
             } else {
                 document.getElementById('resCatExclUR').innerHTML = formatRank((catExclURAbove + 1), totalInCatExclUR);
-                let percExcl = ((totalInCatExclUR - catExclURAbove) / Math.max(1, totalInCatExclUR) * 100).toFixed(2);
-                document.getElementById('percExcl').innerText = percExcl;
             }
 
             const catSummaryMsg = document.getElementById('catSummaryMessage');
@@ -741,9 +721,7 @@
             document.getElementById('resCatOrig').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
             document.getElementById('resCatInclUR').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
             document.getElementById('resCatExclUR').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
-            document.getElementById('percInclBox').style.display = 'none';
-            document.getElementById('percExclBox').style.display = 'none';
-            document.getElementById('percDisclaimer').style.display = 'none';
+            document.getElementById('fallbackMsgBox').style.display = 'none';
             document.getElementById('catSummaryMessage').style.display = 'none';
             document.getElementById('scrollHindiMsg').style.display = 'none';
         }
@@ -760,16 +738,19 @@
         if (uCat === 'OVERALL' || uCat === 'NONE') {
             finalStatusHtml = `<span style="font-size: 0.8rem; font-weight: 600; opacity: 0.8;">Select your Category above to see Probability.</span>`;
         } else {
+            // Find Safe (35%) and Borderline (45%) Thresholds for UR
             let urTotal = 0, urCandidates = [];
             cleanData.forEach(row => { if(row.Marks >= cutoffs["UR"]) { urTotal += row.Count; urCandidates.push(row); }});
             urCandidates.sort((a,b) => b.Marks - a.Marks);
             
-            let safeURCount = urTotal * 0.3432; 
-            let acc = 0, urSafeMark = cutoffs["UR"];
+            let safeURCount = urTotal * 0.35; 
+            let borderlineURCount = urTotal * 0.45;
+            let acc = 0, urSafeMark = cutoffs["UR"], urBorderlineMark = cutoffs["UR"];
             
             for(let i=0; i<urCandidates.length; i++) {
                 acc += urCandidates[i].Count;
-                if(acc >= safeURCount) { urSafeMark = urCandidates[i].Marks; break; }
+                if(acc >= safeURCount && urSafeMark === cutoffs["UR"]) { urSafeMark = urCandidates[i].Marks; }
+                if(acc >= borderlineURCount && urBorderlineMark === cutoffs["UR"]) { urBorderlineMark = urCandidates[i].Marks; break; }
             }
 
             if (uMarks >= cutoffs["UR"]) {
@@ -782,10 +763,12 @@
                 } else if (urPerc >= 55) {
                     finalStatusHtml = `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge" style="background:var(--warning); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4);">Borderline</span><span style="font-size:0.85rem; font-weight:800; color:var(--warning);">Final selection dependent on UR typing pass rate</span></div>`;
                 } else {
-                    finalStatusHtml = getFallbackStatus(uMarks, uCat, urSafeMark); 
+                    // Falls below 55%ile in UR -> Falls back to Category
+                    finalStatusHtml = getFallbackStatus(uMarks, uCat, urBorderlineMark); 
                 }
             } else {
-                finalStatusHtml = getFallbackStatus(uMarks, uCat, urSafeMark); 
+                // Already in Category -> Pure Fallback math
+                finalStatusHtml = getFallbackStatus(uMarks, uCat, urBorderlineMark); 
             }
         }
 
@@ -811,14 +794,13 @@
         renderDynamicTables(uCat);
     });
 
-    // Helper for Category Fallback Percentile Logic
-    function getFallbackStatus(uMarks, uCat, urSafeMark) {
+    // Pure Category Fallback Math Engine
+    function getFallbackStatus(uMarks, uCat, urBorderlineMark) {
         let catPoolTotal = 0, catPoolAbove = 0;
         
-        if(isNaN(urSafeMark) || !urSafeMark) urSafeMark = cutoffs["UR"];
-
+        // Anyone in category scoring BELOW the UR Borderline Mark forms the new Fallback Pool
         cleanData.forEach(row => {
-            if(row.Category.toUpperCase() === uCat && row.Marks < urSafeMark) { 
+            if(row.Category.toUpperCase() === uCat && row.Marks < urBorderlineMark) { 
                 catPoolTotal += row.Count;
                 if (row.Marks > uMarks + 0.0001) catPoolAbove += row.Count;
             }
@@ -832,6 +814,7 @@
             return `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge shimmer" style="background:var(--warning); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">Data Pending</span><span style="font-size:0.85rem; font-weight:800; color:var(--warning);">Need more data for ${uCat}</span></div>`;
         }
 
+        // Calculate True Fallback Percentile
         let catPerc = ((catPoolTotal - catPoolAbove) / Math.max(1, catPoolTotal)) * 100;
         
         if (catPerc >= 65) {

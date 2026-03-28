@@ -19,7 +19,7 @@
     
     <style>
         :root {
-            --bg-color: #f0f4f8;
+            --bg-color: #f8fafc;
             --text-color: #0f172a;
             --card-bg: #ffffff;
             --primary: #2563eb;
@@ -29,22 +29,20 @@
             --danger: #ef4444;
             --success: #10b981;
             --warning: #f59e0b;
-            
-            /* High Contrast Rank Colors */
             --rank-red: #e11d48;
             --rank-black: #020617;
         }
 
         body.dark-mode {
-            --bg-color: #0f172a;
+            --bg-color: #020617; 
             --text-color: #f8fafc;
-            --card-bg: #1e293b;
+            --card-bg: #0f172a;
             --primary: #3b82f6;
             --primary-hover: #60a5fa;
             --border: #334155;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.7);
             --rank-red: #fb7185;
-            --rank-black: #cbd5e1;
+            --rank-black: #e2e8f0;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
@@ -60,8 +58,7 @@
         button:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
         button:active { transform: translateY(0); }
 
-        /* Transparency Banner */
-        .transparency-banner { background: linear-gradient(90deg, #0f172a, #1e293b); color: #f8fafc; padding: 12px 20px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); font-size: 0.85rem; font-weight: 600; border: 1px solid #334155; }
+        .transparency-banner { background: linear-gradient(90deg, #1e293b, #0f172a); color: #f8fafc; padding: 12px 20px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); font-size: 0.85rem; font-weight: 600; border: 1px solid #334155; }
         .transparency-item { display: flex; align-items: center; gap: 6px; }
         .transparency-val { color: #38bdf8; font-weight: 800; font-size: 1rem; }
         
@@ -80,7 +77,6 @@
         .result-box.highlight { background-color: rgba(37, 99, 235, 0.05); border: 2px solid var(--primary); }
         .result-box span { display: block; margin-top: 5px; line-height: 1.2; }
         
-        /* Rank Formatting Styles */
         .rank-numerator { font-size: 2.2rem; font-weight: 900; color: var(--rank-red); }
         .rank-denominator { font-size: 1.2rem; font-weight: 700; color: var(--rank-black); opacity: 0.8; }
         .rank-slash { font-size: 1.5rem; font-weight: 800; color: var(--border); margin: 0 4px; }
@@ -88,6 +84,10 @@
         .category-rank-row { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; background-color: var(--bg-color); border: 1px solid var(--border); font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
         .category-rank-val .rank-numerator { font-size: 1.4rem; }
         .category-rank-val .rank-denominator { font-size: 0.9rem; }
+
+        .percentile-box { flex: 1; text-align: center; padding: 12px 5px; background-color: var(--bg-color); border-radius: 8px; border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
+        .percentile-title { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; opacity: 0.8; margin-bottom: 4px; line-height: 1.2; }
+        .percentile-val { font-size: 1.4rem; font-weight: 900; color: var(--primary); }
 
         .table-container { overflow-x: auto; max-height: 450px; border: 1px solid var(--border); border-radius: 10px; }
         table { width: 100%; border-collapse: separate; border-spacing: 0; text-align: left; }
@@ -116,18 +116,21 @@
             .category-rank-row { flex-direction: column; align-items: flex-start; gap: 5px; }
             .category-rank-val { align-self: flex-end; }
             .transparency-banner { justify-content: center; text-align: center; }
+            .percentile-box { padding: 8px 4px; }
+            .percentile-title { font-size: 0.6rem; }
+            .percentile-val { font-size: 1.1rem; }
         }
     </style>
 </head>
-<body class="dark-mode">
+<body>
 
 <div class="container">
     <header>
         <div>
             <h1>DSSSB Rank Predictor</h1>
-            <p style="font-size: 0.9rem; font-weight: 600; opacity: 0.7; margin-top: 4px;">Scientific Extrapolation & Analysis</p>
+            <p style="font-size: 0.9rem; font-weight: 600; opacity: 0.7; margin-top: 4px;">Scientific Percentile & Fallback Engine</p>
         </div>
-        <button id="themeToggle">Toggle Light Mode</button>
+        <button id="themeToggle">Toggle Dark Mode</button>
     </header>
 
     <div id="loading">
@@ -146,7 +149,7 @@
             <h3 style="color: var(--primary); margin-bottom: 12px; font-weight: 900; display: flex; align-items: center; gap: 10px;">
                 <span style="font-size: 1.5rem;">📊</span> Analysis based on <span id="totalCandidatesDisplay" style="color: var(--rank-red); font-size: 1.4rem; padding: 0 5px;">0</span> verified candidates
             </h3>
-            <p style="font-size: 0.95rem; margin-bottom: 6px; font-weight: 600;">Please share the Google Form. The more data we have, the more accurate the Rank Curve becomes. Kindly fill genuine data — it is for our benefit.</p>
+            <p style="font-size: 0.95rem; margin-bottom: 6px; font-weight: 600;">Please share the Google Form. The more data we have, the more accurate the Predictor becomes. Kindly fill genuine data — it is for our benefit.</p>
             <p style="font-size: 0.9rem; margin-bottom: 18px; font-style: italic; opacity: 0.8; font-weight: 500;">कृपया इस गूगल फॉर्म को शेयर करें। हमारे पास जितना अधिक डेटा होगा, प्रेडिक्टर उतना ही सटीक होगा। कृपया सही डेटा ही भरें।</p>
             <a href="https://forms.gle/39KtHEdFt5dSjBF87" target="_blank" onclick="gtag('event', 'click', {'event_category': 'outbound', 'event_label': 'Google Form Button'});" style="display: inline-block; background-color: var(--rank-black); color: white; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 0.95rem; width: fit-content; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);">Submit Your Marks Here / अपने मार्क्स यहाँ भरें ➔</a>
         </div>
@@ -161,7 +164,7 @@
                 <div class="form-group">
                     <label for="categoryInput">Your Category</label>
                     <select id="categoryInput">
-                        <option value="overall">Overall (All Categories)</option>
+                        <option value="overall">Select Category (Choose 'None' for purely Overall Data)</option>
                         <option value="UR">UR</option>
                         <option value="OBC DELHI">OBC DELHI</option>
                         <option value="SC">SC</option>
@@ -187,9 +190,28 @@
 
                     <h3 style="margin-top: 5px; font-size: 1.05rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Sample Performance</h3>
                     <div class="result-box highlight" style="margin-bottom: 12px; padding: 15px 10px;">
-                        <span style="font-weight: 800; font-size: 0.9rem; letter-spacing: 0.5px; color: var(--text-color); margin-bottom: 5px; text-transform: uppercase;">Sample Rank</span>
+                        <span style="font-weight: 800; font-size: 0.9rem; letter-spacing: 0.5px; color: var(--text-color); margin-bottom: 5px; text-transform: uppercase;">Overall Rank</span>
                         <span id="resOverallRank" style="display: flex; justify-content: center; align-items: baseline;">-</span>
-                        <div id="percentileBadge" style="margin-top: 8px; font-size: 0.85rem; font-weight: 700; color: var(--primary); display: none;">Top <span id="percentileNum">0</span>% Percentile</div>
+                    </div>
+
+                    <div id="percentileSection" style="display: none; margin-bottom: 15px;">
+                        <div style="display: flex; gap: 8px;">
+                            <div class="percentile-box">
+                                <span class="percentile-title">Overall<br>Percentile</span>
+                                <span class="percentile-val" id="percOverall">-</span>
+                            </div>
+                            <div class="percentile-box" id="percInclBox">
+                                <span class="percentile-title">Category Perc.<br>(Incl. UR*)</span>
+                                <span class="percentile-val" id="percIncl">-</span>
+                            </div>
+                            <div class="percentile-box" id="percExclBox">
+                                <span class="percentile-title">Category Perc.<br>(Excl. UR*)</span>
+                                <span class="percentile-val" id="percExcl">-</span>
+                            </div>
+                        </div>
+                        <p id="percDisclaimer" style="font-size: 0.7rem; font-weight: 600; opacity: 0.7; margin-top: 8px; line-height: 1.3; display: none;">
+                            *(Including UR Qualified) means it includes data of those students who belong to your category but have qualified at the UR cutoff.
+                        </p>
                     </div>
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px;">
@@ -201,16 +223,12 @@
 
                     <div id="probabilitySection" style="display: none; border-top: 2px solid var(--border); padding-top: 15px; margin-top: 15px;">
                         <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">Probability Engine</h3>
-                        <p style="font-size: 0.75rem; font-weight: 600; opacity: 0.7; margin-bottom: 12px; line-height: 1.3;">*Mathematically extrapolated using dynamic curve against 25,385 shortlisted data & estimated 35% typing pass rate.</p>
+                        <p style="font-size: 0.75rem; font-weight: 600; opacity: 0.7; margin-bottom: 12px; line-height: 1.3;">*Mathematically extrapolated dynamic curve against 25,385 shortlisted data assuming 70% attendance and 50% typing pass.</p>
                         
-                        <div class="category-rank-row" style="background-color: var(--card-bg);">
-                            <div>
-                                <div style="font-size: 0.75rem; opacity: 0.8; font-weight: 700; text-transform: uppercase;">Est. Real UR Rank</div>
-                                <div style="font-size: 1.3rem; font-weight: 900; color: var(--rank-black);" id="estRealURRank">-</div>
-                            </div>
-                            <div style="text-align: right;">
-                                <div style="font-size: 0.75rem; opacity: 0.8; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">UR Selection Chance</div>
-                                <span id="probUR" class="badge">-</span>
+                        <div class="category-rank-row" style="background-color: var(--card-bg); justify-content: center;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.85rem; opacity: 0.8; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">Final Selection Chance</div>
+                                <span id="probFinalStatus" style="font-size: 1.1rem;">-</span>
                             </div>
                         </div>
                     </div>
@@ -229,7 +247,6 @@
                             <span>Cat. Rank <span style="font-size: 0.7rem; background: var(--border); padding: 2px 6px; border-radius: 4px; margin-left: 4px;">Incl. UR Qualified</span></span>
                             <div class="category-rank-val" id="resCatInclUR">-</div>
                         </div>
-                        <div id="catSummaryMessage" style="text-align: center; font-size: 0.85rem; margin-top: 15px; font-weight: 700; color: var(--text-color); opacity: 0.9; display: none; padding: 12px; border: 2px dashed var(--border); border-radius: 8px; background-color: var(--bg-color);"></div>
                     </div>
                 </div>
 
@@ -243,7 +260,7 @@
 
             <div class="card">
                 <h2 style="color: var(--primary);">Qualification Breakup</h2>
-                <p style="font-size: 0.85rem; font-weight: 600; opacity: 0.8; margin-bottom: 15px;">Total candidates passing their respective cutoffs.</p>
+                <p style="font-size: 0.85rem; font-weight: 600; opacity: 0.8; margin-bottom: 15px;">Total candidates passing their respective cutoffs in our sample.</p>
                 
                 <div style="display: flex; flex-direction: column; gap: 8px;">
                     <div class="category-rank-row" style="background-color: rgba(16, 185, 129, 0.1); border: 2px solid var(--success);">
@@ -276,31 +293,10 @@
                     </div>
                 </div>
             </div>
-
-            <div class="card">
-                <h2>Data Filters</h2>
-                <p style="font-size: 0.85rem; font-weight: 600; opacity: 0.8; margin-bottom: 15px;">These filters apply to the charts and tables below.</p>
-                <div class="form-group">
-                    <label for="filterCategory">View Data For Category</label>
-                    <select id="filterCategory">
-                        <option value="overall">All Categories Combined</option>
-                        <option value="UR">UR Only</option>
-                        <option value="OBC DELHI">OBC DELHI Only</option>
-                        <option value="SC">SC Only</option>
-                        <option value="ST">ST Only</option>
-                        <option value="EWS">EWS Only</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group" style="margin-bottom: 0;">
-                    <label for="minMarksFilter">Minimum Marks Cutoff</label>
-                    <input type="number" id="minMarksFilter" placeholder="e.g. 100" step="0.01">
-                </div>
-            </div>
         </div>
 
         <div class="card" style="margin-bottom: 25px;">
-            <h2>Categorywise and Markswise Graph</h2>
+            <h2>Full Marks Distribution Graph</h2>
             <div class="chart-container">
                 <canvas id="marksChart"></canvas>
             </div>
@@ -310,7 +306,7 @@
             <div id="dynamic-rankers-row" class="grid" style="margin-bottom: 0;">
                 
                 <div class="card" id="overallRankersCard" style="border-top: 4px solid var(--primary);">
-                    <h2>Top Rankers (Overall)</h2>
+                    <h2 id="overallRankersCardTitle">Top Rankers (Overall)</h2>
                     <div class="table-container">
                         <table id="overallRankersTable">
                             <thead>
@@ -339,65 +335,42 @@
 
     <div style="margin-top: 40px; padding: 25px; background-color: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); font-size: 0.9rem; text-align: center; line-height: 1.7; box-shadow: var(--shadow);">
         <p style="margin-bottom: 10px; font-weight: 600;"><strong style="color: var(--danger);">Disclaimer:</strong> This data is fetched from Google Form responses submitted by candidates based on their uploaded marks screenshots. This is an approximate rank predictor created with the combined efforts of candidates.</p>
-        <p style="margin-bottom: 20px; font-style: italic; opacity: 0.85; font-weight: 600;"><strong style="color: var(--danger);">अस्वीकरण:</strong> यह डेटा उम्मीदवारों द्वारा अपलोड किए गए मार्क्स के स्क्रीनशॉट के आधार पर सबमिट किए गए गूगल फॉर्म रिस्पॉन्स से लिया गया है। यह उम्मीदवारों के सामूहिक प्रयासों से बनाया गया एक अनुमानित रैंक प्रेडिक्टर है।</p>
-        
+        <p style="margin-bottom: 20px; font-style: italic; opacity: 0.85; font-weight: 600;"><strong style="color: var(--danger);">अस्वीकरण:</strong> यह डेटा उम्मीदवारों द्वारा अपलोड किए गए मार्क्स के स्क्रीनशॉट के आधार पर सबमिट किए गए गूगल फॉर्म रिस्पॉन्स से लिया गया है। यह अनुमानित रैंक प्रेडिक्टर है।</p>
         <div style="display: inline-block; padding: 12px 25px; background-color: var(--bg-color); border-radius: 8px; border: 1px dashed var(--border);">
             <p style="font-weight: 700;">Special thanks to <strong style="color: var(--primary);">Amit</strong> for sharing form data. | फॉर्म डेटा शेयर करने के लिए <strong style="color: var(--primary);">अमित</strong> का विशेष धन्यवाद।</p>
             <p style="font-weight: 700; margin-top: 5px;">For queries, contact <strong style="color: var(--primary);">@coolingkulfie</strong> on Telegram.</p>
         </div>
     </div>
-
 </div>
 
 <script>
     // ==========================================
-    // 1. CONFIGURATION & MATHEMATICAL CONSTANTS
+    // 1. CONFIGURATION 
     // ==========================================
     const API_URL = "https://script.google.com/macros/s/AKfycbwgNXKOgVAGbiJqipmEn-lsFSwGCaH4fYsgESnKVdkIM6OWeu3Qt_oQBeHQsE-kESqZ/exec";
-    
     const cutoffs = { "UR": 149.15, "EWS": 119.62, "SC": 120.36, "OBC DELHI": 84.77, "ST": 104.75, "OTHER": 61.97 };
-    const vacancies = { "UR": 1356, "EWS": 284, "OBC DELHI": 810, "SC": 430, "ST": 170, "OTHER": 653 };
-    
-    const OFFICIAL_SHORTLISTED = 25385; 
-    const TYPING_PASS_RATE = 0.35; 
 
-    // ==========================================
-    // 2. STATE VARIABLES
-    // ==========================================
     let cleanData = [];
     let topRankers = [];
     let siteData = {};
     let chartInstance = null;
 
-    // ==========================================
-    // 3. DOM ELEMENTS
-    // ==========================================
     const themeToggle = document.getElementById('themeToggle');
     const predictBtn = document.getElementById('predictBtn');
-    const filterCategory = document.getElementById('filterCategory');
-    const minMarksFilter = document.getElementById('minMarksFilter');
     const downloadBtn = document.getElementById('downloadScorecardBtn');
 
-    // ==========================================
-    // 4. FORMATTING HELPER
-    // ==========================================
     function formatRank(numerator, denominator) {
         if(isNaN(numerator) || numerator === "N/A") return `<span style="font-weight: 800; font-size: 1.2rem;">${numerator}</span>`;
-        return `
-            <span class="rank-numerator">${numerator}</span>
-            <span class="rank-slash">/</span>
-            <span class="rank-denominator">${denominator}</span>
-        `;
+        return `<span class="rank-numerator">${numerator}</span><span class="rank-slash">/</span><span class="rank-denominator">${denominator}</span>`;
     }
 
     // ==========================================
-    // 5. INITIALIZATION & DATA FETCHING
+    // 2. DATA FETCHING
     // ==========================================
     async function init() {
         try {
             const response = await fetch(API_URL);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            
             const data = await response.json();
 
             if (data.cleanData) {
@@ -428,7 +401,8 @@
             document.getElementById('totalCandidatesDisplay').innerText = totalCandidates;
 
             updateQualificationBreakup();
-            applyFiltersAndRender();
+            renderChart();
+            renderDynamicTables('OVERALL'); // Load overall on startup
 
         } catch (error) {
             console.error("API Error:", error);
@@ -441,12 +415,11 @@
     }
 
     // ==========================================
-    // 6. QUALIFICATION BREAKUP LOGIC
+    // 3. QUALIFICATION BREAKUP
     // ==========================================
     function updateQualificationBreakup() {
         let total = 0, ur = 0, obc = 0, ews = 0, sc = 0, st = 0, other = 0;
         const cUR = cutoffs["UR"];
-        
         cleanData.forEach(row => {
             let m = row.Marks; let cat = row.Category.toUpperCase(); let cnt = row.Count;
             if (m >= cUR) { ur += cnt; total += cnt; } else {
@@ -457,7 +430,6 @@
                 else if (cat === "OTHER" && m >= cutoffs["OTHER"]) { other += cnt; total += cnt; }
             }
         });
-        
         document.getElementById('brkTotal').innerText = total; document.getElementById('brkUR').innerText = ur;
         document.getElementById('brkOBC').innerText = obc; document.getElementById('brkEWS').innerText = ews;
         document.getElementById('brkSC').innerText = sc; document.getElementById('brkST').innerText = st;
@@ -465,16 +437,8 @@
     }
 
     // ==========================================
-    // 7. RANK & SCIENTIFIC PROBABILITY LOGIC 
+    // 4. RANK & FALLBACK PROBABILITY ENGINE
     // ==========================================
-    function getProbabilityBadge(estRank, safeRank) {
-        if(isNaN(estRank) || isNaN(safeRank) || safeRank <= 0) return `<span class="badge" style="background:var(--border); color:var(--text-color);">N/A</span>`;
-        if(estRank <= safeRank * 0.6) return `<span class="badge" style="background:#10b981; color:#fff;">Excellent</span>`;
-        if(estRank <= safeRank * 0.9) return `<span class="badge" style="background:#3b82f6; color:#fff;">Good</span>`;
-        if(estRank <= safeRank * 1.2) return `<span class="badge" style="background:#f59e0b; color:#fff;">Borderline</span>`;
-        return `<span class="badge" style="background:#ef4444; color:#fff;">Low (Tough)</span>`;
-    }
-
     predictBtn.addEventListener('click', () => {
         const uMarksRaw = document.getElementById('marksInput').value;
         const uCat = document.getElementById('categoryInput').value.toUpperCase();
@@ -484,98 +448,110 @@
         const EPSILON = 0.0001; 
         const totalCandidates = cleanData.reduce((sum, row) => sum + row.Count, 0);
 
-        // OVERALL 
+        // --- 1. OVERALL MATH ---
         let overallAbove = 0, overallSame = 0;
         cleanData.forEach(row => {
             if (row.Marks > uMarks + EPSILON) overallAbove += row.Count;
             else if (Math.abs(row.Marks - uMarks) < EPSILON) overallSame += row.Count;
         });
 
-        const overallRank = overallAbove + 1;
-        document.getElementById('resOverallRank').innerHTML = formatRank(overallRank, totalCandidates);
+        document.getElementById('resOverallRank').innerHTML = formatRank((overallAbove + 1), totalCandidates);
         document.getElementById('resOverallAbove').innerText = overallAbove;
         document.getElementById('resOverallBelow').innerText = Math.max(0, totalCandidates - overallAbove - overallSame);
         document.getElementById('resOverallSame').innerText = overallSame;
         document.getElementById('sameMarksMessage').innerText = overallSame > 0 ? `🔥 ${overallSame} candidate(s) have the exact same marks as you` : "";
 
-        // PERCENTILE
-        const percentile = ((totalCandidates - overallAbove) / totalCandidates * 100).toFixed(1);
-        document.getElementById('percentileBadge').style.display = 'block';
-        document.getElementById('percentileNum').innerText = percentile;
-
-        // CATEGORY 
-        document.getElementById('displayUserCat').innerText = uCat === 'OVERALL' ? 'All' : uCat;
-        let catOrigAbove = 0;
+        // --- 2. CATEGORY MATH & PERCENTILE DASHBOARD ---
+        document.getElementById('displayUserCat').innerText = (uCat === 'OVERALL' || uCat === 'NONE') ? 'All' : uCat;
+        document.getElementById('percentileSection').style.display = 'block';
         
-        if (uCat !== 'OVERALL') {
-            const urCutoff = cutoffs["UR"], myCatCutoff = cutoffs[uCat] || 0;
-            let catExclURAbove = 0, totalInCat = 0, totalInCatExclUR = 0;
-            let catTotalQualified = 0, catQualifiedUR = 0, catQualifiedOwn = 0;
-            
+        let percOverall = ((totalCandidates - overallAbove) / totalCandidates * 100).toFixed(2);
+        document.getElementById('percOverall').innerText = percOverall;
+
+        let catOrigAbove = 0, catExclURAbove = 0, totalInCat = 0, totalInCatExclUR = 0;
+        
+        if (uCat !== 'OVERALL' && uCat !== 'NONE') {
+            document.getElementById('percInclBox').style.display = 'flex';
+            document.getElementById('percExclBox').style.display = 'flex';
+            document.getElementById('percDisclaimer').style.display = 'block';
+
+            const urCutoff = cutoffs["UR"];
             cleanData.forEach(row => {
                 if (row.Category.toUpperCase() === uCat) {
                     totalInCat += row.Count;
                     if (row.Marks < urCutoff) totalInCatExclUR += row.Count;
                     if (row.Marks > uMarks + EPSILON) catOrigAbove += row.Count;
                     if (row.Marks > uMarks + EPSILON && row.Marks < urCutoff) catExclURAbove += row.Count;
-                    
-                    if (row.Marks >= myCatCutoff) {
-                        catTotalQualified += row.Count;
-                        if (row.Marks >= urCutoff) catQualifiedUR += row.Count; else catQualifiedOwn += row.Count;
-                    }
                 }
             });
             
-            const catOrigRank = catOrigAbove + 1;
-            document.getElementById('resCatOrig').innerHTML = formatRank(catOrigRank, totalInCat);
-            document.getElementById('resCatInclUR').innerHTML = formatRank(catOrigRank, totalInCat); 
+            document.getElementById('resCatOrig').innerHTML = formatRank(catOrigAbove + 1, totalInCat);
+            document.getElementById('resCatInclUR').innerHTML = formatRank(catOrigAbove + 1, totalInCat); 
             
+            let percIncl = ((totalInCat - catOrigAbove) / Math.max(1, totalInCat) * 100).toFixed(2);
+            document.getElementById('percIncl').innerText = percIncl;
+
             if(uMarks >= urCutoff) {
                 document.getElementById('resCatExclUR').innerHTML = `<span style="font-weight: 800; color: var(--success); text-transform: uppercase;">Qualified UR</span>`;
+                document.getElementById('percExcl').innerHTML = `<span style="font-size:0.9rem; color:var(--success);">UR Qual.</span>`;
             } else {
                 document.getElementById('resCatExclUR').innerHTML = formatRank((catExclURAbove + 1), totalInCatExclUR);
+                let percExcl = ((totalInCatExclUR - catExclURAbove) / Math.max(1, totalInCatExclUR) * 100).toFixed(2);
+                document.getElementById('percExcl').innerText = percExcl;
             }
-
-            const catSummaryMsg = document.getElementById('catSummaryMessage');
-            catSummaryMsg.innerHTML = `Out of <strong style="color:var(--primary); font-size: 1.1em;">${catTotalQualified}</strong> candidates qualified in <strong>${uCat}</strong>, <strong style="color:var(--success); font-size: 1.1em;">${catQualifiedUR}</strong> have qualified on UR cut off and <strong style="color:var(--primary); font-size: 1.1em;">${catQualifiedOwn}</strong> in your category.`;
-            catSummaryMsg.style.display = 'block';
-
         } else {
             document.getElementById('resCatOrig').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
             document.getElementById('resCatInclUR').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
             document.getElementById('resCatExclUR').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
-            document.getElementById('catSummaryMessage').style.display = 'none';
+            document.getElementById('percInclBox').style.display = 'none';
+            document.getElementById('percExclBox').style.display = 'none';
+            document.getElementById('percDisclaimer').style.display = 'none';
         }
 
-        // SCIENTIFIC EXTRAPOLATION ENGINE
+        // --- 3. FINAL SELECTION FALLBACK ENGINE ---
         document.getElementById('probabilitySection').style.display = 'block';
-        
-        // Dynamic Curve: Top rankers have a small multiplier, lower ranks scale to full magnitude
-        const baseMultiplier = OFFICIAL_SHORTLISTED / Math.max(1, totalCandidates);
-        let xRatio = overallAbove / Math.max(1, totalCandidates); // 0 to 1
-        let dynamicMultiplier = 1 + (baseMultiplier * 1.25 - 1) * Math.pow(xRatio, 0.75); // Exponential curve
-        
-        let estRealRank = Math.round(overallRank * dynamicMultiplier);
-        estRealRank = Math.min(estRealRank, OFFICIAL_SHORTLISTED); // Hard cap
-        
-        let safeURRank = vacancies["UR"] / TYPING_PASS_RATE;
-        document.getElementById('estRealURRank').innerText = estRealRank.toLocaleString();
+        let finalStatusHtml = "";
 
-        if(uMarks >= cutoffs["UR"]) {
-            document.getElementById('probUR').innerHTML = getProbabilityBadge(estRealRank, safeURRank);
+        if (uCat === 'OVERALL' || uCat === 'NONE') {
+            finalStatusHtml = `<span style="font-size: 0.8rem; font-weight: 600; opacity: 0.8;">Select your Category above to see Probability.</span>`;
         } else {
-            document.getElementById('probUR').innerHTML = `<span class="badge" style="background:var(--danger); color:#fff;">Not Qualified</span>`;
+            // A. UR Pool Analysis
+            let urTotal = 0, urCandidates = [];
+            cleanData.forEach(row => { if(row.Marks >= cutoffs["UR"]) { urTotal += row.Count; urCandidates.push(row); }});
+            urCandidates.sort((a,b) => b.Marks - a.Marks);
+            
+            // Find UR Safe Mark (Top 34.32% -> >65.68 Percentile)
+            let safeURCount = urTotal * 0.3432; 
+            let acc = 0, urSafeMark = cutoffs["UR"];
+            for(let i=0; i<urCandidates.length; i++) {
+                acc += urCandidates[i].Count;
+                if(acc >= safeURCount) { urSafeMark = urCandidates[i].Marks; break; }
+            }
+
+            if (uMarks >= cutoffs["UR"]) {
+                let urAbove = 0;
+                urCandidates.forEach(row => { if(row.Marks > uMarks + EPSILON) urAbove += row.Count; });
+                let urPerc = ((urTotal - urAbove) / Math.max(1, urTotal)) * 100;
+                
+                if (urPerc >= 65) finalStatusHtml = `<span class="badge" style="background:#10b981; color:#fff; font-size:1rem;">Excellent (UR Merit)</span>`;
+                else if (urPerc >= 55) finalStatusHtml = `<span class="badge" style="background:#f59e0b; color:#fff; font-size:1rem;">Borderline (UR Merit)</span>`;
+                else finalStatusHtml = getFallbackStatus(uMarks, uCat, urSafeMark); // Failed UR Merit -> Fallback
+            } else {
+                finalStatusHtml = getFallbackStatus(uMarks, uCat, urSafeMark); // Direct Category Check
+            }
         }
 
-        // STATUS BADGE
-        const statusDiv = document.getElementById('qualificationStatus');
-        const urCutoff = cutoffs["UR"], myCatCutoff = cutoffs[uCat];
-        let cutoffText = myCatCutoff ? `<div style="margin-top: 8px; font-size:0.9rem; font-weight:700; color: var(--text-color); opacity: 0.8;">Your category cutoff: ${myCatCutoff}</div>` : '';
+        document.getElementById('probFinalStatus').innerHTML = finalStatusHtml;
 
-        if (uMarks >= urCutoff) {
+        // --- 4. QUALIFICATION UI ---
+        const statusDiv = document.getElementById('qualificationStatus');
+        const myCatCutoff = cutoffs[uCat];
+        let cutoffText = (uCat !== 'OVERALL' && uCat !== 'NONE' && myCatCutoff) ? `<div style="margin-top: 8px; font-size:0.9rem; font-weight:700; color: var(--text-color); opacity: 0.8;">Your category cutoff: ${myCatCutoff}</div>` : '';
+
+        if (uMarks >= cutoffs["UR"]) {
             statusDiv.innerHTML = `<span class="badge" style="background-color: #22c55e; color: #000;">✔️ Qualified in UR</span><div style="font-weight: 700; margin-top: 5px; color: #16a34a;">(Subject to Typing Test)</div>${cutoffText}`;
             statusDiv.style.borderColor = "#22c55e"; statusDiv.style.backgroundColor = "rgba(34, 197, 94, 0.1)";
-        } else if (uCat !== 'OVERALL' && myCatCutoff && uMarks >= myCatCutoff) {
+        } else if (uCat !== 'OVERALL' && uCat !== 'NONE' && myCatCutoff && uMarks >= myCatCutoff) {
             statusDiv.innerHTML = `<span class="badge" style="background-color: #3b82f6; color: #fff;">✔️ Qualified in ${uCat}</span><div style="font-weight: 700; margin-top: 5px; color: #2563eb;">(Subject to Typing Test)</div>${cutoffText}`;
             statusDiv.style.borderColor = "#3b82f6"; statusDiv.style.backgroundColor = "rgba(59, 130, 246, 0.1)";
         } else {
@@ -584,10 +560,29 @@
         }
 
         document.getElementById('downloadScorecardBtn').style.display = 'flex';
+        renderDynamicTables(uCat);
     });
 
+    // Helper for Category Fallback
+    function getFallbackStatus(uMarks, uCat, urSafeMark) {
+        let catPoolTotal = 0, catPoolAbove = 0;
+        cleanData.forEach(row => {
+            if(row.Category.toUpperCase() === uCat && row.Marks < urSafeMark) { // Only competitors below the UR Safe Zone
+                catPoolTotal += row.Count;
+                if (row.Marks > uMarks + EPSILON) catPoolAbove += row.Count;
+            }
+        });
+        
+        if(uMarks < cutoffs[uCat]) return `<span class="badge" style="background:#ef4444; color:#fff; font-size:1rem;">Tough (Not Qualified)</span>`;
+        
+        let catPerc = ((catPoolTotal - catPoolAbove) / Math.max(1, catPoolTotal)) * 100;
+        if (catPerc >= 65) return `<span class="badge" style="background:#10b981; color:#fff; font-size:1rem;">Excellent (Cat. Merit)</span>`;
+        else if (catPerc >= 55) return `<span class="badge" style="background:#f59e0b; color:#fff; font-size:1rem;">Borderline (Cat. Merit)</span>`;
+        else return `<span class="badge" style="background:#ef4444; color:#fff; font-size:1rem;">Tough</span>`;
+    }
+
     // ==========================================
-    // 8. SCORECARD EXPORT (VIRAL FEATURE)
+    // 5. SCORECARD EXPORT (VIRAL)
     // ==========================================
     downloadBtn.addEventListener('click', () => {
         gtag('event', 'download', {'event_category': 'engagement', 'event_label': 'Scorecard Download'});
@@ -612,47 +607,28 @@
     });
 
     // ==========================================
-    // 9. GLOBAL FILTERS & RENDERING
+    // 6. DYNAMIC TABLES & CHARTS
     // ==========================================
-    function applyFiltersAndRender() {
-        const catFilter = filterCategory.value;
-        const minMarksRaw = minMarksFilter.value;
-        const minMarks = minMarksRaw ? parseFloat(minMarksRaw) : -Infinity;
-
-        const filteredCleanData = cleanData.filter(row => {
-            const matchCat = catFilter === 'overall' || row.Category.toUpperCase() === catFilter.toUpperCase();
-            return (matchCat && row.Marks >= minMarks);
-        });
-
-        const overallTopRankers = topRankers.filter(row => row.Marks >= minMarks).slice(0, 50);
-        let categoryTopRankers = [];
-
-        if (catFilter !== 'overall') {
-            const urCutoff = cutoffs["UR"] || 149.15;
-            categoryTopRankers = topRankers.filter(row => {
-                const isCat = row.Category.toUpperCase() === catFilter.toUpperCase();
-                return (isCat && row.Marks < urCutoff && row.Marks >= minMarks);
-            }).slice(0, 50);
-
-            document.getElementById('categoryRankersCard').style.display = 'flex';
-            document.getElementById('catTableTitleBadge').innerText = catFilter.toUpperCase();
-            document.getElementById('dynamic-rankers-row').style.gridTemplateColumns = window.innerWidth < 1024 ? '1fr' : '1fr 1fr';
-        } else {
+    function renderDynamicTables(uCat) {
+        if (uCat === 'OVERALL' || uCat === 'NONE') {
             document.getElementById('categoryRankersCard').style.display = 'none';
+            document.getElementById('overallRankersCardTitle').innerText = "Top Rankers (Overall)";
             document.getElementById('dynamic-rankers-row').style.gridTemplateColumns = '1fr';
-        }
+            renderHTMLTable('overallRankersTable', topRankers.slice(0, 50));
+        } else {
+            document.getElementById('categoryRankersCard').style.display = 'flex';
+            document.getElementById('overallRankersCardTitle').innerText = `Top Rankers (${uCat} - Incl. UR Qualified*)`;
+            document.getElementById('catTableTitleBadge').innerText = uCat;
+            document.getElementById('dynamic-rankers-row').style.gridTemplateColumns = window.innerWidth < 1024 ? '1fr' : '1fr 1fr';
 
-        renderHTMLTable('overallRankersTable', overallTopRankers);
-        renderHTMLTable('categoryRankersTable', categoryTopRankers);
-        renderChart(filteredCleanData);
+            let inclData = topRankers.filter(row => row.Category.toUpperCase() === uCat).slice(0, 50);
+            let exclData = topRankers.filter(row => row.Category.toUpperCase() === uCat && row.Marks < cutoffs["UR"]).slice(0, 50);
+
+            renderHTMLTable('overallRankersTable', inclData);
+            renderHTMLTable('categoryRankersTable', exclData);
+        }
     }
 
-    filterCategory.addEventListener('change', applyFiltersAndRender);
-    minMarksFilter.addEventListener('input', applyFiltersAndRender);
-
-    // ==========================================
-    // 10. UI RENDER FUNCTIONS
-    // ==========================================
     function renderHTMLTable(tableId, data) {
         const tbody = document.querySelector(`#${tableId} tbody`);
         tbody.innerHTML = '';
@@ -673,10 +649,10 @@
         });
     }
 
-    function renderChart(data) {
+    function renderChart() {
         const ctx = document.getElementById('marksChart').getContext('2d');
         const aggregated = {};
-        data.forEach(row => { aggregated[row.Marks] = (aggregated[row.Marks] || 0) + row.Count; });
+        cleanData.forEach(row => { aggregated[row.Marks] = (aggregated[row.Marks] || 0) + row.Count; });
         const sortedMarks = Object.keys(aggregated).map(Number).sort((a, b) => a - b);
         
         const textColor = getComputedStyle(document.body).getPropertyValue('--text-color').trim();
@@ -692,17 +668,12 @@
     }
 
     // ==========================================
-    // 11. THEME & RESPONSIVENESS
+    // 7. THEME & RESPONSIVENESS
     // ==========================================
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
         themeToggle.innerText = document.body.classList.contains('dark-mode') ? 'Toggle Light Mode' : 'Toggle Dark Mode';
-        if (cleanData.length > 0) applyFiltersAndRender();
-    });
-
-    window.addEventListener('resize', () => {
-        const rankersRow = document.getElementById('dynamic-rankers-row');
-        rankersRow.style.gridTemplateColumns = (window.innerWidth < 1024 || filterCategory.value === 'overall') ? '1fr' : '1fr 1fr';
+        if (cleanData.length > 0) renderChart(); 
     });
     
     init();

@@ -19,7 +19,7 @@
     
     <style>
         :root {
-            --bg-color: #f1f5f9;
+            var(--bg-color): #f1f5f9;
             --text-color: #0f172a;
             --card-bg: #ffffff;
             --primary: #4f46e5; 
@@ -109,7 +109,7 @@
         body.dark-mode tr:hover td { background-color: rgba(255,255,255,0.02); }
         
         .verified-badge { background-color: rgba(16, 185, 129, 0.15); color: var(--success); padding: 3px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 800; margin-left: 8px; border: 1px solid rgba(16, 185, 129, 0.3); }
-        .badge { display: inline-block; padding: 8px 14px; border-radius: 8px; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge { display: inline-block; padding: 8px 16px; border-radius: 8px; font-weight: 900; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
 
         .chart-container { position: relative; height: 380px; width: 100%; }
         
@@ -140,6 +140,49 @@
         }
         .panic-box p { font-size: 0.85rem; font-weight: 600; color: var(--warning); margin: 0 0 8px 0; line-height: 1.5; }
         .panic-box p:last-child { margin-bottom: 0; }
+
+        /* URGENT PROMPT BEFORE FORM */
+        .urgent-prompt-box {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(79, 70, 229, 0.05));
+            border: 2px dashed var(--primary);
+            padding: 18px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.15);
+            animation: pulse-primary-border 2s infinite;
+            margin-bottom: 22px;
+            text-align: center;
+        }
+        body.dark-mode .urgent-prompt-box {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.05));
+            border-color: var(--primary);
+        }
+        @keyframes pulse-primary-border {
+            0% { border-color: rgba(79, 70, 229, 0.4); }
+            50% { border-color: rgba(79, 70, 229, 1); }
+            100% { border-color: rgba(79, 70, 229, 0.4); }
+        }
+        @keyframes tada {
+            0% { transform: scale(1); }
+            10%, 20% { transform: scale(0.9) rotate(-3deg); }
+            30%, 50%, 70%, 90% { transform: scale(1.1) rotate(3deg); }
+            40%, 60%, 80% { transform: scale(1.1) rotate(-3deg); }
+            100% { transform: scale(1); }
+        }
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-20deg);
+            animation: shimmer-effect 2s infinite;
+        }
+        @keyframes shimmer-effect {
+            100% { left: 200%; }
+        }
 
         /* Action Buttons */
         .btn-container { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
@@ -236,9 +279,13 @@
             <div class="card">
                 <h2>Predict Your Rank</h2>
                 
-                <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05)); border-left: 4px solid var(--success); padding: 14px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
-                    <p style="font-size: 0.85rem; font-weight: 800; color: var(--success); margin-bottom: 6px;">🚨 Rank Check Karne Se Pehle / रैंक देखने से पहले:</p>
-                    <p style="font-size: 0.8rem; font-weight: 700; color: var(--text-color); line-height: 1.4;">Please submit your genuine score using the Green Button above to ensure 100% accuracy for everyone! कृपया अपना असली स्कोर फॉर्म में जरूर भरें!</p>
+                <div class="urgent-prompt-box">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px;">
+                        <span style="font-size: 1.5rem; display: inline-block; animation: tada 1.5s infinite;">🔔</span>
+                        <h4 style="margin: 0; color: var(--primary); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.5px;">URGENT / अति आवश्यक</h4>
+                    </div>
+                    <p style="font-weight: 800; color: var(--text-color); font-size: 0.95rem; margin-bottom: 10px;">Please submit your genuine score using the Green Form Button above before checking your rank to ensure 100% accuracy!</p>
+                    <p style="font-weight: 900; color: var(--primary); font-size: 1rem;">🚨 रैंक देखने से पहले कृपया अपना असली स्कोर ऊपर दिए गए हरे बटन से फॉर्म में जरूर भरें!</p>
                 </div>
 
                 <div class="form-group">
@@ -322,10 +369,10 @@
                         <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">Probability Engine</h3>
                         <p style="font-size: 0.75rem; font-weight: 600; opacity: 0.7; margin-bottom: 15px; line-height: 1.3;">*Mathematically extrapolated dynamic curve against 25,385 shortlisted data assuming 70% attendance and 50% typing pass.</p>
                         
-                        <div class="category-rank-row" style="background-color: var(--card-bg); justify-content: center; padding: 20px;">
+                        <div class="category-rank-row" style="background-color: var(--card-bg); justify-content: center; padding: 25px 15px;">
                             <div style="text-align: center;">
-                                <div style="font-size: 0.85rem; opacity: 0.8; font-weight: 800; text-transform: uppercase; margin-bottom: 8px;">Final Selection Chance</div>
-                                <span id="probFinalStatus" style="font-size: 1.1rem;">-</span>
+                                <div style="font-size: 0.85rem; opacity: 0.8; font-weight: 800; text-transform: uppercase; margin-bottom: 10px;">Final Selection Chance</div>
+                                <div id="probFinalStatus" style="font-size: 1.1rem;">-</div>
                             </div>
                         </div>
                     </div>
@@ -713,11 +760,15 @@
                 urCandidates.forEach(row => { if(row.Marks > uMarks + EPSILON) urAbove += row.Count; });
                 let urPerc = ((urTotal - urAbove) / Math.max(1, urTotal)) * 100;
                 
-                if (urPerc >= 65) finalStatusHtml = `<span class="badge" style="background:var(--success); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);">Excellent (UR Merit)</span>`;
-                else if (urPerc >= 55) finalStatusHtml = `<span class="badge" style="background:var(--warning); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">Borderline (UR Merit)</span>`;
-                else finalStatusHtml = getFallbackStatus(uMarks, uCat, urSafeMark); // Failed UR Merit -> Fallback
+                if (urPerc >= 65) {
+                    finalStatusHtml = `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge shimmer" style="background:var(--success); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);">Excellent</span><span style="font-size:0.85rem; font-weight:800; color:var(--success);">Final selection expected in UR</span></div>`;
+                } else if (urPerc >= 55) {
+                    finalStatusHtml = `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge" style="background:var(--warning); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4);">Borderline</span><span style="font-size:0.85rem; font-weight:800; color:var(--warning);">Final selection dependent on UR</span></div>`;
+                } else {
+                    finalStatusHtml = getFallbackStatus(uMarks, uCat, urSafeMark);
+                }
             } else {
-                finalStatusHtml = getFallbackStatus(uMarks, uCat, urSafeMark); // Direct Category Check
+                finalStatusHtml = getFallbackStatus(uMarks, uCat, urSafeMark);
             }
         }
 
@@ -756,15 +807,23 @@
             }
         });
         
-        if(uMarks < cutoffs[uCat]) return `<span class="badge" style="background:var(--danger); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);">Tough (Not Qualified)</span>`;
+        if(uMarks < cutoffs[uCat]) {
+            return `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge" style="background:var(--danger); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);">Tough (Not Qualified)</span><span style="font-size:0.85rem; font-weight:800; color:var(--danger);">Marks below minimum cutoff</span></div>`;
+        }
         
-        if(catPoolTotal === 0) return `<span class="badge" style="background:var(--warning); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">Data Pending (Small Pool)</span>`;
+        if(catPoolTotal === 0) {
+            return `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge shimmer" style="background:var(--warning); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">Data Pending</span><span style="font-size:0.85rem; font-weight:800; color:var(--warning);">Need more data for ${uCat}</span></div>`;
+        }
 
         let catPerc = ((catPoolTotal - catPoolAbove) / Math.max(1, catPoolTotal)) * 100;
         
-        if (catPerc >= 65) return `<span class="badge" style="background:var(--success); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);">Excellent (Cat. Merit)</span>`;
-        else if (catPerc >= 55) return `<span class="badge" style="background:var(--warning); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">Borderline (Cat. Merit)</span>`;
-        else return `<span class="badge" style="background:var(--danger); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);">Tough</span>`;
+        if (catPerc >= 65) {
+            return `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge shimmer" style="background:var(--success); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);">Excellent</span><span style="font-size:0.85rem; font-weight:800; color:var(--success);">Final selection expected in ${uCat}</span></div>`;
+        } else if (catPerc >= 55) {
+            return `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge" style="background:var(--warning); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4);">Borderline</span><span style="font-size:0.85rem; font-weight:800; color:var(--warning);">Final selection dependent on ${uCat}</span></div>`;
+        } else {
+            return `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge" style="background:var(--danger); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);">Tough</span><span style="font-size:0.85rem; font-weight:800; color:var(--danger);">Final selection chances are low</span></div>`;
+        }
     }
 
     // ==========================================
@@ -815,23 +874,19 @@
     // 6. DYNAMIC TABLES (VERTICAL) & CHARTS
     // ==========================================
     function renderDynamicTables(uCat) {
-        // Table 1 (Overall) - Restricting to Top 20
         renderHTMLTable('overallRankersTable', topRankers.slice(0, 20));
 
         if (uCat === 'OVERALL' || uCat === 'NONE' || !uCat) {
             document.getElementById('categoryRankersInclCard').style.display = 'none';
             document.getElementById('categoryRankersExclCard').style.display = 'none';
-            document.getElementById('toppersDisclaimer').style.display = 'none';
         } else {
             document.getElementById('categoryRankersInclCard').style.display = 'flex';
             document.getElementById('categoryRankersExclCard').style.display = 'flex';
-            document.getElementById('toppersDisclaimer').style.display = 'block';
             
             document.getElementById('catTableTitleIncl').innerText = uCat;
             document.getElementById('catTableTitleExcl').innerText = uCat;
             
-            // Category Tables - Restricting to Top 10 each
-            let inclData = topRankers.filter(row => row.Category.toUpperCase() === uCat).slice(0, 10);
+            let inclData = topRankers.filter(row => row.Category.toUpperCase() === uCat && row.Marks >= cutoffs["UR"]).slice(0, 10);
             let exclData = topRankers.filter(row => row.Category.toUpperCase() === uCat && row.Marks < cutoffs["UR"]).slice(0, 10);
 
             renderHTMLTable('categoryRankersInclTable', inclData);

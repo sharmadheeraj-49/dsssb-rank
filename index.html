@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DSSSB Rank Predictor</title>
+    <title>DSSSB LDC & Steno Rank Predictor (802/23)</title>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R9PDVJ89WX"></script>
     <script>
@@ -19,11 +19,10 @@
     
     <style>
         :root {
-            /* Enhanced UI Colors for better aesthetics */
             --bg-color: #f1f5f9;
             --text-color: #0f172a;
             --card-bg: #ffffff;
-            --primary: #4f46e5; /* Modern Indigo */
+            --primary: #4f46e5; 
             --primary-hover: #4338ca;
             --border: #e2e8f0;
             --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
@@ -39,7 +38,7 @@
             --bg-color: #020617; 
             --text-color: #f8fafc;
             --card-bg: #0f172a;
-            --primary: #3b82f6; /* Bright Blue for dark mode */
+            --primary: #3b82f6; 
             --primary-hover: #60a5fa;
             --border: #1e293b;
             --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
@@ -157,6 +156,17 @@
         .share-btn { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
         .share-btn:hover { background: linear-gradient(135deg, #2563eb, #1d4ed8); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5); }
 
+        /* Glowing Download Button for Dark Mode */
+        .download-btn {
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9) !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4) !important;
+            border: none !important;
+            padding: 14px 20px; border-radius: 10px; font-weight: 800; cursor: pointer; transition: all 0.2s ease;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+        }
+        .download-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6) !important; }
+
         @media (max-width: 768px) {
             body { padding: 15px 10px; }
             .card { padding: 18px; }
@@ -172,7 +182,7 @@
         }
     </style>
 </head>
-<body>
+<body class="dark-mode">
 
 <div class="container">
     
@@ -182,10 +192,10 @@
 
     <header>
         <div>
-            <h1>DSSSB Rank Predictor</h1>
+            <h1>DSSSB LDC & Steno Rank Predictor (802/23)</h1>
             <p style="font-size: 0.95rem; font-weight: 600; opacity: 0.7; margin-top: 4px;">Scientific Percentile & Fallback Engine</p>
         </div>
-        <button id="themeToggle">Toggle Dark Mode</button>
+        <button id="themeToggle">Toggle Light Mode</button>
     </header>
 
     <div id="loading">
@@ -213,7 +223,7 @@
 
             <div class="btn-container">
                 <a href="https://forms.gle/39KtHEdFt5dSjBF87" target="_blank" class="action-btn submit-btn" onclick="gtag('event', 'click', {'event_category': 'outbound', 'event_label': 'Google Form Button'});">
-                    📝 Submit Your Marks / मार्क्स भरें
+                    📝 Submit Your Marks / फॉर्म भरें
                 </a>
                 <button id="shareSiteBtn" class="action-btn share-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
@@ -225,6 +235,12 @@
         <div class="grid">
             <div class="card">
                 <h2>Predict Your Rank</h2>
+                
+                <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05)); border-left: 4px solid var(--success); padding: 14px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+                    <p style="font-size: 0.85rem; font-weight: 800; color: var(--success); margin-bottom: 6px;">🚨 Rank Check Karne Se Pehle / रैंक देखने से पहले:</p>
+                    <p style="font-size: 0.8rem; font-weight: 700; color: var(--text-color); line-height: 1.4;">Please submit your genuine score using the Green Button above to ensure 100% accuracy for everyone! कृपया अपना असली स्कोर फॉर्म में जरूर भरें!</p>
+                </div>
+
                 <div class="form-group">
                     <label for="marksInput">Your Marks</label>
                     <input type="number" id="marksInput" placeholder="Enter exactly, e.g. 155.24" step="0.01">
@@ -331,14 +347,14 @@
                         
                         <div id="catSummaryMessage" style="text-align: center; font-size: 0.85rem; margin-top: 15px; font-weight: 700; color: var(--text-color); opacity: 0.9; display: none; padding: 12px; border: 2px dashed var(--border); border-radius: 8px; background-color: var(--bg-color);"></div>
                         
-                        <p id="scrollHindiMsg" style="text-align: center; font-size: 0.95rem; font-weight: 800; color: var(--primary); margin-top: 20px; display: none; background: rgba(79, 70, 229, 0.1); padding: 12px; border-radius: 8px; border: 1px solid rgba(79, 70, 229, 0.2);">
+                        <p id="scrollHindiMsg" style="text-align: center; font-size: 1rem; font-weight: 900; color: var(--warning); margin-top: 20px; display: none; background: rgba(245, 158, 11, 0.15); padding: 15px; border-radius: 8px; border: 2px dashed var(--warning); animation: pulse-border 2s infinite;">
                             👇 अपनी कैटेगरी के टॉपर्स की लिस्ट देखने के लिए सबसे नीचे स्क्रॉल करें 👇
                         </p>
                     </div>
                 </div>
 
                 <div style="padding: 0 25px 25px 25px; display: flex; justify-content: center;">
-                    <button id="downloadScorecardBtn" data-html2canvas-ignore="true" style="width: 100%; background: var(--rank-black); display: none; align-items: center; justify-content: center; gap: 8px; border: none; padding: 14px 20px; border-radius: 10px; color: white; font-weight: 700; cursor: pointer; transition: transform 0.2s ease;">
+                    <button id="downloadScorecardBtn" class="download-btn" data-html2canvas-ignore="true" style="display: none;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                         Download Shareable Scorecard
                     </button>
@@ -375,7 +391,7 @@
                         <strong id="brkST" class="rank-numerator" style="font-size:1.2rem;">-</strong>
                     </div>
                     <div class="category-rank-row" style="margin-bottom: 0;">
-                        <span style="opacity: 0.9;">Other <span style="font-size: 0.7rem; opacity:0.8;">(Excl. UR)</span></span>
+                        <span style="opacity: 0.9;">Other <span style="font-size: 0.7rem; opacity:0.8;">(PwBD, EXSM, SP, etc. - Excl. UR)</span></span>
                         <strong id="brkOther" class="rank-numerator" style="font-size:1.2rem;">-</strong>
                     </div>
                 </div>
@@ -405,7 +421,7 @@
                 </div>
 
                 <div class="card" id="categoryRankersInclCard" style="display: none; border-top: 4px solid var(--success);">
-                    <h2>Top Rankers (<span id="catTableTitleIncl"></span> - UR Qualified)</h2>
+                    <h2>Top Rankers (<span id="catTableTitleIncl"></span> - Incl. UR*)</h2>
                     <div class="table-container">
                         <table id="categoryRankersInclTable">
                             <thead>
@@ -417,7 +433,7 @@
                 </div>
 
                 <div class="card" id="categoryRankersExclCard" style="display: none; border-top: 4px solid var(--rank-red);">
-                    <h2>Top Rankers (<span id="catTableTitleExcl"></span> - Below UR Cutoff)</h2>
+                    <h2>Top Rankers (<span id="catTableTitleExcl"></span> - Excl. UR*)</h2>
                     <div class="table-container">
                         <table id="categoryRankersExclTable">
                             <thead>
@@ -429,6 +445,7 @@
                 </div>
 
             </div>
+            <p id="toppersDisclaimer" style="font-size: 0.8rem; font-weight: 600; opacity: 0.8; text-align: center; display: none;">*Including UR Qualified means it includes students belonging to your category who cleared the UR cut-off.</p>
         </div>
     </div>
 
@@ -475,12 +492,10 @@
         let m = ist.getMinutes();
         let displayDate = new Date(ist);
 
-        // From 10 PM (22) to 6 AM (6), freeze time at 9:58 PM
         if (h >= 22 || h < 6) {
             if (h < 6) displayDate.setDate(displayDate.getDate() - 1);
             displayDate.setHours(21, 58, 0);
         } else {
-            // Cycle of intervals simulating updates: 17, 33, 58, 74
             let lastMin = 0;
             let lastHour = h;
             
@@ -563,13 +578,15 @@
         let total = 0, ur = 0, obc = 0, ews = 0, sc = 0, st = 0, other = 0;
         const cUR = cutoffs["UR"];
         cleanData.forEach(row => {
-            let m = row.Marks; let cat = row.Category.toUpperCase(); let cnt = row.Count;
+            let m = row.Marks; let cat = row.Category.toUpperCase().trim(); let cnt = row.Count;
             if (m >= cUR) { ur += cnt; total += cnt; } else {
                 if (cat === "OBC DELHI" && m >= cutoffs["OBC DELHI"]) { obc += cnt; total += cnt; }
                 else if (cat === "EWS" && m >= cutoffs["EWS"]) { ews += cnt; total += cnt; }
                 else if (cat === "SC" && m >= cutoffs["SC"]) { sc += cnt; total += cnt; }
                 else if (cat === "ST" && m >= cutoffs["ST"]) { st += cnt; total += cnt; }
-                else if (cat === "OTHER" && m >= cutoffs["OTHER"]) { other += cnt; total += cnt; }
+                else if (cat !== "UR" && cat !== "OBC DELHI" && cat !== "EWS" && cat !== "SC" && cat !== "ST" && m >= cutoffs["OTHER"]) { 
+                    other += cnt; total += cnt; 
+                }
             }
         });
         document.getElementById('brkTotal').innerText = total; document.getElementById('brkUR').innerText = ur;
@@ -630,7 +647,6 @@
                     if (row.Marks > uMarks + EPSILON) catOrigAbove += row.Count;
                     if (row.Marks > uMarks + EPSILON && row.Marks < urCutoff) catExclURAbove += row.Count;
 
-                    // Restored Qualification Summary Calculation
                     if (row.Marks >= myCatCutoff) {
                         catTotalQualified += row.Count;
                         if (row.Marks >= urCutoff) catQualifiedUR += row.Count; else catQualifiedOwn += row.Count;
@@ -653,7 +669,6 @@
                 document.getElementById('percExcl').innerText = percExcl;
             }
 
-            // Restore the Cat Summary Message Display
             const catSummaryMsg = document.getElementById('catSummaryMessage');
             catSummaryMsg.innerHTML = `Out of <strong style="color:var(--primary); font-size: 1.1em;">${catTotalQualified}</strong> candidates qualified in <strong>${uCat}</strong>, <strong style="color:var(--success); font-size: 1.1em;">${catQualifiedUR}</strong> have qualified on UR cut off and <strong style="color:var(--primary); font-size: 1.1em;">${catQualifiedOwn}</strong> in your category.`;
             catSummaryMsg.style.display = 'block';
@@ -672,7 +687,6 @@
         // --- 3. FINAL SELECTION FALLBACK ENGINE ---
         document.getElementById('probabilitySection').style.display = 'block';
         
-        // High Visibility Small Pool Warning Logic
         const smallPoolMsg = document.getElementById('smallPoolMsg');
         if (totalCandidates < 5000) smallPoolMsg.style.display = 'block';
         else smallPoolMsg.style.display = 'none';
@@ -682,7 +696,6 @@
         if (uCat === 'OVERALL' || uCat === 'NONE') {
             finalStatusHtml = `<span style="font-size: 0.8rem; font-weight: 600; opacity: 0.8;">Select your Category above to see Probability.</span>`;
         } else {
-            // Determine UR Thresholds Safely
             let urTotal = 0, urCandidates = [];
             cleanData.forEach(row => { if(row.Marks >= cutoffs["UR"]) { urTotal += row.Count; urCandidates.push(row); }});
             urCandidates.sort((a,b) => b.Marks - a.Marks);
@@ -760,8 +773,8 @@
     shareBtn.addEventListener('click', async () => {
         gtag('event', 'share', {'event_category': 'engagement', 'event_label': 'Share Button Clicked'});
         const shareData = {
-            title: 'DSSSB LDC Rank Predictor',
-            text: 'Check your DSSSB LDC Rank & Final Selection Chances mathematically! 📊\n\n📝 Submit your genuine marks here: https://forms.gle/39KtHEdFt5dSjBF87\n\n🔍 Check live rank here: https://tinyurl.com/dsssb-rank',
+            title: 'DSSSB LDC & Steno Rank Predictor (802/23)',
+            text: 'Check your DSSSB LDC & Steno Rank mathematically! 📊\n\n📝 Submit genuine marks here: https://forms.gle/39KtHEdFt5dSjBF87\n\n🔍 Check live rank here: https://tinyurl.com/dsssb-rank',
             url: 'https://tinyurl.com/dsssb-rank'
         };
         try {
@@ -808,15 +821,17 @@
         if (uCat === 'OVERALL' || uCat === 'NONE' || !uCat) {
             document.getElementById('categoryRankersInclCard').style.display = 'none';
             document.getElementById('categoryRankersExclCard').style.display = 'none';
+            document.getElementById('toppersDisclaimer').style.display = 'none';
         } else {
             document.getElementById('categoryRankersInclCard').style.display = 'flex';
             document.getElementById('categoryRankersExclCard').style.display = 'flex';
+            document.getElementById('toppersDisclaimer').style.display = 'block';
             
             document.getElementById('catTableTitleIncl').innerText = uCat;
             document.getElementById('catTableTitleExcl').innerText = uCat;
             
-            // Category Tables - Restricting to Top 10 each, UR Qualified precisely filtered
-            let inclData = topRankers.filter(row => row.Category.toUpperCase() === uCat && row.Marks >= cutoffs["UR"]).slice(0, 10);
+            // Category Tables - Restricting to Top 10 each
+            let inclData = topRankers.filter(row => row.Category.toUpperCase() === uCat).slice(0, 10);
             let exclData = topRankers.filter(row => row.Category.toUpperCase() === uCat && row.Marks < cutoffs["UR"]).slice(0, 10);
 
             renderHTMLTable('categoryRankersInclTable', inclData);

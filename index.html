@@ -28,7 +28,8 @@
             --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
             --danger: #ef4444;
             --success: #10b981;
-            --warning: #f59e0b;
+            --warning: #d97706;
+            
             --rank-red: #e11d48;
             --rank-black: #020617;
         }
@@ -43,6 +44,7 @@
             --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.7);
             --rank-red: #fb7185;
             --rank-black: #e2e8f0;
+            --warning: #f59e0b;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
@@ -89,7 +91,7 @@
         .percentile-title { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; opacity: 0.8; margin-bottom: 4px; line-height: 1.2; }
         .percentile-val { font-size: 1.4rem; font-weight: 900; color: var(--primary); }
 
-        .table-container { overflow-x: auto; max-height: 450px; border: 1px solid var(--border); border-radius: 10px; }
+        .table-container { overflow-x: auto; max-height: 450px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 20px; }
         table { width: 100%; border-collapse: separate; border-spacing: 0; text-align: left; }
         th, td { padding: 14px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; font-size: 0.95rem; }
         th { background-color: var(--bg-color); position: sticky; top: 0; z-index: 10; font-weight: 800; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; color: var(--primary); }
@@ -188,11 +190,18 @@
                         <span style="font-weight: 700; opacity: 0.6;">Enter marks to see qualification status.</span>
                     </div>
 
-                    <h3 style="margin-top: 5px; font-size: 1.05rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Sample Performance</h3>
+                    <h3 style="margin-top: 5px; font-size: 1.05rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Overall Performance</h3>
                     <div class="result-box highlight" style="margin-bottom: 12px; padding: 15px 10px;">
                         <span style="font-weight: 800; font-size: 0.9rem; letter-spacing: 0.5px; color: var(--text-color); margin-bottom: 5px; text-transform: uppercase;">Overall Rank</span>
                         <span id="resOverallRank" style="display: flex; justify-content: center; align-items: baseline;">-</span>
                     </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+                        <div class="result-box" style="padding: 12px 5px;"><span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; opacity: 0.8;">Above</span><strong id="resOverallAbove" style="font-size: 1.2rem; color: var(--rank-black);">-</strong></div>
+                        <div class="result-box" style="padding: 12px 5px;"><span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; opacity: 0.8;">Below</span><strong id="resOverallBelow" style="font-size: 1.2rem; color: var(--rank-black);">-</strong></div>
+                        <div class="result-box" style="padding: 12px 5px;"><span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; opacity: 0.8;">Same</span><strong id="resOverallSame" style="font-size: 1.2rem; color: var(--rank-black);">-</strong></div>
+                    </div>
+                    <div id="sameMarksMessage" style="text-align: center; font-size: 0.85rem; margin-bottom: 15px; font-weight: 800; color: var(--primary);"></div>
 
                     <div id="percentileSection" style="display: none; margin-bottom: 15px;">
                         <div style="display: flex; gap: 8px;">
@@ -201,25 +210,18 @@
                                 <span class="percentile-val" id="percOverall">-</span>
                             </div>
                             <div class="percentile-box" id="percInclBox">
-                                <span class="percentile-title">Category Perc.<br>(Incl. UR*)</span>
+                                <span class="percentile-title">Category Perc.<br>(Including UR Qualified*)</span>
                                 <span class="percentile-val" id="percIncl">-</span>
                             </div>
                             <div class="percentile-box" id="percExclBox">
-                                <span class="percentile-title">Category Perc.<br>(Excl. UR*)</span>
+                                <span class="percentile-title">Category Perc.<br>(Excluding UR Qualified*)</span>
                                 <span class="percentile-val" id="percExcl">-</span>
                             </div>
                         </div>
-                        <p id="percDisclaimer" style="font-size: 0.7rem; font-weight: 600; opacity: 0.7; margin-top: 8px; line-height: 1.3; display: none;">
+                        <p id="percDisclaimer" style="font-size: 0.7rem; font-weight: 600; opacity: 0.8; margin-top: 8px; line-height: 1.3; display: none; color: var(--text-color);">
                             *(Including UR Qualified) means it includes data of those students who belong to your category but have qualified at the UR cutoff.
                         </p>
                     </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px;">
-                        <div class="result-box" style="padding: 12px 5px;"><span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; opacity: 0.8;">Above</span><strong id="resOverallAbove" style="font-size: 1.2rem; color: var(--rank-black);">-</strong></div>
-                        <div class="result-box" style="padding: 12px 5px;"><span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; opacity: 0.8;">Below</span><strong id="resOverallBelow" style="font-size: 1.2rem; color: var(--rank-black);">-</strong></div>
-                        <div class="result-box" style="padding: 12px 5px;"><span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; opacity: 0.8;">Same</span><strong id="resOverallSame" style="font-size: 1.2rem; color: var(--rank-black);">-</strong></div>
-                    </div>
-                    <div id="sameMarksMessage" style="text-align: center; font-size: 0.85rem; margin-bottom: 15px; font-weight: 800; color: var(--primary);"></div>
 
                     <div id="probabilitySection" style="display: none; border-top: 2px solid var(--border); padding-top: 15px; margin-top: 15px;">
                         <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">Probability Engine</h3>
@@ -231,6 +233,7 @@
                                 <span id="probFinalStatus" style="font-size: 1.1rem;">-</span>
                             </div>
                         </div>
+                        <p id="smallPoolMsg" style="font-size: 0.75rem; font-weight: 600; color: var(--warning); margin-top: 10px; display: none;">*Note: As our current sample size is small, percentiles for top ranks may appear lower than reality. Your percentile and selection chance will dynamically improve as more candidates enter their data.</p>
                     </div>
 
                     <h3 style="margin-top: 15px; font-size: 1.05rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Category Rank (<span id="displayUserCat">...</span>)</h3>
@@ -247,6 +250,8 @@
                             <span>Cat. Rank <span style="font-size: 0.7rem; background: var(--border); padding: 2px 6px; border-radius: 4px; margin-left: 4px;">Incl. UR Qualified</span></span>
                             <div class="category-rank-val" id="resCatInclUR">-</div>
                         </div>
+                        
+                        <div id="catSummaryMessage" style="text-align: center; font-size: 0.85rem; margin-top: 15px; font-weight: 700; color: var(--text-color); opacity: 0.9; display: none; padding: 12px; border: 2px dashed var(--border); border-radius: 8px; background-color: var(--bg-color);"></div>
                     </div>
                 </div>
 
@@ -306,7 +311,7 @@
             <div id="dynamic-rankers-row" class="grid" style="margin-bottom: 0;">
                 
                 <div class="card" id="overallRankersCard" style="border-top: 4px solid var(--primary);">
-                    <h2 id="overallRankersCardTitle">Top Rankers (Overall)</h2>
+                    <h2>Top Rankers (Overall)</h2>
                     <div class="table-container">
                         <table id="overallRankersTable">
                             <thead>
@@ -317,10 +322,22 @@
                     </div>
                 </div>
 
-                <div class="card" id="categoryRankersCard" style="display: none; border-top: 4px solid var(--rank-red);">
-                    <h2>Top Rankers (<span id="catTableTitleBadge"></span> - Excl. UR)</h2>
+                <div class="card" id="categoryRankersInclCard" style="display: none; border-top: 4px solid var(--success);">
+                    <h2>Top Rankers (<span id="catTableTitleIncl"></span> - Incl. UR*)</h2>
                     <div class="table-container">
-                        <table id="categoryRankersTable">
+                        <table id="categoryRankersInclTable">
+                            <thead>
+                                <tr><th>Rank</th><th>Name</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card" id="categoryRankersExclCard" style="display: none; border-top: 4px solid var(--rank-red);">
+                    <h2>Top Rankers (<span id="catTableTitleExcl"></span> - Excl. UR*)</h2>
+                    <div class="table-container">
+                        <table id="categoryRankersExclTable">
                             <thead>
                                 <tr><th>Rank</th><th>Name</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr>
                             </thead>
@@ -330,6 +347,7 @@
                 </div>
 
             </div>
+            <p id="toppersDisclaimer" style="font-size: 0.8rem; font-weight: 600; opacity: 0.8; text-align: center; display: none;">*Including UR Qualified means it includes students belonging to your category who cleared the UR cut-off.</p>
         </div>
     </div>
 
@@ -345,7 +363,7 @@
 
 <script>
     // ==========================================
-    // 1. CONFIGURATION 
+    // 1. CONFIGURATION & CONSTANTS
     // ==========================================
     const API_URL = "https://script.google.com/macros/s/AKfycbwgNXKOgVAGbiJqipmEn-lsFSwGCaH4fYsgESnKVdkIM6OWeu3Qt_oQBeHQsE-kESqZ/exec";
     const cutoffs = { "UR": 149.15, "EWS": 119.62, "SC": 120.36, "OBC DELHI": 84.77, "ST": 104.75, "OTHER": 61.97 };
@@ -402,7 +420,7 @@
 
             updateQualificationBreakup();
             renderChart();
-            renderDynamicTables('OVERALL'); // Load overall on startup
+            renderDynamicTables('OVERALL'); 
 
         } catch (error) {
             console.error("API Error:", error);
@@ -465,10 +483,11 @@
         document.getElementById('displayUserCat').innerText = (uCat === 'OVERALL' || uCat === 'NONE') ? 'All' : uCat;
         document.getElementById('percentileSection').style.display = 'block';
         
-        let percOverall = ((totalCandidates - overallAbove) / totalCandidates * 100).toFixed(2);
+        let percOverall = ((totalCandidates - overallAbove) / Math.max(1, totalCandidates) * 100).toFixed(2);
         document.getElementById('percOverall').innerText = percOverall;
 
         let catOrigAbove = 0, catExclURAbove = 0, totalInCat = 0, totalInCatExclUR = 0;
+        let catTotalQualified = 0, catQualifiedUR = 0, catQualifiedOwn = 0;
         
         if (uCat !== 'OVERALL' && uCat !== 'NONE') {
             document.getElementById('percInclBox').style.display = 'flex';
@@ -476,12 +495,21 @@
             document.getElementById('percDisclaimer').style.display = 'block';
 
             const urCutoff = cutoffs["UR"];
+            const myCatCutoff = cutoffs[uCat] || 0;
+
             cleanData.forEach(row => {
                 if (row.Category.toUpperCase() === uCat) {
                     totalInCat += row.Count;
                     if (row.Marks < urCutoff) totalInCatExclUR += row.Count;
+                    
                     if (row.Marks > uMarks + EPSILON) catOrigAbove += row.Count;
                     if (row.Marks > uMarks + EPSILON && row.Marks < urCutoff) catExclURAbove += row.Count;
+
+                    // Restore Qualification Summary Calculation
+                    if (row.Marks >= myCatCutoff) {
+                        catTotalQualified += row.Count;
+                        if (row.Marks >= urCutoff) catQualifiedUR += row.Count; else catQualifiedOwn += row.Count;
+                    }
                 }
             });
             
@@ -493,12 +521,18 @@
 
             if(uMarks >= urCutoff) {
                 document.getElementById('resCatExclUR').innerHTML = `<span style="font-weight: 800; color: var(--success); text-transform: uppercase;">Qualified UR</span>`;
-                document.getElementById('percExcl').innerHTML = `<span style="font-size:0.9rem; color:var(--success);">UR Qual.</span>`;
+                document.getElementById('percExcl').innerHTML = `<span style="font-size:0.9rem; font-weight:800; color:var(--success);">UR Qual.</span>`;
             } else {
                 document.getElementById('resCatExclUR').innerHTML = formatRank((catExclURAbove + 1), totalInCatExclUR);
                 let percExcl = ((totalInCatExclUR - catExclURAbove) / Math.max(1, totalInCatExclUR) * 100).toFixed(2);
                 document.getElementById('percExcl').innerText = percExcl;
             }
+
+            // Restore the Cat Summary Message Display
+            const catSummaryMsg = document.getElementById('catSummaryMessage');
+            catSummaryMsg.innerHTML = `Out of <strong style="color:var(--primary); font-size: 1.1em;">${catTotalQualified}</strong> candidates qualified in <strong>${uCat}</strong>, <strong style="color:var(--success); font-size: 1.1em;">${catQualifiedUR}</strong> have qualified on UR cut off and <strong style="color:var(--primary); font-size: 1.1em;">${catQualifiedOwn}</strong> in your category.`;
+            catSummaryMsg.style.display = 'block';
+
         } else {
             document.getElementById('resCatOrig').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
             document.getElementById('resCatInclUR').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
@@ -506,23 +540,30 @@
             document.getElementById('percInclBox').style.display = 'none';
             document.getElementById('percExclBox').style.display = 'none';
             document.getElementById('percDisclaimer').style.display = 'none';
+            document.getElementById('catSummaryMessage').style.display = 'none';
         }
 
         // --- 3. FINAL SELECTION FALLBACK ENGINE ---
         document.getElementById('probabilitySection').style.display = 'block';
+        
+        // Small Pool Warning Logic
+        const smallPoolMsg = document.getElementById('smallPoolMsg');
+        if (totalCandidates < 5000) smallPoolMsg.style.display = 'block';
+        else smallPoolMsg.style.display = 'none';
+
         let finalStatusHtml = "";
 
         if (uCat === 'OVERALL' || uCat === 'NONE') {
             finalStatusHtml = `<span style="font-size: 0.8rem; font-weight: 600; opacity: 0.8;">Select your Category above to see Probability.</span>`;
         } else {
-            // A. UR Pool Analysis
+            // Determine UR Thresholds Safely
             let urTotal = 0, urCandidates = [];
             cleanData.forEach(row => { if(row.Marks >= cutoffs["UR"]) { urTotal += row.Count; urCandidates.push(row); }});
             urCandidates.sort((a,b) => b.Marks - a.Marks);
             
-            // Find UR Safe Mark (Top 34.32% -> >65.68 Percentile)
             let safeURCount = urTotal * 0.3432; 
             let acc = 0, urSafeMark = cutoffs["UR"];
+            
             for(let i=0; i<urCandidates.length; i++) {
                 acc += urCandidates[i].Count;
                 if(acc >= safeURCount) { urSafeMark = urCandidates[i].Marks; break; }
@@ -563,19 +604,24 @@
         renderDynamicTables(uCat);
     });
 
-    // Helper for Category Fallback
+    // Helper for Category Fallback Percentile Logic
     function getFallbackStatus(uMarks, uCat, urSafeMark) {
         let catPoolTotal = 0, catPoolAbove = 0;
+        
+        // Ensure urSafeMark is valid, else default to UR Cutoff to prevent JS breaks
+        if(isNaN(urSafeMark) || !urSafeMark) urSafeMark = cutoffs["UR"];
+
         cleanData.forEach(row => {
-            if(row.Category.toUpperCase() === uCat && row.Marks < urSafeMark) { // Only competitors below the UR Safe Zone
+            if(row.Category.toUpperCase() === uCat && row.Marks < urSafeMark) { 
                 catPoolTotal += row.Count;
-                if (row.Marks > uMarks + EPSILON) catPoolAbove += row.Count;
+                if (row.Marks > uMarks + 0.0001) catPoolAbove += row.Count;
             }
         });
         
         if(uMarks < cutoffs[uCat]) return `<span class="badge" style="background:#ef4444; color:#fff; font-size:1rem;">Tough (Not Qualified)</span>`;
         
         let catPerc = ((catPoolTotal - catPoolAbove) / Math.max(1, catPoolTotal)) * 100;
+        
         if (catPerc >= 65) return `<span class="badge" style="background:#10b981; color:#fff; font-size:1rem;">Excellent (Cat. Merit)</span>`;
         else if (catPerc >= 55) return `<span class="badge" style="background:#f59e0b; color:#fff; font-size:1rem;">Borderline (Cat. Merit)</span>`;
         else return `<span class="badge" style="background:#ef4444; color:#fff; font-size:1rem;">Tough</span>`;
@@ -607,25 +653,34 @@
     });
 
     // ==========================================
-    // 6. DYNAMIC TABLES & CHARTS
+    // 6. DYNAMIC TABLES (3 LISTS) & CHARTS
     // ==========================================
     function renderDynamicTables(uCat) {
-        if (uCat === 'OVERALL' || uCat === 'NONE') {
-            document.getElementById('categoryRankersCard').style.display = 'none';
-            document.getElementById('overallRankersCardTitle').innerText = "Top Rankers (Overall)";
+        // Table 1 (Overall) is always visible
+        renderHTMLTable('overallRankersTable', topRankers.slice(0, 50));
+
+        if (uCat === 'OVERALL' || uCat === 'NONE' || !uCat) {
+            document.getElementById('categoryRankersInclCard').style.display = 'none';
+            document.getElementById('categoryRankersExclCard').style.display = 'none';
+            document.getElementById('toppersDisclaimer').style.display = 'none';
             document.getElementById('dynamic-rankers-row').style.gridTemplateColumns = '1fr';
-            renderHTMLTable('overallRankersTable', topRankers.slice(0, 50));
         } else {
-            document.getElementById('categoryRankersCard').style.display = 'flex';
-            document.getElementById('overallRankersCardTitle').innerText = `Top Rankers (${uCat} - Incl. UR Qualified*)`;
-            document.getElementById('catTableTitleBadge').innerText = uCat;
-            document.getElementById('dynamic-rankers-row').style.gridTemplateColumns = window.innerWidth < 1024 ? '1fr' : '1fr 1fr';
+            document.getElementById('categoryRankersInclCard').style.display = 'flex';
+            document.getElementById('categoryRankersExclCard').style.display = 'flex';
+            document.getElementById('toppersDisclaimer').style.display = 'block';
+            
+            document.getElementById('catTableTitleIncl').innerText = uCat;
+            document.getElementById('catTableTitleExcl').innerText = uCat;
+            
+            if(window.innerWidth >= 1024) {
+                document.getElementById('dynamic-rankers-row').style.gridTemplateColumns = '1fr 1fr 1fr';
+            }
 
             let inclData = topRankers.filter(row => row.Category.toUpperCase() === uCat).slice(0, 50);
             let exclData = topRankers.filter(row => row.Category.toUpperCase() === uCat && row.Marks < cutoffs["UR"]).slice(0, 50);
 
-            renderHTMLTable('overallRankersTable', inclData);
-            renderHTMLTable('categoryRankersTable', exclData);
+            renderHTMLTable('categoryRankersInclTable', inclData);
+            renderHTMLTable('categoryRankersExclTable', exclData);
         }
     }
 
@@ -674,6 +729,17 @@
         document.body.classList.toggle('dark-mode');
         themeToggle.innerText = document.body.classList.contains('dark-mode') ? 'Toggle Light Mode' : 'Toggle Dark Mode';
         if (cleanData.length > 0) renderChart(); 
+    });
+
+    window.addEventListener('resize', () => {
+        const rankersRow = document.getElementById('dynamic-rankers-row');
+        const uCat = document.getElementById('categoryInput').value.toUpperCase();
+        
+        if (uCat === 'OVERALL' || uCat === 'NONE' || !uCat) {
+            rankersRow.style.gridTemplateColumns = '1fr';
+        } else {
+            rankersRow.style.gridTemplateColumns = window.innerWidth < 1024 ? '1fr' : '1fr 1fr 1fr';
+        }
     });
     
     init();

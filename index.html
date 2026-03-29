@@ -53,7 +53,6 @@
         
         .container { max-width: 1250px; margin: 0 auto; }
 
-        /* Top Contact Banner */
         .top-contact-bar {
             background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 15px; margin-bottom: 25px; 
             display: flex; justify-content: center; align-items: center; text-align: center; gap: 8px; 
@@ -68,6 +67,7 @@
         button { background-color: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.95rem; transition: all 0.2s ease; box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2); }
         button:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
         button:active { transform: translateY(0); }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
 
         .transparency-banner { background: linear-gradient(90deg, #1e293b, #0f172a); color: #f8fafc; padding: 12px 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-size: 0.85rem; font-weight: 600; border: 1px solid #334155; }
         .transparency-item { display: flex; align-items: center; gap: 6px; }
@@ -83,6 +83,7 @@
         .form-group label { display: block; margin-bottom: 8px; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--primary); }
         .form-group input, .form-group select { width: 100%; padding: 14px; border-radius: 10px; border: 2px solid var(--border); background-color: var(--bg-color); color: var(--text-color); font-size: 1rem; font-weight: 600; transition: all 0.2s ease; }
         .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15); }
+        .form-group input[type="file"] { padding: 10px; font-size: 0.9rem; }
         
         .result-box { text-align: center; padding: 15px; background-color: var(--bg-color); border-radius: 12px; margin-bottom: 10px; flex: 1; display: flex; flex-direction: column; justify-content: center; border: 1px solid var(--border); }
         .result-box.highlight { background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), transparent); border: 2px solid var(--primary); }
@@ -116,108 +117,43 @@
         #app { display: none; }
 
         /* BEAUTIFUL PANIC BOX UI */
-        .panic-box {
-            background: linear-gradient(135deg, #fffbeb, #fef3c7);
-            border-left: 6px solid var(--warning);
-            padding: 18px;
-            margin-bottom: 20px;
-            border-radius: 8px 12px 12px 8px;
-            display: none;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15);
-            animation: pulse-border 2s infinite;
-        }
-        body.dark-mode .panic-box {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
-        }
-        @keyframes pulse-border {
-            0% { border-color: rgba(245, 158, 11, 0.4); }
-            50% { border-color: rgba(245, 158, 11, 1); }
-            100% { border-color: rgba(245, 158, 11, 0.4); }
-        }
+        .panic-box { background: linear-gradient(135deg, #fffbeb, #fef3c7); border-left: 6px solid var(--warning); padding: 18px; margin-bottom: 20px; border-radius: 8px 12px 12px 8px; display: none; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15); animation: pulse-border 2s infinite; }
+        body.dark-mode .panic-box { background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05)); }
+        @keyframes pulse-border { 0% { border-color: rgba(245, 158, 11, 0.4); } 50% { border-color: rgba(245, 158, 11, 1); } 100% { border-color: rgba(245, 158, 11, 0.4); } }
         .panic-box p { font-size: 0.85rem; font-weight: 600; color: var(--warning); margin: 0 0 8px 0; line-height: 1.5; }
         .panic-box p:last-child { margin-bottom: 0; }
 
         /* FALLBACK EXPLANATION BOX */
-        .fallback-explanation-box {
-            background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(139, 92, 246, 0.05));
-            border: 1px solid rgba(79, 70, 229, 0.3);
-            border-left: 5px solid var(--primary);
-            padding: 18px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.1);
-            display: none; /* Revealed on Calculation */
-        }
-        body.dark-mode .fallback-explanation-box {
-            background: linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(139, 92, 246, 0.05));
-            border-color: rgba(79, 70, 229, 0.5);
-        }
+        .fallback-explanation-box { background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(139, 92, 246, 0.05)); border: 1px solid rgba(79, 70, 229, 0.3); border-left: 5px solid var(--primary); padding: 18px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.1); display: none; }
+        body.dark-mode .fallback-explanation-box { background: linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(139, 92, 246, 0.05)); border-color: rgba(79, 70, 229, 0.5); }
 
         /* URGENT PROMPT BEFORE FORM */
-        .urgent-prompt-box {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
-            border: 2px dashed var(--success);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15);
-            animation: pulse-success-border 2s infinite;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-        body.dark-mode .urgent-prompt-box {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
-            border-color: var(--success);
-        }
-        @keyframes pulse-success-border {
-            0% { border-color: rgba(16, 185, 129, 0.4); }
-            50% { border-color: rgba(16, 185, 129, 1); }
-            100% { border-color: rgba(16, 185, 129, 0.4); }
-        }
-        @keyframes tada {
-            0% { transform: scale(1); }
-            10%, 20% { transform: scale(0.9) rotate(-3deg); }
-            30%, 50%, 70%, 90% { transform: scale(1.1) rotate(3deg); }
-            40%, 60%, 80% { transform: scale(1.1) rotate(-3deg); }
-            100% { transform: scale(1); }
-        }
+        .urgent-prompt-box { background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05)); border: 2px dashed var(--success); padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15); animation: pulse-success-border 2s infinite; margin-bottom: 25px; text-align: center; }
+        body.dark-mode .urgent-prompt-box { border-color: var(--success); }
+        @keyframes pulse-success-border { 0% { border-color: rgba(16, 185, 129, 0.4); } 50% { border-color: rgba(16, 185, 129, 1); } 100% { border-color: rgba(16, 185, 129, 0.4); } }
+        @keyframes tada { 0% { transform: scale(1); } 10%, 20% { transform: scale(0.9) rotate(-3deg); } 30%, 50%, 70%, 90% { transform: scale(1.1) rotate(3deg); } 40%, 60%, 80% { transform: scale(1.1) rotate(-3deg); } 100% { transform: scale(1); } }
+        
         .shimmer { position: relative; overflow: hidden; }
-        .shimmer::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-20deg); animation: shimmer-effect 2.5s infinite;
-        }
+        .shimmer::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%); transform: skewX(-20deg); animation: shimmer-effect 2.5s infinite; }
         @keyframes shimmer-effect { 100% { left: 200%; } }
 
         /* Action Buttons */
         .btn-container { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
         .action-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 22px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 0.95rem; border: none; cursor: pointer; transition: all 0.2s ease; flex: 1; min-width: 200px;}
         
-        .submit-btn {
-            background: linear-gradient(135deg, #10b981, #059669); color: white;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); animation: pulse-green 2s infinite;
-        }
+        .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); animation: pulse-green 2s infinite; }
         .submit-btn:hover { background: linear-gradient(135deg, #059669, #047857); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5); }
         @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
         
         .share-btn { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
         .share-btn:hover { background: linear-gradient(135deg, #2563eb, #1d4ed8); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5); }
-
         .feedback-btn { background: linear-gradient(135deg, #a855f7, #7e22ce); color: white; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4); }
         .feedback-btn:hover { background: linear-gradient(135deg, #7e22ce, #6b21a8); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5); }
 
-        /* Glowing Download Button for Dark Mode */
-        .download-btn {
-            background: linear-gradient(135deg, #8b5cf6, #6d28d9) !important; color: white !important;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4) !important; border: none !important;
-            padding: 14px 20px; border-radius: 10px; font-weight: 800; cursor: pointer; transition: all 0.2s ease;
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
-        }
+        .download-btn { background: linear-gradient(135deg, #8b5cf6, #6d28d9) !important; color: white !important; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4) !important; border: none !important; padding: 14px 20px; border-radius: 10px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; }
         .download-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6) !important; }
 
-        /* Legend Style */
-        .status-legend {
-            display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 15px; padding: 10px; border-radius: 8px; background: var(--bg-color); border: 1px dashed var(--border);
-        }
+        .status-legend { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 15px; padding: 10px; border-radius: 8px; background: var(--bg-color); border: 1px dashed var(--border); }
         .legend-item { font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; gap: 5px; color: var(--text-color); }
 
         @media (max-width: 768px) {
@@ -268,7 +204,7 @@
 
             <div class="btn-container">
                 <a href="https://forms.gle/39KtHEdFt5dSjBF87" target="_blank" class="action-btn submit-btn" onclick="gtag('event', 'click', {'event_category': 'outbound', 'event_label': 'Google Form Button'});">
-                    📝 Submit Marks / फॉर्म भरें
+                    📝 Submit via Google Form
                 </a>
                 <button id="shareSiteBtn" class="action-btn share-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
@@ -280,6 +216,42 @@
             </div>
         </div>
 
+        <div class="card" style="border: 2px solid var(--success); margin-bottom: 25px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), transparent);">
+            <h2 style="color: var(--success); display: flex; align-items: center; gap: 10px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                Submit Data Directly
+            </h2>
+            <div class="grid">
+                <div class="form-group">
+                    <label>Roll Number (Required)</label>
+                    <input type="text" id="submitRoll" placeholder="e.g. 1122334455">
+                </div>
+                <div class="form-group">
+                    <label>Candidate Name (Required)</label>
+                    <input type="text" id="submitName" placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                    <label>Exact Marks (Decimals Required)</label>
+                    <input type="number" id="submitMarks" step="0.01" placeholder="e.g. 158.06">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="submitCat">
+                        <option value="UR">UR</option>
+                        <option value="OBC DELHI">OBC DELHI</option>
+                        <option value="SC">SC</option>
+                        <option value="ST">ST</option>
+                        <option value="EWS">EWS</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Upload Scorecard Screenshot (Image will be compressed automatically)</label>
+                <input type="file" id="submitFile" accept="image/*" style="border: 2px dashed var(--success); background: rgba(16, 185, 129, 0.05);">
+            </div>
+            <button id="nativeSubmitBtn" class="submit-btn" style="width: 100%; font-size: 1.1rem; padding: 15px;">Upload & Submit to Database</button>
+        </div>
+
         <div class="grid">
             <div class="card">
                 <h2>Predict Your Rank</h2>
@@ -289,10 +261,13 @@
                         <span style="font-size: 1.5rem; display: inline-block; animation: tada 1.5s infinite;">🔔</span>
                         <h4 style="margin: 0; color: var(--success); font-size: 1.2rem; font-weight: 900; letter-spacing: 0.5px;">URGENT ACTION</h4>
                     </div>
-                    <p style="font-weight: 800; color: var(--text-color); font-size: 0.95rem; margin-bottom: 8px;"><strong>Before checking your rank</strong>, please submit your genuine score using the Green Form Button above to ensure 100% accuracy!</p>
-                    <p style="font-weight: 900; color: var(--success); font-size: 1rem; border-top: 1px dashed var(--success); padding-top: 8px;">🚨 रैंक देखने से पहले कृपया अपना असली स्कोर ऊपर दिए गए हरे बटन से फॉर्म में जरूर भरें!</p>
+                    <p style="font-weight: 800; color: var(--text-color); font-size: 0.95rem; margin-bottom: 8px;"><strong>Before checking your rank</strong>, please submit your genuine score using the form above to ensure 100% accuracy!</p>
                 </div>
 
+                <div class="form-group">
+                    <label for="rollInput">Roll Number (Optional - To Auto Check Verification Status)</label>
+                    <input type="text" id="rollInput" placeholder="Enter Roll Number to fetch status">
+                </div>
                 <div class="form-group">
                     <label for="marksInput">Your Marks</label>
                     <input type="number" id="marksInput" placeholder="Enter exactly, e.g. 155.24" step="0.01">
@@ -317,9 +292,11 @@
                 <div id="scorecard-area" style="padding: 25px; background-color: var(--card-bg);">
                     <h2 style="display: flex; justify-content: space-between; align-items: center; border-bottom: none; margin-bottom: 15px;">
                         Your Estimated Status
-                        <span id="scorecard-watermark" style="display: none; font-size: 0.7rem; color: var(--primary); font-weight: 800; text-transform: uppercase;">tinyurl.com/dsssb-rank</span>
+                        <span id="scorecard-watermark" style="display: none; font-size: 0.8rem; color: var(--primary); font-weight: 800; text-transform: uppercase;">🔍 tinyurl.com/dsssb-rank</span>
                     </h2>
                     
+                    <div id="verificationStatusDiv" style="margin-bottom: 15px; display: none; text-align: center;"></div>
+
                     <div id="qualificationStatus" style="margin-bottom: 18px; padding: 15px; border-radius: 10px; background-color: var(--bg-color); text-align: center; border: 2px dashed var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80px;">
                         <span style="font-weight: 700; opacity: 0.6;">Enter marks to see qualification status.</span>
                     </div>
@@ -408,7 +385,7 @@
                 <div style="padding: 0 25px 25px 25px; display: flex; justify-content: center;">
                     <button id="downloadScorecardBtn" class="download-btn" data-html2canvas-ignore="true" style="display: none;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Download Shareable Scorecard
+                        Download HD Shareable Scorecard
                     </button>
                 </div>
             </div>
@@ -465,7 +442,7 @@
                     <div class="table-container">
                         <table id="overallRankersTable">
                             <thead>
-                                <tr><th>Rank</th><th>Name</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr>
+                                <tr><th>Rank</th><th>Name & Roll</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr>
                             </thead>
                             <tbody></tbody>
                         </table>
@@ -477,7 +454,7 @@
                     <div class="table-container">
                         <table id="categoryRankersInclTable">
                             <thead>
-                                <tr><th>Rank</th><th>Name</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr>
+                                <tr><th>Rank</th><th>Name & Roll</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr>
                             </thead>
                             <tbody></tbody>
                         </table>
@@ -489,7 +466,7 @@
                     <div class="table-container">
                         <table id="categoryRankersExclTable">
                             <thead>
-                                <tr><th>Rank</th><th>Name</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr>
+                                <tr><th>Rank</th><th>Name & Roll</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr>
                             </thead>
                             <tbody></tbody>
                         </table>
@@ -501,10 +478,10 @@
     </div>
 
     <div style="margin-top: 40px; padding: 25px; background-color: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); font-size: 0.9rem; text-align: center; line-height: 1.7; box-shadow: var(--shadow);">
-        <p style="margin-bottom: 10px; font-weight: 600;"><strong style="color: var(--danger);">Disclaimer:</strong> This data is fetched from Google Form responses submitted by candidates based on their uploaded marks screenshots. This is an approximate rank predictor created with the combined efforts of candidates.</p>
-        <p style="margin-bottom: 20px; font-style: italic; opacity: 0.85; font-weight: 600;"><strong style="color: var(--danger);">अस्वीकरण:</strong> यह डेटा उम्मीदवारों द्वारा अपलोड किए गए मार्क्स के स्क्रीनशॉट के आधार पर सबमिट किए गए गूगल फॉर्म रिस्पॉन्स से लिया गया है। यह अनुमानित रैंक प्रेडिक्टर है।</p>
+        <p style="margin-bottom: 10px; font-weight: 600;"><strong style="color: var(--danger);">Disclaimer:</strong> This data is fetched from form responses submitted by candidates. This is an approximate rank predictor created with the combined efforts of candidates.</p>
+        <p style="margin-bottom: 20px; font-style: italic; opacity: 0.85; font-weight: 600;"><strong style="color: var(--danger);">अस्वीकरण:</strong> यह अनुमानित रैंक प्रेडिक्टर है।</p>
         <div style="display: inline-block; padding: 12px 25px; background-color: var(--bg-color); border-radius: 8px; border: 1px dashed var(--border);">
-            <p style="font-weight: 700;">Special thanks to <strong style="color: var(--primary);">Amit</strong> for sharing form data. | फॉर्म डेटा शेयर करने के लिए <strong style="color: var(--primary);">अमित</strong> का विशेष धन्यवाद।</p>
+            <p style="font-weight: 700;">Special thanks to <strong style="color: var(--primary);">Amit</strong> for sharing form data.</p>
         </div>
     </div>
 </div>
@@ -513,7 +490,7 @@
     // ==========================================
     // 1. CONFIGURATION & CONSTANTS
     // ==========================================
-    const API_URL = "https://script.google.com/macros/s/AKfycby6YbOTq-j6y6odPk0DsPvkH4T3VyJADALB5oG3v4otk2ACt_t4PgHg_a5m1_4V2gxV/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycby6YbOTq-j6y6odPk0DsPvkH4T3VyJADALB5oG3v4otk2ACt_t4PgHg_a5m1_4V2gxV/exec"; // UPDATE THIS WITH NEW DEPLOYMENT URL IF NEEDED
     const cutoffs = { "UR": 149.15, "EWS": 119.62, "SC": 120.36, "OBC DELHI": 84.77, "ST": 104.75, "OTHER": 61.97 };
 
     let cleanData = [];
@@ -532,6 +509,24 @@
     }
 
     // ==========================================
+    // PANACEA 1: DYNAMIC IDENTITY MASKING ENGINE
+    // ==========================================
+    function maskName(name) {
+        if (!name) return 'Anonymous';
+        let clean = String(name).trim();
+        if (clean.length <= 2) return clean.charAt(0) + '*';
+        if (clean.length <= 4) return clean.charAt(0) + '*'.repeat(clean.length - 2) + clean.charAt(clean.length - 1);
+        return clean.substring(0, 2) + '*'.repeat(clean.length - 4) + clean.substring(clean.length - 2);
+    }
+
+    function maskRoll(roll) {
+        if (!roll || roll === "-" || roll === "") return '';
+        let r = String(roll).trim();
+        if (r.length <= 6) return r;
+        return r.substring(0, 2) + '*'.repeat(r.length - 6) + r.substring(r.length - 4);
+    }
+
+    // ==========================================
     // 1.5. ACTUAL TIME UPDATER (TRACKS DATA CHANGES)
     // ==========================================
     function updateFakeCleanTime() {
@@ -539,7 +534,6 @@
         let storedFakes = localStorage.getItem("dsssb_fakes_count");
         let storedTime = localStorage.getItem("dsssb_fakes_time");
 
-        // Update the timestamp ONLY if the amount of fake data has actually changed
         if (currentFakes !== storedFakes || !storedTime) {
             let now = new Date();
             let utc = now.getTime() + (now.getTimezoneOffset() * 60000);
@@ -558,7 +552,6 @@
             localStorage.setItem("dsssb_fakes_count", currentFakes);
             localStorage.setItem("dsssb_fakes_time", storedTime);
         }
-        
         document.getElementById('td-updated').innerText = storedTime;
     }
 
@@ -580,7 +573,9 @@
             if (data.topRankers) {
                 topRankers = data.topRankers.map(row => ({
                     Marks: parseFloat(row["Marks"]), Name: row["NAME"] || row["Name"], Category: row["Category"],
-                    TypingSpeed: row["CURRENT TYPING SPEED"] || row["  CURRENT TYPING SPEED"] || "-", Verified: row["Verified"] 
+                    TypingSpeed: row["CURRENT TYPING SPEED"] || row["  CURRENT TYPING SPEED"] || "-", 
+                    Verified: row["Verified"],
+                    RollNo: row["Roll No"] || row["RollNo"] || row["Roll Number"] || "" // Support dynamic roll fetch
                 })).filter(row => !isNaN(row.Marks));
             }
             
@@ -640,9 +635,42 @@
     // 4. RANK & FALLBACK PROBABILITY ENGINE
     // ==========================================
     predictBtn.addEventListener('click', () => {
-        const uMarksRaw = document.getElementById('marksInput').value;
-        const uCat = document.getElementById('categoryInput').value.toUpperCase();
-        if (!uMarksRaw || isNaN(uMarksRaw)) { alert("Please enter a valid decimal number."); return; }
+        const uRoll = document.getElementById('rollInput').value.trim();
+        let uMarksRaw = document.getElementById('marksInput').value;
+        let uCat = document.getElementById('categoryInput').value.toUpperCase();
+        
+        const verificationDiv = document.getElementById('verificationStatusDiv');
+        verificationDiv.style.display = 'none';
+
+        // Roll Number Fetch & Verify Logic
+        if (uRoll) {
+            const foundUser = topRankers.find(r => String(r.RollNo).trim() === uRoll);
+            if (foundUser) {
+                // Auto-fill their marks and category!
+                uMarksRaw = foundUser.Marks;
+                document.getElementById('marksInput').value = foundUser.Marks;
+                
+                // Select category if it matches
+                const catSelect = document.getElementById('categoryInput');
+                for(let i=0; i<catSelect.options.length; i++) {
+                    if (catSelect.options[i].value.toUpperCase() === foundUser.Category.toUpperCase()) {
+                        catSelect.selectedIndex = i;
+                        uCat = foundUser.Category.toUpperCase();
+                        break;
+                    }
+                }
+
+                // Show Verified Status on Scorecard
+                verificationDiv.innerHTML = `<span class="badge" style="background:var(--success); color:#fff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);">✔️ IDENTITY VERIFIED</span>`;
+                verificationDiv.style.display = 'block';
+            } else {
+                // If Roll No entered but NOT in topRankers (meaning pending or rejected based on sheet logic)
+                verificationDiv.innerHTML = `<span class="badge" style="background:var(--warning); color:#fff; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">⏳ STATUS: PENDING / NOT FOUND</span><div style="font-size:0.8rem; font-weight:700; opacity:0.8; margin-top:5px;">Your data is either pending manual verification or not found. Showing temporary prediction.</div>`;
+                verificationDiv.style.display = 'block';
+            }
+        }
+
+        if (!uMarksRaw || isNaN(uMarksRaw)) { alert("Please enter a valid decimal number or Roll Number."); return; }
 
         const uMarks = parseFloat(uMarksRaw);
         const EPSILON = 0.0001; 
@@ -723,7 +751,6 @@
         if (uCat === 'OVERALL' || uCat === 'NONE') {
             finalStatusHtml = `<span style="font-size: 0.8rem; font-weight: 600; opacity: 0.8;">Select your Category above to see Probability.</span>`;
         } else {
-            // Find Safe (35%) and Borderline (45%) Thresholds for UR
             let urTotal = 0, urCandidates = [];
             cleanData.forEach(row => { if(row.Marks >= cutoffs["UR"]) { urTotal += row.Count; urCandidates.push(row); }});
             urCandidates.sort((a,b) => b.Marks - a.Marks);
@@ -748,11 +775,9 @@
                 } else if (urPerc >= 55) {
                     finalStatusHtml = `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge" style="background:var(--warning); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4);">Borderline</span><span style="font-size:0.85rem; font-weight:800; color:var(--warning);">Final selection dependent on UR typing pass rate</span></div>`;
                 } else {
-                    // Falls below 55%ile in UR -> Falls back to Category
                     finalStatusHtml = getFallbackStatus(uMarks, uCat, urBorderlineMark); 
                 }
             } else {
-                // Already in Category -> Pure Fallback math
                 finalStatusHtml = getFallbackStatus(uMarks, uCat, urBorderlineMark); 
             }
         }
@@ -779,11 +804,8 @@
         renderDynamicTables(uCat);
     });
 
-    // Pure Category Fallback Math Engine
     function getFallbackStatus(uMarks, uCat, urBorderlineMark) {
         let catPoolTotal = 0, catPoolAbove = 0;
-        
-        // Anyone in category scoring BELOW the UR Borderline Mark forms the new Fallback Pool
         cleanData.forEach(row => {
             if(row.Category.toUpperCase() === uCat && row.Marks < urBorderlineMark) { 
                 catPoolTotal += row.Count;
@@ -799,7 +821,6 @@
             return `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge shimmer" style="background:var(--warning); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">Data Pending</span><span style="font-size:0.85rem; font-weight:800; color:var(--warning);">Need more data for ${uCat}</span></div>`;
         }
 
-        // Calculate True Fallback Percentile
         let catPerc = ((catPoolTotal - catPoolAbove) / Math.max(1, catPoolTotal)) * 100;
         
         if (catPerc >= 65) {
@@ -812,13 +833,13 @@
     }
 
     // ==========================================
-    // 5. SHARE & EXPORT (VIRAL ENGINE)
+    // 5. SHARE & HD EXPORT (VIRAL ENGINE)
     // ==========================================
     shareBtn.addEventListener('click', async () => {
         gtag('event', 'share', {'event_category': 'engagement', 'event_label': 'Share Button Clicked'});
         const shareData = {
             title: 'DSSSB LDC & Steno Rank Predictor (802/23)',
-            text: 'Check your DSSSB LDC & Steno Rank mathematically! 📊\n\n📝 Submit genuine marks here: https://forms.gle/39KtHEdFt5dSjBF87\n\n🔍 Check live rank here: https://tinyurl.com/dsssb-rank',
+            text: 'Check your DSSSB LDC & Steno Rank mathematically! 📊\n\n📝 Submit genuine marks here: https://tinyurl.com/dsssb-rank\n\n🔍 Check live rank here: https://tinyurl.com/dsssb-rank',
             url: 'https://tinyurl.com/dsssb-rank'
         };
         try {
@@ -833,6 +854,7 @@
         }
     });
 
+    // PANACEA 2: High Resolution Scorecard Generation
     downloadBtn.addEventListener('click', () => {
         gtag('event', 'download', {'event_category': 'engagement', 'event_label': 'Scorecard Download'});
         const area = document.getElementById('scorecard-area');
@@ -841,18 +863,79 @@
         area.style.border = "4px solid var(--primary)";
         area.style.borderRadius = "12px";
         watermark.style.display = "block";
-        downloadBtn.innerHTML = "Generating...";
+        downloadBtn.innerHTML = "Rendering HD Scorecard...";
 
-        html2canvas(area, { scale: 2, backgroundColor: getComputedStyle(document.body).getPropertyValue('--card-bg') }).then(canvas => {
+        // Scale 3 ensures text is crystal clear, useCORS handles external assets safely
+        html2canvas(area, { scale: 3, useCORS: true, backgroundColor: getComputedStyle(document.body).getPropertyValue('--card-bg') }).then(canvas => {
             const link = document.createElement('a');
-            link.download = `DSSSB_LDC_Rank_${document.getElementById('marksInput').value}.png`;
-            link.href = canvas.toDataURL('image/png');
+            link.download = `DSSSB_LDC_Rank_${document.getElementById('marksInput').value}.jpg`;
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
             link.click();
             
             area.style.border = "none";
             watermark.style.display = "none";
-            downloadBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download Shareable Scorecard`;
+            downloadBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download HD Shareable Scorecard`;
         });
+    });
+
+    // ==========================================
+    // PANACEA 3: NATIVE FORM IMAGE COMPRESSION
+    // ==========================================
+    document.getElementById('nativeSubmitBtn').addEventListener('click', async () => {
+        const rollNo = document.getElementById('submitRoll').value;
+        const name = document.getElementById('submitName').value;
+        const marks = document.getElementById('submitMarks').value;
+        const category = document.getElementById('submitCat').value;
+        const fileInput = document.getElementById('submitFile');
+        const btn = document.getElementById('nativeSubmitBtn');
+
+        if (!rollNo || !name || !marks || !fileInput.files[0]) {
+            alert("Roll No, Name, Marks, and Screenshot are mandatory!");
+            return;
+        }
+
+        btn.innerText = "Compressing Image & Uploading...";
+        btn.disabled = true;
+
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        
+        reader.onload = function(event) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const MAX_WIDTH = 800; // Compresses huge phone photos to 800px width
+                const scaleSize = MAX_WIDTH / img.width;
+                canvas.width = MAX_WIDTH;
+                canvas.height = img.height * scaleSize;
+                
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.7); 
+                
+                fetch(API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        rollNo: rollNo, name: name, marks: marks, category: category,
+                        fileBase64: dataUrl, mimeType: "image/jpeg"
+                    })
+                }).then(res => res.json()).then(data => {
+                    if(data.status === "success") {
+                        alert("Data Submitted Successfully! Your entry is now pending manual verification.");
+                        btn.innerText = "Submitted! Pending Verification.";
+                    } else {
+                        throw new Error(data.message);
+                    }
+                }).catch(err => {
+                    alert("Upload failed. Please ensure your Apps Script is deployed properly.");
+                    btn.innerText = "Upload & Submit to Database";
+                    btn.disabled = false;
+                });
+            }
+            img.src = event.target.result;
+        }
+        reader.readAsDataURL(file);
     });
 
     // ==========================================
@@ -888,9 +971,14 @@
             const tr = document.createElement('tr');
             let badgeHtml = (row.Verified && row.Verified.toLowerCase() === 'yes') ? `<span class="verified-badge">✔️ Verified</span>` : '';
             
+            // APPLYING IDENTITY MASKING
+            let safeName = maskName(row.Name);
+            let safeRoll = maskRoll(row.RollNo);
+            let rollDisplay = safeRoll ? `<span style="font-size:0.75rem; opacity:0.6; display:block;">(${safeRoll})</span>` : '';
+
             tr.innerHTML = `
                 <td style="font-weight: 800; color: var(--text-color);">${index + 1}</td>
-                <td style="font-weight: 700;">${row.Name || 'Anonymous'} ${badgeHtml}</td>
+                <td style="font-weight: 700;">${safeName} ${rollDisplay} ${badgeHtml}</td>
                 <td style="font-weight: 900; color: var(--primary);">${row.Marks}</td>
                 <td><span style="background: var(--border); padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-weight: 800;">${row.Category}</span></td>
                 <td><span style="font-weight: 700; opacity: 0.8;">${row.TypingSpeed || '-'}</span></td>

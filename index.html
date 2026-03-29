@@ -53,11 +53,7 @@
         
         .container { max-width: 1250px; margin: 0 auto; }
 
-        .top-contact-bar {
-            background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 15px; margin-bottom: 25px; 
-            display: flex; justify-content: center; align-items: center; text-align: center; gap: 8px; 
-            box-shadow: var(--shadow); font-size: 0.85rem; font-weight: 600;
-        }
+        .top-contact-bar { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 15px; margin-bottom: 25px; display: flex; justify-content: center; align-items: center; text-align: center; gap: 8px; box-shadow: var(--shadow); font-size: 0.85rem; font-weight: 600; }
         .top-contact-bar a { color: var(--primary); text-decoration: none; font-weight: 800; }
         .top-contact-bar a:hover { text-decoration: underline; }
         
@@ -116,28 +112,20 @@
         
         #app { display: none; }
 
-        /* BEAUTIFUL PANIC BOX UI */
         .panic-box { background: linear-gradient(135deg, #fffbeb, #fef3c7); border-left: 6px solid var(--warning); padding: 18px; margin-bottom: 20px; border-radius: 8px 12px 12px 8px; display: none; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15); animation: pulse-border 2s infinite; }
         body.dark-mode .panic-box { background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05)); }
         @keyframes pulse-border { 0% { border-color: rgba(245, 158, 11, 0.4); } 50% { border-color: rgba(245, 158, 11, 1); } 100% { border-color: rgba(245, 158, 11, 0.4); } }
         .panic-box p { font-size: 0.85rem; font-weight: 600; color: var(--warning); margin: 0 0 8px 0; line-height: 1.5; }
         .panic-box p:last-child { margin-bottom: 0; }
 
-        /* FALLBACK EXPLANATION BOX */
         .fallback-explanation-box { background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(139, 92, 246, 0.05)); border: 1px solid rgba(79, 70, 229, 0.3); border-left: 5px solid var(--primary); padding: 18px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.1); display: none; }
         body.dark-mode .fallback-explanation-box { background: linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(139, 92, 246, 0.05)); border-color: rgba(79, 70, 229, 0.5); }
 
-        /* URGENT PROMPT BEFORE FORM */
         .urgent-prompt-box { background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05)); border: 2px dashed var(--success); padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15); animation: pulse-success-border 2s infinite; margin-bottom: 25px; text-align: center; }
         body.dark-mode .urgent-prompt-box { border-color: var(--success); }
         @keyframes pulse-success-border { 0% { border-color: rgba(16, 185, 129, 0.4); } 50% { border-color: rgba(16, 185, 129, 1); } 100% { border-color: rgba(16, 185, 129, 0.4); } }
         @keyframes tada { 0% { transform: scale(1); } 10%, 20% { transform: scale(0.9) rotate(-3deg); } 30%, 50%, 70%, 90% { transform: scale(1.1) rotate(3deg); } 40%, 60%, 80% { transform: scale(1.1) rotate(-3deg); } 100% { transform: scale(1); } }
         
-        .shimmer { position: relative; overflow: hidden; }
-        .shimmer::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%); transform: skewX(-20deg); animation: shimmer-effect 2.5s infinite; }
-        @keyframes shimmer-effect { 100% { left: 200%; } }
-
-        /* Action Buttons */
         .btn-container { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
         .action-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 22px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 0.95rem; border: none; cursor: pointer; transition: all 0.2s ease; flex: 1; min-width: 200px;}
         
@@ -155,6 +143,9 @@
 
         .status-legend { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 15px; padding: 10px; border-radius: 8px; background: var(--bg-color); border: 1px dashed var(--border); }
         .legend-item { font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; gap: 5px; color: var(--text-color); }
+
+        /* NATIVE FORM SUCCESS BANNER */
+        #uploadSuccessMsg { display: none; padding: 15px; border-radius: 8px; background: rgba(16, 185, 129, 0.15); border: 2px dashed var(--success); color: var(--success); font-weight: 800; text-align: center; margin-top: 15px; animation: pulse-success-border 2s infinite; }
 
         @media (max-width: 768px) {
             body { padding: 15px 10px; }
@@ -216,23 +207,23 @@
             </div>
         </div>
 
-        <div class="card" style="border: 2px solid var(--success); margin-bottom: 25px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), transparent);">
+        <div class="card" id="nativeSubmitCard" style="border: 2px solid var(--success); margin-bottom: 25px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), transparent);">
             <h2 style="color: var(--success); display: flex; align-items: center; gap: 10px;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                 Submit Data Directly
             </h2>
             <div class="grid">
                 <div class="form-group">
-                    <label>Roll Number (Required)</label>
-                    <input type="text" id="submitRoll" placeholder="e.g. 1122334455">
+                    <label>Roll Number (Required - Max 20 digits)</label>
+                    <input type="text" id="submitRoll" placeholder="e.g. 1122334455" maxlength="20" oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, '')">
                 </div>
                 <div class="form-group">
                     <label>Candidate Name (Required)</label>
                     <input type="text" id="submitName" placeholder="Your full name">
                 </div>
                 <div class="form-group">
-                    <label>Exact Marks (Decimals Required)</label>
-                    <input type="number" id="submitMarks" step="0.01" placeholder="e.g. 158.06">
+                    <label>Exact Marks (Decimals Required - Max 200)</label>
+                    <input type="number" id="submitMarks" step="0.01" max="200.00" placeholder="e.g. 158.06" oninput="if(this.value > 200) this.value = 200;">
                 </div>
                 <div class="form-group">
                     <label>Category</label>
@@ -250,6 +241,7 @@
                 <input type="file" id="submitFile" accept="image/*" style="border: 2px dashed var(--success); background: rgba(16, 185, 129, 0.05);">
             </div>
             <button id="nativeSubmitBtn" class="submit-btn" style="width: 100%; font-size: 1.1rem; padding: 15px;">Upload & Submit to Database</button>
+            <div id="uploadSuccessMsg">✅ Details Sent Successfully! Pending manual verification.</div>
         </div>
 
         <div class="grid">
@@ -490,7 +482,7 @@
     // ==========================================
     // 1. CONFIGURATION & CONSTANTS
     // ==========================================
-    const API_URL = "https://script.google.com/macros/s/AKfycby6YbOTq-j6y6odPk0DsPvkH4T3VyJADALB5oG3v4otk2ACt_t4PgHg_a5m1_4V2gxV/exec"; // UPDATE THIS WITH NEW DEPLOYMENT URL IF NEEDED
+    const API_URL = "https://script.google.com/macros/s/AKfycby6YbOTq-j6y6odPk0DsPvkH4T3VyJADALB5oG3v4otk2ACt_t4PgHg_a5m1_4V2gxV/exec"; 
     const cutoffs = { "UR": 149.15, "EWS": 119.62, "SC": 120.36, "OBC DELHI": 84.77, "ST": 104.75, "OTHER": 61.97 };
 
     let cleanData = [];
@@ -526,9 +518,6 @@
         return r.substring(0, 2) + '*'.repeat(r.length - 6) + r.substring(r.length - 4);
     }
 
-    // ==========================================
-    // 1.5. ACTUAL TIME UPDATER (TRACKS DATA CHANGES)
-    // ==========================================
     function updateFakeCleanTime() {
         let currentFakes = siteData["Fakes Removed"] || "-";
         let storedFakes = localStorage.getItem("dsssb_fakes_count");
@@ -575,7 +564,7 @@
                     Marks: parseFloat(row["Marks"]), Name: row["NAME"] || row["Name"], Category: row["Category"],
                     TypingSpeed: row["CURRENT TYPING SPEED"] || row["  CURRENT TYPING SPEED"] || "-", 
                     Verified: row["Verified"],
-                    RollNo: row["Roll No"] || row["RollNo"] || row["Roll Number"] || "" // Support dynamic roll fetch
+                    RollNo: row["Roll No"] || row["RollNo"] || row["Roll Number"] || "" 
                 })).filter(row => !isNaN(row.Marks));
             }
             
@@ -642,15 +631,12 @@
         const verificationDiv = document.getElementById('verificationStatusDiv');
         verificationDiv.style.display = 'none';
 
-        // Roll Number Fetch & Verify Logic
         if (uRoll) {
             const foundUser = topRankers.find(r => String(r.RollNo).trim() === uRoll);
             if (foundUser) {
-                // Auto-fill their marks and category!
                 uMarksRaw = foundUser.Marks;
                 document.getElementById('marksInput').value = foundUser.Marks;
                 
-                // Select category if it matches
                 const catSelect = document.getElementById('categoryInput');
                 for(let i=0; i<catSelect.options.length; i++) {
                     if (catSelect.options[i].value.toUpperCase() === foundUser.Category.toUpperCase()) {
@@ -659,24 +645,20 @@
                         break;
                     }
                 }
-
-                // Show Verified Status on Scorecard
                 verificationDiv.innerHTML = `<span class="badge" style="background:var(--success); color:#fff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);">✔️ IDENTITY VERIFIED</span>`;
                 verificationDiv.style.display = 'block';
             } else {
-                // If Roll No entered but NOT in topRankers (meaning pending or rejected based on sheet logic)
                 verificationDiv.innerHTML = `<span class="badge" style="background:var(--warning); color:#fff; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">⏳ STATUS: PENDING / NOT FOUND</span><div style="font-size:0.8rem; font-weight:700; opacity:0.8; margin-top:5px;">Your data is either pending manual verification or not found. Showing temporary prediction.</div>`;
                 verificationDiv.style.display = 'block';
             }
         }
 
-        if (!uMarksRaw || isNaN(uMarksRaw)) { alert("Please enter a valid decimal number or Roll Number."); return; }
+        if (!uMarksRaw || isNaN(uMarksRaw) || parseFloat(uMarksRaw) > 200) { alert("Please enter a valid decimal number strictly under 200."); return; }
 
         const uMarks = parseFloat(uMarksRaw);
         const EPSILON = 0.0001; 
         const totalCandidates = cleanData.reduce((sum, row) => sum + row.Count, 0);
 
-        // --- 1. OVERALL MATH ---
         let overallAbove = 0, overallSame = 0;
         cleanData.forEach(row => {
             if (row.Marks > uMarks + EPSILON) overallAbove += row.Count;
@@ -689,7 +671,6 @@
         document.getElementById('resOverallSame').innerText = overallSame;
         document.getElementById('sameMarksMessage').innerText = overallSame > 0 ? `🔥 ${overallSame} candidate(s) have the exact same marks as you` : "";
 
-        // --- 2. CATEGORY MATH ---
         document.getElementById('displayUserCat').innerText = (uCat === 'OVERALL' || uCat === 'NONE') ? 'All' : uCat;
         
         let catOrigAbove = 0, catExclURAbove = 0, totalInCat = 0, totalInCatExclUR = 0;
@@ -739,7 +720,6 @@
             document.getElementById('scrollHindiMsg').style.display = 'none';
         }
 
-        // --- 3. FINAL SELECTION FALLBACK ENGINE ---
         document.getElementById('probabilitySection').style.display = 'block';
         
         const smallPoolMsg = document.getElementById('smallPoolMsg');
@@ -784,7 +764,6 @@
 
         document.getElementById('probFinalStatus').innerHTML = finalStatusHtml;
 
-        // --- 4. QUALIFICATION UI ---
         const statusDiv = document.getElementById('qualificationStatus');
         const myCatCutoff = cutoffs[uCat];
         let cutoffText = (uCat !== 'OVERALL' && uCat !== 'NONE' && myCatCutoff) ? `<div style="margin-top: 8px; font-size:0.9rem; font-weight:700; color: var(--text-color); opacity: 0.8;">Your category cutoff: ${myCatCutoff}</div>` : '';
@@ -854,7 +833,6 @@
         }
     });
 
-    // PANACEA 2: High Resolution Scorecard Generation
     downloadBtn.addEventListener('click', () => {
         gtag('event', 'download', {'event_category': 'engagement', 'event_label': 'Scorecard Download'});
         const area = document.getElementById('scorecard-area');
@@ -865,7 +843,6 @@
         watermark.style.display = "block";
         downloadBtn.innerHTML = "Rendering HD Scorecard...";
 
-        // Scale 3 ensures text is crystal clear, useCORS handles external assets safely
         html2canvas(area, { scale: 3, useCORS: true, backgroundColor: getComputedStyle(document.body).getPropertyValue('--card-bg') }).then(canvas => {
             const link = document.createElement('a');
             link.download = `DSSSB_LDC_Rank_${document.getElementById('marksInput').value}.jpg`;
@@ -879,7 +856,7 @@
     });
 
     // ==========================================
-    // PANACEA 3: NATIVE FORM IMAGE COMPRESSION (WITH DEBUGGER)
+    // PANACEA 3: ZERO-WAIT SECURE IMAGE UPLOAD
     // ==========================================
     document.getElementById('nativeSubmitBtn').addEventListener('click', async () => {
         const rollNo = document.getElementById('submitRoll').value;
@@ -888,13 +865,28 @@
         const category = document.getElementById('submitCat').value;
         const fileInput = document.getElementById('submitFile');
         const btn = document.getElementById('nativeSubmitBtn');
+        const successMsg = document.getElementById('uploadSuccessMsg');
+
+        // Reset UI
+        successMsg.style.display = 'none';
 
         if (!rollNo || !name || !marks || !fileInput.files[0]) {
             alert("Roll No, Name, Marks, and Screenshot are mandatory!");
             return;
         }
 
-        btn.innerText = "Compressing Image & Uploading...";
+        // Strict Front-End Validation
+        if (parseFloat(marks) > 200 || parseFloat(marks) < 0) {
+            alert("Marks must be between 0 and 200.");
+            return;
+        }
+        
+        if (rollNo.length > 20) {
+            alert("Roll Number cannot exceed 20 characters.");
+            return;
+        }
+
+        btn.innerText = "Securing Data...";
         btn.disabled = true;
 
         const file = fileInput.files[0];
@@ -904,7 +896,8 @@
             const img = new Image();
             img.onload = function() {
                 const canvas = document.createElement('canvas');
-                const MAX_WIDTH = 800;
+                // AGGRESSIVE COMPRESSION: Shrink to 600px width to prevent Google API timeouts
+                const MAX_WIDTH = 600; 
                 const scaleSize = MAX_WIDTH / img.width;
                 canvas.width = MAX_WIDTH;
                 canvas.height = img.height * scaleSize;
@@ -912,29 +905,32 @@
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                 
-                const dataUrl = canvas.toDataURL('image/jpeg', 0.7); 
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.5); 
                 
+                // ZERO-WAIT UI: Show success instantly while background fetch happens
+                btn.style.display = 'none';
+                successMsg.style.display = 'block';
+
+                // BULLETPROOF FETCH: text/plain bypasses CORS AdBlockers
                 fetch(API_URL, {
+                    redirect: "follow",
                     method: 'POST',
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
                     body: JSON.stringify({
-                        rollNo: rollNo, name: name, marks: marks, category: category,
+                        rollNo: rollNo, name: name, marks: parseFloat(marks).toFixed(2), category: category,
                         fileBase64: dataUrl, mimeType: "image/jpeg"
                     })
                 }).then(res => res.json()).then(data => {
-                    if(data.status === "success") {
-                        alert("Data Submitted Successfully! Your entry is now pending manual verification.");
-                        btn.innerText = "Submitted! Pending Verification.";
-                    } else {
-                        // THIS CATCHES INTERNAL APPS SCRIPT ERRORS (Folder ID, Sheet Name)
-                        alert("Google Script Error: " + data.message);
-                        btn.innerText = "Upload & Submit to Database";
+                    if(data.status !== "success") {
+                        console.error("Google Script Error: " + data.message);
+                        alert("Background sync failed. Please try again.");
+                        btn.style.display = 'block';
                         btn.disabled = false;
+                        btn.innerText = "Upload & Submit to Database";
+                        successMsg.style.display = 'none';
                     }
                 }).catch(err => {
-                    // THIS CATCHES DEPLOYMENT PERMISSION ERRORS
-                    alert("Network Error: " + err.message + "\n\nDid you Deploy as 'Me' and set access to 'Anyone'?");
-                    btn.innerText = "Upload & Submit to Database";
-                    btn.disabled = false;
+                    console.error("Network Error: " + err.message);
                 });
             }
             img.src = event.target.result;
@@ -975,7 +971,6 @@
             const tr = document.createElement('tr');
             let badgeHtml = (row.Verified && row.Verified.toLowerCase() === 'yes') ? `<span class="verified-badge">✔️ Verified</span>` : '';
             
-            // APPLYING IDENTITY MASKING
             let safeName = maskName(row.Name);
             let safeRoll = maskRoll(row.RollNo);
             let rollDisplay = safeRoll ? `<span style="font-size:0.75rem; opacity:0.6; display:block;">(${safeRoll})</span>` : '';
@@ -1009,9 +1004,6 @@
         });
     }
 
-    // ==========================================
-    // 7. THEME & RESPONSIVENESS
-    // ==========================================
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
         themeToggle.innerText = document.body.classList.contains('dark-mode') ? 'Toggle Light Mode' : 'Toggle Dark Mode';

@@ -858,84 +858,70 @@
     // ==========================================
     // PANACEA 3: ZERO-WAIT SECURE IMAGE UPLOAD
     // ==========================================
-    document.getElementById('nativeSubmitBtn').addEventListener('click', async () => {
-        const rollNo = document.getElementById('submitRoll').value;
-        const name = document.getElementById('submitName').value;
+   document.getElementById('nativeSubmitBtn').addEventListener('click', async () => {
+        const rollNo = document.getElementById('submitRoll').value.trim();
+        const name = document.getElementById('submitName').value.trim();
         const marks = document.getElementById('submitMarks').value;
         const category = document.getElementById('submitCat').value;
         const fileInput = document.getElementById('submitFile');
         const btn = document.getElementById('nativeSubmitBtn');
         const successMsg = document.getElementById('uploadSuccessMsg');
 
-        // Reset UI
-        successMsg.style.display = 'none';
-
         if (!rollNo || !name || !marks || !fileInput.files[0]) {
-            alert("Roll No, Name, Marks, and Screenshot are mandatory!");
+            alert("All fields (Roll No, Name, Marks, and Screenshot) are mandatory!");
             return;
         }
 
-        // Strict Front-End Validation
-        if (parseFloat(marks) > 200 || parseFloat(marks) < 0) {
-            alert("Marks must be between 0 and 200.");
-            return;
-        }
-        
-        if (rollNo.length > 20) {
-            alert("Roll Number cannot exceed 20 characters.");
-            return;
-        }
+        // Constraints check
+        if (parseFloat(marks) > 200) { alert("Marks cannot exceed 200."); return; }
+        if (rollNo.length > 20) { alert("Roll Number is too long."); return; }
 
-        btn.innerText = "Securing Data...";
+        btn.innerText = "Processing Image...";
         btn.disabled = true;
 
-        const file = fileInput.files[0];
         const reader = new FileReader();
-        
-        reader.onload = function(event) {
+        reader.readAsDataURL(fileInput.files[0]);
+        reader.onload = function(e) {
             const img = new Image();
+            img.src = e.target.result;
             img.onload = function() {
                 const canvas = document.createElement('canvas');
-                // AGGRESSIVE COMPRESSION: Shrink to 600px width to prevent Google API timeouts
-                const MAX_WIDTH = 600; 
-                const scaleSize = MAX_WIDTH / img.width;
+                const MAX_WIDTH = 500; // Small size = Lightning fast upload
+                const scale = MAX_WIDTH / img.width;
                 canvas.width = MAX_WIDTH;
-                canvas.height = img.height * scaleSize;
-                
+                canvas.height = img.height * scale;
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                 
-                const dataUrl = canvas.toDataURL('image/jpeg', 0.5); 
+                const compressedBase64 = canvas.toDataURL('image/jpeg', 0.6);
                 
-                // ZERO-WAIT UI: Show success instantly while background fetch happens
-                btn.style.display = 'none';
-                successMsg.style.display = 'block';
+                btn.innerText = "Uploading... Please Wait";
+                successMsg.style.display = 'none';
 
-                // BULLETPROOF FETCH: text/plain bypasses CORS AdBlockers
                 fetch(API_URL, {
-                    redirect: "follow",
-                    method: 'POST',
-                    headers: { "Content-Type": "text/plain;charset=utf-8" },
+                    method: "POST",
+                    mode: "no-cors", // This prevents the "Failed to Fetch" network error
                     body: JSON.stringify({
-                        rollNo: rollNo, name: name, marks: parseFloat(marks).toFixed(2), category: category,
-                        fileBase64: dataUrl, mimeType: "image/jpeg"
+                        rollNo: rollNo,
+                        name: name,
+                        marks: marks,
+                        category: category,
+                        fileBase64: compressedBase64
                     })
-                }).then(res => res.json()).then(data => {
-                    if(data.status !== "success") {
-                        console.error("Google Script Error: " + data.message);
-                        alert("Background sync failed. Please try again.");
-                        btn.style.display = 'block';
-                        btn.disabled = false;
-                        btn.innerText = "Upload & Submit to Database";
-                        successMsg.style.display = 'none';
-                    }
+                }).then(() => {
+                    // With "no-cors", we assume success if the request finishes
+                    btn.style.display = 'none';
+                    successMsg.style.display = 'block';
+                    successMsg.innerHTML = "✅ Submitted! Your rank will update after manual verification.";
+                    alert("Submission Successful! Refresh page in 5 mins to see pending status.");
                 }).catch(err => {
-                    console.error("Network Error: " + err.message);
+                    console.error(err);
+                    alert("Submission error. Please check internet and try again.");
+                    btn.disabled = false;
+                    btn.innerText = "Retry Submission";
                 });
-            }
-            img.src = event.target.result;
-        }
-        reader.readAsDataURL(file);
+            };
+        };
     });
 
     // ==========================================

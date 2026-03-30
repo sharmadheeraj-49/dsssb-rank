@@ -9,8 +9,7 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-R9PDVJ89WX');
+      gtag('js', new Date()); gtag('config', 'G-R9PDVJ89WX');
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -19,56 +18,37 @@
     
     <style>
         :root {
-            --bg-color: #f1f5f9;
-            --text-color: #0f172a;
-            --card-bg: #ffffff;
-            --primary: #4f46e5; 
-            --primary-hover: #4338ca;
-            --border: #e2e8f0;
+            --bg-color: #f1f5f9; --text-color: #0f172a; --card-bg: #ffffff;
+            --primary: #4f46e5; --primary-hover: #4338ca; --border: #e2e8f0;
             --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
-            --danger: #ef4444;
-            --success: #10b981;
-            --warning: #f59e0b;
-            
-            --rank-red: #e11d48;
-            --rank-black: #0f172a;
+            --danger: #ef4444; --success: #10b981; --warning: #f59e0b;
+            --rank-red: #e11d48; --rank-black: #0f172a;
         }
 
         body.dark-mode {
-            --bg-color: #020617; 
-            --text-color: #f8fafc;
-            --card-bg: #0f172a;
-            --primary: #3b82f6; 
-            --primary-hover: #60a5fa;
-            --border: #1e293b;
+            --bg-color: #020617; --text-color: #f8fafc; --card-bg: #0f172a;
+            --primary: #3b82f6; --primary-hover: #60a5fa; --border: #1e293b;
             --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-            --rank-red: #fb7185;
-            --rank-black: #e2e8f0;
-            --warning: #fbbf24;
+            --rank-red: #fb7185; --rank-black: #e2e8f0; --warning: #fbbf24;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        
         body { background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.3s ease, color 0.3s ease; padding: 20px 15px; line-height: 1.6; }
-        
         .container { max-width: 1250px; margin: 0 auto; }
 
-        .top-contact-bar { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 15px; margin-bottom: 25px; display: flex; justify-content: center; align-items: center; text-align: center; gap: 8px; box-shadow: var(--shadow); font-size: 0.85rem; font-weight: 600; }
-        .top-contact-bar a { color: var(--primary); text-decoration: none; font-weight: 800; }
-        .top-contact-bar a:hover { text-decoration: underline; }
-        
         header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; border-bottom: 2px solid var(--border); padding-bottom: 15px; }
         h1 { font-size: 1.8rem; font-weight: 900; letter-spacing: -0.5px; background: linear-gradient(90deg, var(--primary), #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
         button { background-color: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.95rem; transition: all 0.2s ease; box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2); }
-        button:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
-        button:active { transform: translateY(0); }
-        button:disabled { opacity: 0.6; cursor: not-allowed; }
+        button:hover { transform: translateY(-2px); opacity: 0.95; }
 
+        /* Banners */
         .transparency-banner { background: linear-gradient(90deg, #1e293b, #0f172a); color: #f8fafc; padding: 12px 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-size: 0.85rem; font-weight: 600; border: 1px solid #334155; }
-        .transparency-item { display: flex; align-items: center; gap: 6px; }
-        .transparency-val { color: #38bdf8; font-weight: 900; font-size: 1rem; }
+        .transparency-val { color: #38bdf8; font-weight: 900; font-size: 1.05rem; }
         
+        .fallback-banner { background: linear-gradient(135deg, rgba(79,70,229,0.1), rgba(139,92,246,0.1)); border: 2px solid var(--primary); padding: 18px; border-radius: 12px; margin-bottom: 25px; text-align: center; box-shadow: var(--shadow); }
+        .fallback-banner h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 8px; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 8px; }
+
         .grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 24px; }
         @media (min-width: 1024px) { .grid { grid-template-columns: 1fr 1fr; } } 
         
@@ -79,11 +59,18 @@
         .form-group label { display: block; margin-bottom: 8px; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--primary); }
         .form-group input, .form-group select { width: 100%; padding: 14px; border-radius: 10px; border: 2px solid var(--border); background-color: var(--bg-color); color: var(--text-color); font-size: 1rem; font-weight: 600; transition: all 0.2s ease; }
         .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15); }
-        .form-group input[type="file"] { padding: 10px; font-size: 0.9rem; }
         
-        .result-box { text-align: center; padding: 15px; background-color: var(--bg-color); border-radius: 12px; margin-bottom: 10px; flex: 1; display: flex; flex-direction: column; justify-content: center; border: 1px solid var(--border); }
+        /* Action Buttons */
+        .btn-container { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+        .action-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 22px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 0.95rem; border: none; cursor: pointer; flex: 1; min-width: 200px;}
+        .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); animation: pulse-green 2s infinite; }
+        .share-btn { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; }
+        .method-btn { background: linear-gradient(135deg, #a855f7, #7e22ce); color: white; }
+        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+
+        /* Scorecard Elements */
+        .result-box { text-align: center; padding: 15px; background-color: var(--bg-color); border-radius: 12px; margin-bottom: 10px; flex: 1; border: 1px solid var(--border); }
         .result-box.highlight { background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), transparent); border: 2px solid var(--primary); }
-        .result-box span { display: block; margin-top: 5px; line-height: 1.2; }
         
         .rank-numerator { font-size: 2.2rem; font-weight: 900; color: var(--rank-red); }
         .rank-denominator { font-size: 1.2rem; font-weight: 700; color: var(--rank-black); opacity: 0.8; }
@@ -93,10 +80,23 @@
         .category-rank-val .rank-numerator { font-size: 1.4rem; }
         .category-rank-val .rank-denominator { font-size: 0.9rem; }
 
+        .status-legend { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 15px; padding: 10px; border-radius: 8px; background: var(--bg-color); border: 1px dashed var(--border); }
+        .legend-item { font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; gap: 5px; color: var(--text-color); }
+
+        /* New Percentile UI */
+        .percentile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 15px; margin-bottom: 20px; }
+        .p-box { background: var(--bg-color); border: 2px solid var(--border); padding: 15px; border-radius: 12px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
+        .p-title { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; opacity: 0.8; margin-bottom: 8px; line-height: 1.3; }
+        .p-val { font-size: 1.6rem; font-weight: 900; }
+        
+        .score-box { background: rgba(16, 185, 129, 0.05); border: 2px dashed var(--success); padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 20px; }
+        .score-val { font-size: 1.8rem; font-weight: 900; color: var(--success); display: block; margin: 5px 0; }
+
+        /* Tables & Charts */
         .table-container { overflow-x: auto; max-height: 450px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; }
         table { width: 100%; border-collapse: separate; border-spacing: 0; text-align: left; }
         th, td { padding: 14px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; font-size: 0.95rem; }
-        th { background-color: var(--bg-color); position: sticky; top: 0; z-index: 10; font-weight: 800; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; color: var(--primary); }
+        th { background-color: var(--bg-color); position: sticky; top: 0; z-index: 10; font-weight: 800; text-transform: uppercase; font-size: 0.8rem; color: var(--primary); }
         tr:last-child td { border-bottom: none; }
         tr:hover td { background-color: rgba(0,0,0,0.02); }
         body.dark-mode tr:hover td { background-color: rgba(255,255,255,0.02); }
@@ -112,40 +112,10 @@
         
         #app { display: none; }
 
-        .panic-box { background: linear-gradient(135deg, #fffbeb, #fef3c7); border-left: 6px solid var(--warning); padding: 18px; margin-bottom: 20px; border-radius: 8px 12px 12px 8px; display: none; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15); animation: pulse-border 2s infinite; }
-        body.dark-mode .panic-box { background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05)); }
-        @keyframes pulse-border { 0% { border-color: rgba(245, 158, 11, 0.4); } 50% { border-color: rgba(245, 158, 11, 1); } 100% { border-color: rgba(245, 158, 11, 0.4); } }
-        .panic-box p { font-size: 0.85rem; font-weight: 600; color: var(--warning); margin: 0 0 8px 0; line-height: 1.5; }
-        .panic-box p:last-child { margin-bottom: 0; }
-
-        .fallback-explanation-box { background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(139, 92, 246, 0.05)); border: 1px solid rgba(79, 70, 229, 0.3); border-left: 5px solid var(--primary); padding: 18px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.1); display: none; }
-        body.dark-mode .fallback-explanation-box { background: linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(139, 92, 246, 0.05)); border-color: rgba(79, 70, 229, 0.5); }
-
-        .urgent-prompt-box { background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05)); border: 2px dashed var(--success); padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15); animation: pulse-success-border 2s infinite; margin-bottom: 25px; text-align: center; }
-        body.dark-mode .urgent-prompt-box { border-color: var(--success); }
-        @keyframes pulse-success-border { 0% { border-color: rgba(16, 185, 129, 0.4); } 50% { border-color: rgba(16, 185, 129, 1); } 100% { border-color: rgba(16, 185, 129, 0.4); } }
-        @keyframes tada { 0% { transform: scale(1); } 10%, 20% { transform: scale(0.9) rotate(-3deg); } 30%, 50%, 70%, 90% { transform: scale(1.1) rotate(3deg); } 40%, 60%, 80% { transform: scale(1.1) rotate(-3deg); } 100% { transform: scale(1); } }
-        
-        .btn-container { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
-        .action-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 22px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 0.95rem; border: none; cursor: pointer; transition: all 0.2s ease; flex: 1; min-width: 200px;}
-        
-        .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); animation: pulse-green 2s infinite; }
-        .submit-btn:hover { background: linear-gradient(135deg, #059669, #047857); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5); }
-        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
-        
-        .share-btn { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
-        .share-btn:hover { background: linear-gradient(135deg, #2563eb, #1d4ed8); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5); }
-        .feedback-btn { background: linear-gradient(135deg, #a855f7, #7e22ce); color: white; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4); }
-        .feedback-btn:hover { background: linear-gradient(135deg, #7e22ce, #6b21a8); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5); }
-
-        .download-btn { background: linear-gradient(135deg, #8b5cf6, #6d28d9) !important; color: white !important; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4) !important; border: none !important; padding: 14px 20px; border-radius: 10px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; }
-        .download-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6) !important; }
-
-        .status-legend { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 15px; padding: 10px; border-radius: 8px; background: var(--bg-color); border: 1px dashed var(--border); }
-        .legend-item { font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; gap: 5px; color: var(--text-color); }
-
-        /* NATIVE FORM SUCCESS BANNER */
-        #uploadSuccessMsg { display: none; padding: 15px; border-radius: 8px; background: rgba(16, 185, 129, 0.15); border: 2px dashed var(--success); color: var(--success); font-weight: 800; text-align: center; margin-top: 15px; animation: pulse-success-border 2s infinite; }
+        /* Modal styling */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
+        .modal-content { background-color: var(--card-bg); margin: 5% auto; padding: 30px; border-radius: 16px; width: 90%; max-width: 850px; max-height: 85vh; overflow-y: auto; border: 1px solid var(--border); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+        .close-modal { color: var(--danger); float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
 
         @media (max-width: 768px) {
             body { padding: 15px 10px; }
@@ -161,139 +131,118 @@
 </head>
 <body class="dark-mode">
 
+<div id="methodModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <h2 style="color: var(--primary); margin-bottom: 15px; font-size: 1.6rem; font-weight: 900;">🧠 The Scientific Methodology</h2>
+        <div style="line-height: 1.7; font-size: 0.95rem; color: var(--text-color);">
+            <p style="margin-bottom: 15px;"><strong>How do we predict your rank with mathematical precision?</strong> This is not a basic spreadsheet. We simulate the entire exam process using historical attrition rates and category shifting rules.</p>
+            
+            <div style="padding: 15px; background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--success); border-radius: 8px; margin-bottom: 20px;">
+                <h3 style="color: var(--success); margin-bottom: 10px; font-size: 1.1rem;">1. The 8.32x Shortlisting Factor</h3>
+                <p>DSSSB originally released ~2,354 vacancies, later revised to ~3,050. They officially shortlisted 25,385 candidates for the typing test. This gives us a precise shortlisting multiplier of <strong>8.32x</strong> for every category.</p>
+            </div>
+
+            <div style="padding: 15px; background: rgba(245, 158, 11, 0.1); border-left: 4px solid var(--warning); border-radius: 8px; margin-bottom: 20px;">
+                <h3 style="color: var(--warning); margin-bottom: 10px; font-size: 1.1rem;">2. Asymmetric Attrition (The 60%ile Rule)</h3>
+                <p>In competitive exams, the "Creamy Layer" (top 5-10% scorers) skip the typing test at a massive rate because they are often CGL/UPSC aspirants testing their speed. While average attendance is ~70% and typing pass rate is ~50%, the survival rate of the extreme top layer is much lower. Because the top layer vanishes, the selection depth reaches much further down the merit list. <strong>Mathematics proves that crossing the 60th Percentile in your true pool places you in the safe selection zone.</strong></p>
+            </div>
+
+            <div style="padding: 15px; background: rgba(79, 70, 229, 0.1); border-left: 4px solid var(--primary); border-radius: 8px;">
+                <h3 style="color: var(--primary); margin-bottom: 10px; font-size: 1.1rem;">3. The Fallback Effect (Category Shifting)</h3>
+                <p>If a reserved candidate (OBC/SC/ST/EWS) scores above the Final UR Cutoff and passes typing, they legally consume a General (UR) seat, not a reserved seat. Our algorithm physically <strong>purges these top-scorers from your category pool</strong> and recalculates your "True Percentile" based only on the remaining candidates fighting for the reserved seats. This is why you will see your category percentile jump significantly!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <header>
         <div>
-            <h1>DSSSB LDC & Steno Rank Predictor (802/23)</h1>
-            <p style="font-size: 0.95rem; font-weight: 600; opacity: 0.7; margin-top: 4px;">Scientific Percentile & Fallback Engine</p>
+            <h1>DSSSB Rank Predictor (802/23)</h1>
+            <p style="font-size: 0.95rem; font-weight: 600; opacity: 0.7; margin-top: 4px;">Dynamic Probability & Fallback Engine</p>
         </div>
         <button id="themeToggle">Toggle Light Mode</button>
     </header>
 
     <div id="loading">
         <div class="spinner"></div>
-        <h2 id="loadingText" style="font-weight: 700;">Fetching secure API data...</h2>
+        <h2 id="loadingText" style="font-weight: 700;">Syncing Live API Database...</h2>
     </div>
 
     <div id="app">
-        <div class="transparency-banner" id="transparencyBanner" style="display: none;">
-            <div class="transparency-item">🛡️ Data Health: <span class="transparency-val" id="td-entries">-</span> Total Entries</div>
-            <div class="transparency-item" style="color: #fca5a5;">🗑️ <span class="transparency-val" style="color: #fca5a5;" id="td-fakes">-</span> Fakes/Duplicates Deleted</div>
-            <div class="transparency-item" style="opacity: 0.8; font-size: 0.75rem;">Fake Data Cleaned Last At: <span id="td-updated" style="font-weight: 700; color: #fff;">-</span></div>
+        <div class="transparency-banner">
+            <div>🛡️ Valid Entries: <span class="transparency-val" id="td-entries">-</span></div>
+            <div style="color: #fca5a5;">⏳ Pending Verification: <span class="transparency-val" style="color: #fca5a5;" id="td-pending">-</span></div>
+            <div style="color: #fca5a5;">🗑️ Fakes Cleaned: <span class="transparency-val" style="color: #fca5a5;" id="td-fakes">-</span></div>
+            <div style="opacity: 0.8; width: 100%; text-align: right; font-size: 0.75rem;">Last Database Update: <span id="td-updated" style="font-weight: 800; color: #fff;">-</span></div>
         </div>
 
-        <div class="card" style="border: 2px solid var(--primary); margin-bottom: 25px; background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), transparent);">
-            <h3 style="color: var(--primary); margin-bottom: 15px; font-weight: 900; display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 1.6rem;">📊</span> Analysis based on <span id="totalCandidatesDisplay" style="color: var(--rank-red); font-size: 1.5rem; padding: 0 5px;">0</span> verified candidates
-            </h3>
-            
-            <div style="background-color: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--success); padding: 14px 18px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
-                <p style="font-size: 0.95rem; font-weight: 800; color: var(--success); margin-bottom: 6px;">🛡️ 100% Genuine Data: Fake entries are actively deleted.</p>
-                <p style="font-size: 0.85rem; font-weight: 600; color: var(--text-color); margin-bottom: 4px;">For highly accurate predictions, please push every candidate to fill the form. Share this Website Link in your Telegram/WhatsApp groups.</p>
-                <p style="font-size: 0.85rem; font-weight: 700; color: var(--primary);">कृपया इस वेबसाइट और गूगल फॉर्म को ज्यादा से ज्यादा शेयर करें ताकि डेटा 100% सटीक हो सके!</p>
-            </div>
+        <div class="fallback-banner">
+            <h3><span style="font-size: 1.4rem;">🧠</span> How "Fallback" Works (The Magic of Real Percentiles)</h3>
+            <p style="font-weight: 600; font-size: 0.9rem; margin-bottom: 8px;">Students of reserved categories who clear the UR (General) cutoff consume UR seats. Our engine removes them from your category list to calculate your REAL, higher percentile!</p>
+            <p style="font-weight: 800; font-size: 0.85rem; color: var(--success);">💡 हिंदी में: जो रिजर्व कैटेगरी के छात्र जनरल (UR) की कटऑफ पार करेंगे, वे UR की सीट लेंगे। हमारा सिस्टम उन्हें आपकी कैटेगरी से हटाकर आपका 'असली' और 'बेहतर' परसेंटाइल निकालता है!</p>
+        </div>
 
-            <div class="btn-container">
-                <a href="https://forms.gle/39KtHEdFt5dSjBF87" target="_blank" class="action-btn submit-btn" onclick="gtag('event', 'click', {'event_category': 'outbound', 'event_label': 'Google Form Button'});">
-                    📝 Submit via Google Form
+        <div class="card" style="border: 2px solid var(--success); background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), transparent); margin-bottom: 25px;">
+            <h2 style="color: var(--success); text-align: center; margin-bottom: 10px;">Step 1: Submit Your Data (Crucial)</h2>
+            <p style="text-align: center; font-weight: 600; margin-bottom: 20px;">To ensure 100% accuracy in Safe Scores, you must submit your marks. Only verified candidates build the merit list.</p>
+            
+            <div class="btn-container" style="justify-content: center; margin-bottom: 15px;">
+                <a href="https://forms.gle/39KtHEdFt5dSjBF87" target="_blank" class="action-btn submit-btn" style="max-width: 400px; padding: 18px;">
+                    📝 Submit Marks via Google Form
                 </a>
+            </div>
+            <div class="btn-container">
+                <button id="openMethodBtn" class="action-btn method-btn">📚 Read Scientific Methodology</button>
                 <button id="shareSiteBtn" class="action-btn share-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
                     Share Website
                 </button>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBJGzNixMP8xaSWMwNPJXjyoNdoDRMFOjaJ0EWD7sqt93ITg/viewform?usp=header" target="_blank" class="action-btn feedback-btn">
-                    💡 Give Feedback / Suggestion
-                </a>
             </div>
-        </div>
-
-        <div class="card" id="nativeSubmitCard" style="display: none; border: 2px solid var(--success); margin-bottom: 25px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), transparent);">
-            <h2 style="color: var(--success); display: flex; align-items: center; gap: 10px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                Submit Data Directly (currently not working, please submit above - we are fixing)
-            </h2>
-            <div class="grid">
-                <div class="form-group">
-                    <label>Roll Number (Required - Max 20 digits)</label>
-                    <input type="text" id="submitRoll" placeholder="e.g. 1122334455" maxlength="20" oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, '')">
-                </div>
-                <div class="form-group">
-                    <label>Candidate Name (Required)</label>
-                    <input type="text" id="submitName" placeholder="Your full name">
-                </div>
-                <div class="form-group">
-                    <label>Exact Marks (Decimals Required - Max 200)</label>
-                    <input type="number" id="submitMarks" step="0.01" max="200.00" placeholder="e.g. 158.06" oninput="if(this.value > 200) this.value = 200;">
-                </div>
-                <div class="form-group">
-                    <label>Category</label>
-                    <select id="submitCat">
-                        <option value="UR">UR</option>
-                        <option value="OBC DELHI">OBC DELHI</option>
-                        <option value="SC">SC</option>
-                        <option value="ST">ST</option>
-                        <option value="EWS">EWS</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Upload Scorecard Screenshot (Image will be compressed automatically)</label>
-                <input type="file" id="submitFile" accept="image/*" style="border: 2px dashed var(--success); background: rgba(16, 185, 129, 0.05);">
-            </div>
-            <button id="nativeSubmitBtn" class="submit-btn" style="width: 100%; font-size: 1.1rem; padding: 15px;">Upload & Submit to Database</button>
-            <div id="uploadSuccessMsg">✅ Details Sent Successfully! Pending manual verification.</div>
         </div>
 
         <div class="grid">
             <div class="card">
-                <h2>Predict Your Rank</h2>
+                <h2>Step 2: Check Rank & Probability</h2>
                 
-                <div class="urgent-prompt-box">
-                    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px;">
-                        <span style="font-size: 1.5rem; display: inline-block; animation: tada 1.5s infinite;">🔔</span>
-                        <h4 style="margin: 0; color: var(--success); font-size: 1.2rem; font-weight: 900; letter-spacing: 0.5px;">URGENT ACTION</h4>
-                    </div>
-                    <p style="font-weight: 800; color: var(--text-color); font-size: 0.95rem; margin-bottom: 8px;"><strong>Before checking your rank</strong>, please submit your genuine score using the form above to ensure 100% accuracy!</p>
-                </div>
-
-                <div class="form-group" style="display: none;">
-                    <label for="rollInput">Roll Number (Optional - To Auto Check Verification Status)</label>
-                    <input type="text" id="rollInput" placeholder="Enter Roll Number to fetch status">
+                <div class="form-group">
+                    <label for="rollInput">Roll Number (To Auto-Fetch Verification Status)</label>
+                    <input type="text" id="rollInput" placeholder="Enter submitted Roll No">
                 </div>
                 <div class="form-group">
-                    <label for="marksInput">Your Marks</label>
+                    <label for="marksInput">Your Exact Marks</label>
                     <input type="number" id="marksInput" placeholder="Enter exactly, e.g. 155.24" step="0.01">
                 </div>
                 <div class="form-group">
                     <label for="categoryInput">Your Category</label>
                     <select id="categoryInput">
-                        <option value="overall">Select Category (Choose 'None' for purely Overall Data)</option>
+                        <option value="overall">Select Category</option>
                         <option value="UR">UR</option>
                         <option value="OBC DELHI">OBC DELHI</option>
                         <option value="SC">SC</option>
                         <option value="ST">ST</option>
                         <option value="EWS">EWS</option>
-                        <option value="other">Other</option>
+                        <option value="OTHER">Other (PwBD/EXSM/SP)</option>
                     </select>
                 </div>
-                <button id="predictBtn" style="width: 100%; margin-top: auto; font-size: 1.1rem; padding: 15px; font-weight: 800; letter-spacing: 0.5px;">Calculate Rank & Probability</button>
+                <button id="predictBtn" style="width: 100%; margin-top: auto; font-size: 1.1rem; padding: 15px; font-weight: 800; letter-spacing: 0.5px;">Calculate Analytics & Percentile</button>
             </div>
 
-            <div class="card" style="grid-column: span 1; padding: 0; overflow: hidden; position: relative;">
+            <div class="card" style="grid-column: span 1; padding: 0; overflow: hidden; position: relative; border: 2px solid var(--primary);">
                 
                 <div id="scorecard-area" style="padding: 25px; background-color: var(--card-bg);">
-                    <h2 style="display: flex; justify-content: space-between; align-items: center; border-bottom: none; margin-bottom: 15px;">
-                        Your Estimated Status
+                    <h2 style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border); padding-bottom: 12px; margin-bottom: 15px;">
+                        Analytics Report
                         <span id="scorecard-watermark" style="display: none; font-size: 0.8rem; color: var(--primary); font-weight: 800; text-transform: uppercase;">🔍 tinyurl.com/dsssb-rank</span>
                     </h2>
                     
                     <div id="verificationStatusDiv" style="margin-bottom: 15px; display: none; text-align: center;"></div>
 
-                    <div id="qualificationStatus" style="margin-bottom: 18px; padding: 15px; border-radius: 10px; background-color: var(--bg-color); text-align: center; border: 2px dashed var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80px;">
-                        <span style="font-weight: 700; opacity: 0.6;">Enter marks to see qualification status.</span>
+                    <div id="qualificationStatus" style="margin-bottom: 18px; padding: 15px; border-radius: 10px; background-color: var(--bg-color); text-align: center; border: 2px dashed var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <span style="font-weight: 700; opacity: 0.6;">Enter marks & category to see status.</span>
                     </div>
 
-                    <h3 style="margin-top: 5px; font-size: 1.05rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Overall Performance</h3>
                     <div class="result-box highlight" style="margin-bottom: 12px; padding: 15px 10px;">
                         <span style="font-weight: 800; font-size: 0.9rem; letter-spacing: 0.5px; color: var(--text-color); margin-bottom: 5px; text-transform: uppercase;">Overall Rank</span>
                         <span id="resOverallRank" style="display: flex; justify-content: center; align-items: baseline;">-</span>
@@ -304,126 +253,72 @@
                         <div class="result-box" style="padding: 12px 5px;"><span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; opacity: 0.8;">Below</span><strong id="resOverallBelow" style="font-size: 1.2rem; color: var(--rank-black);">-</strong></div>
                         <div class="result-box" style="padding: 12px 5px;"><span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; opacity: 0.8;">Same</span><strong id="resOverallSame" style="font-size: 1.2rem; color: var(--rank-black);">-</strong></div>
                     </div>
-                    <div id="sameMarksMessage" style="text-align: center; font-size: 0.85rem; margin-bottom: 15px; font-weight: 800; color: var(--primary);"></div>
+                    <div id="sameMarksMessage" style="text-align: center; font-size: 0.85rem; margin-bottom: 15px; font-weight: 800; color: var(--danger);"></div>
 
                     <div id="probabilitySection" style="display: none; border-top: 2px solid var(--border); padding-top: 15px; margin-top: 15px;">
                         
-                        <div class="panic-box" id="smallPoolMsg">
-                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                                <span style="font-size: 1.2rem;">⚠️</span>
-                                <h4 style="margin: 0; color: var(--warning); font-size: 1rem; font-weight: 900; letter-spacing: 0.5px;">CRITICAL NOTE</h4>
-                            </div>
-                            <p style="font-weight: 700;">Because our current sample size is small, non-serious candidates haven't entered their data yet. This makes final chances appear mathematically tougher than reality.</p>
-                            <p style="font-weight: 800; color: var(--text-color);">Your chances WILL dynamically improve as more genuine data is collected. Please do not panic!</p>
-                            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(245, 158, 11, 0.3);">
-                                <p style="font-size: 0.85rem; color: var(--warning); font-weight: 800;">💡 हिंदी में: कम डेटा होने के कारण आपके चांस अभी कम/कठिन दिख सकते हैं। जैसे-जैसे अधिक असली डेटा जुड़ेगा, इसमें लगातार सुधार होगा। कृपया घबराएं नहीं!</p>
-                            </div>
-                        </div>
-
-                        <div class="fallback-explanation-box" id="fallbackMsgBox">
-                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
-                                <span style="font-size: 1.4rem;">🧠</span>
-                                <h4 style="margin: 0; color: var(--primary); font-size: 1.05rem; font-weight: 900; letter-spacing: 0.5px;">ADVANCED FALLBACK MATHEMATICS</h4>
-                            </div>
-                            <p style="font-weight: 700; color: var(--text-color); font-size: 0.85rem; margin-bottom: 8px;">
-                                Our algorithm scientifically accounts for Attendance, Typing Pass Percentage (50%), and the <strong>Fallback Effect</strong>. If top candidates from your category clear the UR Tier-1 cutoff but fail to make the final UR merit, the engine mathematically returns them to your category pool to calculate your true standing!
-                            </p>
-                            <div style="padding-top: 8px; border-top: 1px dashed rgba(79, 70, 229, 0.3);">
-                                <p style="font-weight: 800; color: var(--primary); font-size: 0.9rem; line-height: 1.4; margin:0;">
-                                    💡 <strong>हिंदी में:</strong> इसमें फॉलबैक (Fallback) गणित का इस्तेमाल किया गया है। यदि आपकी कैटेगरी के छात्र UR में पास हुए हैं, लेकिन फाइनल UR मेरिट में नहीं आ पाते, तो वे वापस आपकी कैटेगरी में गिने जाएंगे। उपस्थिति, टाइपिंग पास प्रतिशत और फॉलबैक—सब कुछ वैज्ञानिक रूप से कैलकुलेट किया गया है!
-                                </p>
-                            </div>
-                        </div>
-
-                        <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 15px;">Probability Engine</h3>
-                        
                         <div class="status-legend">
-                            <div class="legend-item"><span style="color: var(--success); font-size: 1rem;">🟢</span> Excellent (>65%ile)</div>
-                            <div class="legend-item"><span style="color: var(--warning); font-size: 1rem;">🟠</span> Borderline (55-65%ile)</div>
-                            <div class="legend-item"><span style="color: var(--danger); font-size: 1rem;">🔴</span> Tough (&lt;55%ile)</div>
+                            <div class="legend-item"><span style="color: var(--success); font-size: 1rem;">🟢</span> Excellent (>60%ile)</div>
+                            <div class="legend-item"><span style="color: var(--warning); font-size: 1rem;">🟠</span> Borderline (50-60%ile)</div>
+                            <div class="legend-item"><span style="color: var(--danger); font-size: 1rem;">🔴</span> Tough (&lt;50%ile)</div>
                         </div>
 
-                        <div class="category-rank-row" style="background-color: var(--card-bg); justify-content: center; padding: 25px 15px;">
-                            <div style="text-align: center;">
-                                <div style="font-size: 0.85rem; opacity: 0.8; font-weight: 800; text-transform: uppercase; margin-bottom: 10px;">Final Selection Chance</div>
-                                <div id="probFinalStatus" style="font-size: 1.1rem;">-</div>
-                            </div>
-                        </div>
-                    </div>
+                        <div id="finalStatusBanner" style="padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 20px; font-weight: 900; font-size: 1.2rem; border: 2px solid transparent;">-</div>
 
-                    <h3 style="margin-top: 20px; font-size: 1.05rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Category Rank (<span id="displayUserCat">...</span>)</h3>
-                    <div style="display: flex; flex-direction: column; margin-top: 10px;">
-                        <div class="category-rank-row">
-                            <span>Original Category Rank</span>
-                            <div class="category-rank-val" id="resCatOrig">-</div>
+                        <div id="fallbackAlert" style="display:none; background: rgba(59,130,246,0.1); border-left: 4px solid var(--primary); padding: 12px; border-radius: 0 8px 8px 0; margin-bottom: 15px; font-size: 0.85rem; font-weight: 600;"></div>
+
+                        <div id="safeScoreBox" class="score-box" style="display: none;">
+                            <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--text-color);">Data-Backed Safe Score (60%ile)</span>
+                            <span id="safeScoreVal" class="score-val">-</span>
+                            <span style="font-size: 0.85rem; font-weight: 800; color: var(--warning); display: block; margin-top: 5px;">Borderline Score (50%ile): <span id="borderScoreVal">-</span></span>
                         </div>
-                        <div class="category-rank-row">
-                            <span>Cat. Rank <span style="font-size: 0.7rem; background: var(--border); padding: 2px 6px; border-radius: 4px; margin-left: 4px;">Excl. UR Qualified</span></span>
-                            <div class="category-rank-val" id="resCatExclUR">-</div>
+
+                        <h3 style="font-size: 0.95rem; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-top: 20px; text-align: center;">Competition Percentiles</h3>
+                        <div id="percentileGrid" class="percentile-grid"></div>
+
+                        <h3 style="margin-top: 25px; font-size: 0.95rem; font-weight: 800; color: var(--primary); text-transform: uppercase;">Category Ranks (<span id="displayUserCat">...</span>)</h3>
+                        <div style="display: flex; flex-direction: column; margin-top: 10px;">
+                            <div class="category-rank-row"><span>Original Category Rank</span><div class="category-rank-val" id="resCatOrig">-</div></div>
+                            <div class="category-rank-row"><span>Cat. Rank <span style="font-size: 0.7rem; background: var(--border); padding: 2px 6px; border-radius: 4px; margin-left: 4px;">Excl. UR Qualified</span></span><div class="category-rank-val" id="resCatExclUR">-</div></div>
+                            <div class="category-rank-row" style="margin-bottom: 0;"><span>Cat. Rank <span style="font-size: 0.7rem; background: var(--border); padding: 2px 6px; border-radius: 4px; margin-left: 4px;">Incl. UR Qualified</span></span><div class="category-rank-val" id="resCatInclUR">-</div></div>
+                            <div id="catSummaryMessage" style="text-align: center; font-size: 0.85rem; margin-top: 15px; font-weight: 700; opacity: 0.9; display: none; padding: 12px; border: 2px dashed var(--border); border-radius: 8px; background-color: var(--bg-color);"></div>
+                            <p id="scrollHindiMsg" style="text-align: center; font-size: 0.95rem; font-weight: 900; color: var(--warning); margin-top: 20px; display: none; background: rgba(245, 158, 11, 0.15); padding: 15px; border-radius: 8px; border: 2px dashed var(--warning); animation: pulse-border 2s infinite;">
+                                👇 अपनी कैटेगरी के टॉपर्स की लिस्ट देखने के लिए सबसे नीचे स्क्रॉल करें 👇
+                            </p>
                         </div>
-                        <div class="category-rank-row" style="margin-bottom: 0;">
-                            <span>Cat. Rank <span style="font-size: 0.7rem; background: var(--border); padding: 2px 6px; border-radius: 4px; margin-left: 4px;">Incl. UR Qualified</span></span>
-                            <div class="category-rank-val" id="resCatInclUR">-</div>
-                        </div>
-                        
-                        <div id="catSummaryMessage" style="text-align: center; font-size: 0.85rem; margin-top: 15px; font-weight: 700; color: var(--text-color); opacity: 0.9; display: none; padding: 12px; border: 2px dashed var(--border); border-radius: 8px; background-color: var(--bg-color);"></div>
-                        
-                        <p id="scrollHindiMsg" style="text-align: center; font-size: 1rem; font-weight: 900; color: var(--warning); margin-top: 20px; display: none; background: rgba(245, 158, 11, 0.15); padding: 15px; border-radius: 8px; border: 2px dashed var(--warning); animation: pulse-border 2s infinite;">
-                            👇 अपनी कैटेगरी के टॉपर्स की लिस्ट देखने के लिए सबसे नीचे स्क्रॉल करें 👇
-                        </p>
+
                     </div>
                 </div>
 
-                <div style="padding: 0 25px 25px 25px; display: flex; justify-content: center;">
-                    <button id="downloadScorecardBtn" class="download-btn" data-html2canvas-ignore="true" style="display: none;">
+                <div style="padding: 15px; background-color: var(--bg-color); border-top: 1px solid var(--border);">
+                    <button id="downloadScorecardBtn" class="download-btn" data-html2canvas-ignore="true" style="display: none; width: 100%;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                         Download HD Shareable Scorecard
                     </button>
                 </div>
             </div>
+        </div>
 
-            <div class="card">
-                <h2 style="color: var(--primary);">Qualification Breakup</h2>
-                <p style="font-size: 0.85rem; font-weight: 600; opacity: 0.8; margin-bottom: 15px;">Total candidates passing their respective cutoffs in our sample.</p>
-                
-                <div style="display: flex; flex-direction: column; gap: 8px;">
-                    <div class="category-rank-row" style="background-color: rgba(16, 185, 129, 0.1); border: 2px solid var(--success);">
-                        <span style="font-weight: 900; color: var(--success); text-transform: uppercase;">Total Qualified</span>
-                        <strong id="brkTotal" style="font-size: 1.4rem; color: var(--success);">-</strong>
-                    </div>
-                    <div class="category-rank-row">
-                        <span style="opacity: 0.9;">UR <span style="font-size: 0.7rem; opacity:0.8;">(Includes all clearing UR cutoff)</span></span>
-                        <strong id="brkUR" class="rank-numerator" style="font-size:1.2rem;">-</strong>
-                    </div>
-                    <div class="category-rank-row">
-                        <span style="opacity: 0.9;">OBC DELHI <span style="font-size: 0.7rem; opacity:0.8;">(Excl. UR)</span></span>
-                        <strong id="brkOBC" class="rank-numerator" style="font-size:1.2rem;">-</strong>
-                    </div>
-                    <div class="category-rank-row">
-                        <span style="opacity: 0.9;">EWS <span style="font-size: 0.7rem; opacity:0.8;">(Excl. UR)</span></span>
-                        <strong id="brkEWS" class="rank-numerator" style="font-size:1.2rem;">-</strong>
-                    </div>
-                    <div class="category-rank-row">
-                        <span style="opacity: 0.9;">SC <span style="font-size: 0.7rem; opacity:0.8;">(Excl. UR)</span></span>
-                        <strong id="brkSC" class="rank-numerator" style="font-size:1.2rem;">-</strong>
-                    </div>
-                    <div class="category-rank-row">
-                        <span style="opacity: 0.9;">ST <span style="font-size: 0.7rem; opacity:0.8;">(Excl. UR)</span></span>
-                        <strong id="brkST" class="rank-numerator" style="font-size:1.2rem;">-</strong>
-                    </div>
-                    <div class="category-rank-row" style="margin-bottom: 0;">
-                        <span style="opacity: 0.9;">Other <span style="font-size: 0.7rem; opacity:0.8;">(PwBD, EXSM, SP, etc. - Excl. UR)</span></span>
-                        <strong id="brkOther" class="rank-numerator" style="font-size:1.2rem;">-</strong>
-                    </div>
+        <div class="card">
+            <h2 style="color: var(--primary);">Qualification Breakup</h2>
+            <p style="font-size: 0.85rem; font-weight: 600; opacity: 0.8; margin-bottom: 15px;">Total candidates passing their respective tier-1 cutoffs in our sample.</p>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div class="category-rank-row" style="background-color: rgba(16, 185, 129, 0.1); border: 2px solid var(--success);">
+                    <span style="font-weight: 900; color: var(--success); text-transform: uppercase;">Total Qualified</span>
+                    <strong id="brkTotal" style="font-size: 1.4rem; color: var(--success);">-</strong>
                 </div>
+                <div class="category-rank-row"><span style="opacity: 0.9;">UR <span style="font-size: 0.7rem; opacity:0.8;">(Includes all clearing UR)</span></span><strong id="brkUR" class="rank-numerator" style="font-size:1.2rem;">-</strong></div>
+                <div class="category-rank-row"><span style="opacity: 0.9;">OBC DELHI <span style="font-size: 0.7rem; opacity:0.8;">(Excl. UR)</span></span><strong id="brkOBC" class="rank-numerator" style="font-size:1.2rem;">-</strong></div>
+                <div class="category-rank-row"><span style="opacity: 0.9;">EWS <span style="font-size: 0.7rem; opacity:0.8;">(Excl. UR)</span></span><strong id="brkEWS" class="rank-numerator" style="font-size:1.2rem;">-</strong></div>
+                <div class="category-rank-row"><span style="opacity: 0.9;">SC <span style="font-size: 0.7rem; opacity:0.8;">(Excl. UR)</span></span><strong id="brkSC" class="rank-numerator" style="font-size:1.2rem;">-</strong></div>
+                <div class="category-rank-row"><span style="opacity: 0.9;">ST <span style="font-size: 0.7rem; opacity:0.8;">(Excl. UR)</span></span><strong id="brkST" class="rank-numerator" style="font-size:1.2rem;">-</strong></div>
+                <div class="category-rank-row" style="margin-bottom: 0;"><span style="opacity: 0.9;">Other <span style="font-size: 0.7rem; opacity:0.8;">(PwBD, EXSM, SP - Excl. UR)</span></span><strong id="brkOther" class="rank-numerator" style="font-size:1.2rem;">-</strong></div>
             </div>
         </div>
 
         <div class="card" style="margin-bottom: 25px;">
             <h2>Full Marks Distribution Graph</h2>
-            <div class="chart-container">
-                <canvas id="marksChart"></canvas>
-            </div>
+            <div class="chart-container"><canvas id="marksChart"></canvas></div>
         </div>
 
         <div id="tables-container" style="display: flex; flex-direction: column; gap: 25px;">
@@ -433,9 +328,7 @@
                     <h2 id="overallRankersCardTitle">Top Rankers (Overall)</h2>
                     <div class="table-container">
                         <table id="overallRankersTable">
-                            <thead>
-                                <tr><th>Rank</th><th>Name & Roll</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr>
-                            </thead>
+                            <thead><tr><th>Rank</th><th>Name & Roll</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr></thead>
                             <tbody></tbody>
                         </table>
                     </div>
@@ -445,9 +338,7 @@
                     <h2>Top Rankers (<span id="catTableTitleIncl"></span> - UR Qualified)</h2>
                     <div class="table-container">
                         <table id="categoryRankersInclTable">
-                            <thead>
-                                <tr><th>Rank</th><th>Name & Roll</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr>
-                            </thead>
+                            <thead><tr><th>Rank</th><th>Name & Roll</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr></thead>
                             <tbody></tbody>
                         </table>
                     </div>
@@ -457,9 +348,7 @@
                     <h2>Top Rankers (<span id="catTableTitleExcl"></span> - Below UR Cutoff)</h2>
                     <div class="table-container">
                         <table id="categoryRankersExclTable">
-                            <thead>
-                                <tr><th>Rank</th><th>Name & Roll</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr>
-                            </thead>
+                            <thead><tr><th>Rank</th><th>Name & Roll</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr></thead>
                             <tbody></tbody>
                         </table>
                     </div>
@@ -480,14 +369,12 @@
 
 <script>
     // ==========================================
-    // 1. CONFIGURATION & CONSTANTS
+    // 1. SYSTEM CONFIGURATION & DATA GLOBALS
     // ==========================================
-    const API_URL = "https://script.google.com/macros/s/AKfycby6YbOTq-j6y6odPk0DsPvkH4T3VyJADALB5oG3v4otk2ACt_t4PgHg_a5m1_4V2gxV/exec"; 
+    const API_URL = "https://script.google.com/macros/s/AKfycbwONrBT-KcwYs6TG7w9X2RMXbIIW6BIUqxEKQMK2yqOUzP3gZzhTkIAaCA84KEuDTd8/exec"; 
     const cutoffs = { "UR": 149.15, "EWS": 119.62, "SC": 120.36, "OBC DELHI": 84.77, "ST": 104.75, "OTHER": 61.97 };
 
-    let cleanData = [];
-    let topRankers = [];
-    let siteData = {};
+    let cleanData = [], topRankers = [], allCandidates = [], siteData = {};
     let chartInstance = null;
 
     const themeToggle = document.getElementById('themeToggle');
@@ -495,14 +382,14 @@
     const downloadBtn = document.getElementById('downloadScorecardBtn');
     const shareBtn = document.getElementById('shareSiteBtn');
 
+    // ==========================================
+    // 2. UTILITY & FORMATTING FUNCTIONS
+    // ==========================================
     function formatRank(numerator, denominator) {
         if(isNaN(numerator) || numerator === "N/A") return `<span style="font-weight: 800; font-size: 1.2rem;">${numerator}</span>`;
         return `<span class="rank-numerator">${numerator}</span><span class="rank-slash">/</span><span class="rank-denominator">${denominator}</span>`;
     }
 
-    // ==========================================
-    // PANACEA 1: DYNAMIC IDENTITY MASKING ENGINE
-    // ==========================================
     function maskName(name) {
         if (!name) return 'Anonymous';
         let clean = String(name).trim();
@@ -518,34 +405,23 @@
         return r.substring(0, 2) + '*'.repeat(r.length - 6) + r.substring(r.length - 4);
     }
 
-    function updateFakeCleanTime() {
-        let currentFakes = siteData["Fakes Removed"] || "-";
-        let storedFakes = localStorage.getItem("dsssb_fakes_count");
-        let storedTime = localStorage.getItem("dsssb_fakes_time");
-
-        if (currentFakes !== storedFakes || !storedTime) {
-            let now = new Date();
-            let utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-            let ist = new Date(utc + (330 * 60000));
-            
-            let hours = ist.getHours();
-            let mins = ist.getMinutes();
-            let ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12;
-            hours = hours ? hours : 12; 
-            mins = mins < 10 ? '0' + mins : mins;
-            let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            
-            storedTime = ist.getDate() + " " + months[ist.getMonth()] + " " + ist.getFullYear() + ", " + hours + ":" + mins + " " + ampm + " IST";
-            
-            localStorage.setItem("dsssb_fakes_count", currentFakes);
-            localStorage.setItem("dsssb_fakes_time", storedTime);
+    function formatManualTime(timeStr) {
+        if (!timeStr || timeStr === "-") return "Just Now";
+        if (timeStr.toLowerCase().includes('am') || timeStr.toLowerCase().includes('pm')) return timeStr; // Already formatted
+        let parts = timeStr.split(':');
+        if (parts.length >= 2) {
+            let h = parseInt(parts[0], 10);
+            let m = parts[1];
+            let ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12;
+            h = h ? h : 12;
+            return h + ":" + m + " " + ampm + " IST";
         }
-        document.getElementById('td-updated').innerText = storedTime;
+        return timeStr;
     }
 
     // ==========================================
-    // 2. DATA FETCHING
+    // 3. DATA FETCHING & INITIALIZATION
     // ==========================================
     async function init() {
         try {
@@ -553,6 +429,7 @@
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const data = await response.json();
 
+            // Populate globals safely
             if (data.cleanData) {
                 cleanData = data.cleanData.map(row => ({
                     Marks: parseFloat(row["Marks"]), Category: row["Category"], Count: parseInt(row["count Marks"] || row["Count"], 10), Rank: parseInt(row["Rank"], 10)
@@ -563,29 +440,26 @@
                 topRankers = data.topRankers.map(row => ({
                     Marks: parseFloat(row["Marks"]), Name: row["NAME"] || row["Name"], Category: row["Category"],
                     TypingSpeed: row["CURRENT TYPING SPEED"] || row["  CURRENT TYPING SPEED"] || "-", 
-                    Verified: row["Verified"],
-                    RollNo: row["Roll No"] || row["RollNo"] || row["Roll Number"] || "" 
+                    Verified: row["Verified"], RollNo: row["Roll No"] || row["RollNo"] || row["Roll Number"] || "" 
                 })).filter(row => !isNaN(row.Marks));
             }
             
+            allCandidates = data.allCandidates || [];
+            
             if (data.siteData && Object.keys(data.siteData).length > 0) {
                 siteData = data.siteData;
-                document.getElementById('transparencyBanner').style.display = 'flex';
                 document.getElementById('td-entries').innerText = siteData["Total Entries"] || "-";
+                document.getElementById('td-pending').innerText = siteData["Pending Verification"] || "0";
                 document.getElementById('td-fakes').innerText = siteData["Fakes Removed"] || "-";
-                updateFakeCleanTime(); 
+                document.getElementById('td-updated').innerText = formatManualTime(siteData["Manual Time"]);
             }
 
             document.getElementById('loading').style.display = 'none';
             document.getElementById('app').style.display = 'block';
 
-            const totalCandidates = cleanData.reduce((sum, row) => sum + row.Count, 0);
-            document.getElementById('totalCandidatesDisplay').innerText = totalCandidates;
-
             updateQualificationBreakup();
             renderChart();
             renderDynamicTables('OVERALL'); 
-
         } catch (error) {
             console.error("API Error:", error);
             document.getElementById('loading').innerHTML = `
@@ -596,9 +470,6 @@
         }
     }
 
-    // ==========================================
-    // 3. QUALIFICATION BREAKUP
-    // ==========================================
     function updateQualificationBreakup() {
         let total = 0, ur = 0, obc = 0, ews = 0, sc = 0, st = 0, other = 0;
         const cUR = cutoffs["UR"];
@@ -621,44 +492,78 @@
     }
 
     // ==========================================
-    // 4. RANK & FALLBACK PROBABILITY ENGINE
+    // 4. MATHEMATICAL PERCENTILE FUNCTIONS
+    // ==========================================
+    function getPercentileStats(poolArray, targetMarks) {
+        let total = 0, above = 0;
+        poolArray.forEach(r => {
+            let m = parseFloat(r.Marks); let c = parseInt(r.Count);
+            total += c;
+            if (m > targetMarks + 0.0001) above += c;
+        });
+        if (total === 0) return { percentile: 0, rank: 0, total: 0 };
+        return { percentile: ((total - above) / total) * 100, rank: above + 1, total: total };
+    }
+
+    function getMarkAtPercentile(poolArray, targetPercentile) {
+        if(!poolArray || poolArray.length === 0) return 0;
+        let sorted = [...poolArray].sort((a,b) => parseFloat(b.Marks) - parseFloat(a.Marks));
+        let total = sorted.reduce((sum, r) => sum + parseInt(r.Count), 0);
+        if(total === 0) return 0;
+        
+        let targetRank = Math.floor(total * ((100 - targetPercentile) / 100));
+        targetRank = Math.max(1, targetRank); 
+        
+        let currentCount = 0;
+        for(let i=0; i<sorted.length; i++) {
+            currentCount += parseInt(sorted[i].Count);
+            if(currentCount >= targetRank) return parseFloat(sorted[i].Marks).toFixed(2);
+        }
+        return parseFloat(sorted[sorted.length-1].Marks).toFixed(2);
+    }
+
+    // ==========================================
+    // 5. MAIN PREDICT & FALLBACK ENGINE
     // ==========================================
     predictBtn.addEventListener('click', () => {
         const uRoll = document.getElementById('rollInput').value.trim();
         let uMarksRaw = document.getElementById('marksInput').value;
         let uCat = document.getElementById('categoryInput').value.toUpperCase();
         
-        const verificationDiv = document.getElementById('verificationStatusDiv');
-        verificationDiv.style.display = 'none';
+        const vDiv = document.getElementById('verificationStatusDiv');
+        vDiv.style.display = 'none';
 
+        // Roll Number Verification Check
         if (uRoll) {
-            const foundUser = topRankers.find(r => String(r.RollNo).trim() === uRoll);
+            const foundUser = allCandidates.find(c => String(c.roll) === uRoll);
             if (foundUser) {
-                uMarksRaw = foundUser.Marks;
-                document.getElementById('marksInput').value = foundUser.Marks;
+                uMarksRaw = foundUser.marks;
+                document.getElementById('marksInput').value = foundUser.marks;
+                uCat = foundUser.cat.toUpperCase();
+                document.getElementById('categoryInput').value = (uCat === 'OTHER') ? 'OTHER' : uCat;
                 
-                const catSelect = document.getElementById('categoryInput');
-                for(let i=0; i<catSelect.options.length; i++) {
-                    if (catSelect.options[i].value.toUpperCase() === foundUser.Category.toUpperCase()) {
-                        catSelect.selectedIndex = i;
-                        uCat = foundUser.Category.toUpperCase();
-                        break;
-                    }
+                let s = String(foundUser.status).toLowerCase();
+                if (s === "yes") {
+                    vDiv.innerHTML = `<span class="badge" style="background:var(--success); color:#fff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);">✔️ SCORE VERIFIED</span>`;
+                } else if (s === "no") {
+                    vDiv.innerHTML = `<span class="badge" style="background:var(--danger); color:#fff; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);">❌ ENTRY REJECTED</span><div style="font-size:0.8rem; font-weight:700; opacity:0.8; margin-top:5px;">Invalid screenshot or fake marks detected. Showing temp analysis.</div>`;
+                } else {
+                    vDiv.innerHTML = `<span class="badge" style="background:var(--warning); color:#fff; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">⏳ PENDING VERIFICATION</span><div style="font-size:0.8rem; font-weight:700; opacity:0.8; margin-top:5px;">We are reviewing your screenshot. Showing temp analysis.</div>`;
                 }
-                verificationDiv.innerHTML = `<span class="badge" style="background:var(--success); color:#fff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);">✔️ IDENTITY VERIFIED</span>`;
-                verificationDiv.style.display = 'block';
+                vDiv.style.display = 'block';
             } else {
-                verificationDiv.innerHTML = `<span class="badge" style="background:var(--warning); color:#fff; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">⏳ STATUS: PENDING / NOT FOUND</span><div style="font-size:0.8rem; font-weight:700; opacity:0.8; margin-top:5px;">Your data is either pending manual verification or not found. Showing temporary prediction.</div>`;
-                verificationDiv.style.display = 'block';
+                vDiv.innerHTML = `<span class="badge" style="background:#64748b; color:#fff;">🚫 ROLL NO NOT FOUND</span><div style="font-size:0.8rem; font-weight:700; opacity:0.8; margin-top:5px;">Please submit your data via Google Form above.</div>`;
+                vDiv.style.display = 'block';
             }
         }
 
-        if (!uMarksRaw || isNaN(uMarksRaw) || parseFloat(uMarksRaw) > 200) { alert("Please enter a valid decimal number strictly under 200."); return; }
+        if (!uMarksRaw || isNaN(uMarksRaw) || parseFloat(uMarksRaw) > 200 || parseFloat(uMarksRaw) < 0) { alert("Please enter a valid decimal number strictly under 200."); return; }
 
         const uMarks = parseFloat(uMarksRaw);
         const EPSILON = 0.0001; 
         const totalCandidates = cleanData.reduce((sum, row) => sum + row.Count, 0);
 
+        // Calculate Basics (Overall)
         let overallAbove = 0, overallSame = 0;
         cleanData.forEach(row => {
             if (row.Marks > uMarks + EPSILON) overallAbove += row.Count;
@@ -670,24 +575,92 @@
         document.getElementById('resOverallBelow').innerText = Math.max(0, totalCandidates - overallAbove - overallSame);
         document.getElementById('resOverallSame').innerText = overallSame;
         document.getElementById('sameMarksMessage').innerText = overallSame > 0 ? `🔥 ${overallSame} candidate(s) have the exact same marks as you` : "";
-
         document.getElementById('displayUserCat').innerText = (uCat === 'OVERALL' || uCat === 'NONE') ? 'All' : uCat;
-        
+
+        // Reset UI Contexts
+        document.getElementById('probabilitySection').style.display = 'block';
+        document.getElementById('downloadScorecardBtn').style.display = 'block';
+        const pGrid = document.getElementById('percentileGrid');
+        const banner = document.getElementById('finalStatusBanner');
+        const safeBox = document.getElementById('safeScoreBox');
+        const fallbackAlert = document.getElementById('fallbackAlert');
+        pGrid.innerHTML = ""; fallbackAlert.style.display = "none"; safeBox.style.display = "none";
+
+        // Global UR Math Boundaries
+        const urSafeMark60 = getMarkAtPercentile(cleanData, 60);
+        const urBorderMark50 = getMarkAtPercentile(cleanData, 50);
+        const globalStats = getPercentileStats(cleanData, uMarks);
+
+        // HELPER: Status Banner UI
+        const renderStatus = (percentile, poolName) => {
+            if (percentile >= 60) {
+                banner.innerHTML = `🟢 EXCELLENT CHANCES<div style="font-size:0.85rem; font-weight:800; color:var(--text-color); margin-top:5px; text-transform:none;">Final Selection expected in <strong style="color:var(--success);">${poolName}</strong></div>`;
+                banner.style.backgroundColor = "rgba(16, 185, 129, 0.15)"; banner.style.color = "var(--success)"; banner.style.borderColor = "var(--success)";
+            } else if (percentile >= 50) {
+                banner.innerHTML = `🟠 BORDERLINE CASE<div style="font-size:0.85rem; font-weight:800; color:var(--text-color); margin-top:5px; text-transform:none;">Keep typing! Your luck may work in <strong style="color:var(--warning);">${poolName}</strong></div>`;
+                banner.style.backgroundColor = "rgba(245, 158, 11, 0.15)"; banner.style.color = "var(--warning)"; banner.style.borderColor = "var(--warning)";
+            } else {
+                banner.innerHTML = `🔴 TOUGH CHANCES<div style="font-size:0.85rem; font-weight:800; color:var(--text-color); margin-top:5px; text-transform:none;">Attend typing. Miracles do happen.</div>`;
+                banner.style.backgroundColor = "rgba(239, 68, 68, 0.15)"; banner.style.color = "var(--danger)"; banner.style.borderColor = "var(--danger)";
+            }
+        };
+
+        // HELPER: Percentile Box UI
+        const addPBox = (title, val, colorHex) => {
+            pGrid.innerHTML += `<div class="p-box"><div class="p-title">${title}</div><div class="p-val" style="color:${colorHex}">${val.toFixed(2)}%</div></div>`;
+        };
+
+        // ---------------------------------------------
+        // LOGIC BRANCH: UR vs RESERVED CATEGORIES
+        // ---------------------------------------------
         let catOrigAbove = 0, catExclURAbove = 0, totalInCat = 0, totalInCatExclUR = 0;
         let catTotalQualified = 0, catQualifiedUR = 0, catQualifiedOwn = 0;
-        
-        if (uCat !== 'OVERALL' && uCat !== 'NONE') {
-            document.getElementById('fallbackMsgBox').style.display = 'block';
-            document.getElementById('scrollHindiMsg').style.display = 'block'; 
 
+        if (uCat === 'OVERALL' || uCat === 'NONE' || uCat === '') {
+            // General / No Category Selected
+            document.getElementById('resCatOrig').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
+            document.getElementById('resCatInclUR').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
+            document.getElementById('resCatExclUR').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
+            document.getElementById('catSummaryMessage').style.display = 'none';
+            document.getElementById('scrollHindiMsg').style.display = 'none';
+            banner.innerHTML = "Select Category to see Probability"; banner.style.border = "none"; banner.style.background = "transparent";
+            
+        } else if (uCat === 'UR') {
+            // PURE UR LOGIC
+            renderStatus(globalStats.percentile, "UR Merit");
+            safeBox.style.display = "block";
+            document.getElementById('safeScoreVal').innerText = urSafeMark60;
+            document.getElementById('borderScoreVal').innerText = urBorderMark50;
+            addPBox("UR Percentile", globalStats.percentile, "var(--primary)");
+
+            document.getElementById('resCatOrig').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
+            document.getElementById('resCatInclUR').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
+            document.getElementById('resCatExclUR').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
+            document.getElementById('catSummaryMessage').style.display = 'none';
+            document.getElementById('scrollHindiMsg').style.display = 'block';
+
+        } else {
+            // RESERVED CATEGORY LOGIC
+            document.getElementById('scrollHindiMsg').style.display = 'block'; 
             const urCutoff = cutoffs["UR"];
             const myCatCutoff = cutoffs[uCat] || 0;
+            const isURQualified = uMarks >= urCutoff;
 
+            // 1. Generate True Category Pools
+            let catDataRaw = cleanData.filter(r => r.Category.toUpperCase() === uCat);
+            let catTruePool = catDataRaw.filter(r => parseFloat(r.Marks) < urSafeMark60); // Purge those >= UR 60%ile safe zone
+            
+            let rawCatStats = getPercentileStats(catDataRaw, uMarks);
+            let trueCatStats = getPercentileStats(catTruePool, uMarks);
+            
+            const catSafeMark60 = getMarkAtPercentile(catTruePool, 60);
+            const catBorderMark50 = getMarkAtPercentile(catTruePool, 50);
+
+            // 2. Old Rank Displays (Original, Excl UR, Incl UR)
             cleanData.forEach(row => {
                 if (row.Category.toUpperCase() === uCat) {
                     totalInCat += row.Count;
                     if (row.Marks < urCutoff) totalInCatExclUR += row.Count;
-                    
                     if (row.Marks > uMarks + EPSILON) catOrigAbove += row.Count;
                     if (row.Marks > uMarks + EPSILON && row.Marks < urCutoff) catExclURAbove += row.Count;
 
@@ -700,7 +673,6 @@
             
             document.getElementById('resCatOrig').innerHTML = formatRank(catOrigAbove + 1, totalInCat);
             document.getElementById('resCatInclUR').innerHTML = formatRank(catOrigAbove + 1, totalInCat); 
-
             if(uMarks >= urCutoff) {
                 document.getElementById('resCatExclUR').innerHTML = `<span style="font-weight: 800; color: var(--success); text-transform: uppercase;">Qualified UR</span>`;
             } else {
@@ -711,109 +683,63 @@
             catSummaryMsg.innerHTML = `Out of <strong style="color:var(--primary); font-size: 1.1em;">${catTotalQualified}</strong> candidates qualified in <strong>${uCat}</strong>, <strong style="color:var(--success); font-size: 1.1em;">${catQualifiedUR}</strong> have qualified on UR cut off and <strong style="color:var(--primary); font-size: 1.1em;">${catQualifiedOwn}</strong> in your category.`;
             catSummaryMsg.style.display = 'block';
 
-        } else {
-            document.getElementById('resCatOrig').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
-            document.getElementById('resCatInclUR').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
-            document.getElementById('resCatExclUR').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
-            document.getElementById('fallbackMsgBox').style.display = 'none';
-            document.getElementById('catSummaryMessage').style.display = 'none';
-            document.getElementById('scrollHindiMsg').style.display = 'none';
-        }
-
-        document.getElementById('probabilitySection').style.display = 'block';
-        
-        const smallPoolMsg = document.getElementById('smallPoolMsg');
-        if (totalCandidates < 5000) smallPoolMsg.style.display = 'block';
-        else smallPoolMsg.style.display = 'none';
-
-        let finalStatusHtml = "";
-
-        if (uCat === 'OVERALL' || uCat === 'NONE') {
-            finalStatusHtml = `<span style="font-size: 0.8rem; font-weight: 600; opacity: 0.8;">Select your Category above to see Probability.</span>`;
-        } else {
-            let urTotal = 0, urCandidates = [];
-            cleanData.forEach(row => { if(row.Marks >= cutoffs["UR"]) { urTotal += row.Count; urCandidates.push(row); }});
-            urCandidates.sort((a,b) => b.Marks - a.Marks);
-            
-            let safeURCount = urTotal * 0.35; 
-            let borderlineURCount = urTotal * 0.45;
-            let acc = 0, urSafeMark = cutoffs["UR"], urBorderlineMark = cutoffs["UR"];
-            
-            for(let i=0; i<urCandidates.length; i++) {
-                acc += urCandidates[i].Count;
-                if(acc >= safeURCount && urSafeMark === cutoffs["UR"]) { urSafeMark = urCandidates[i].Marks; }
-                if(acc >= borderlineURCount && urBorderlineMark === cutoffs["UR"]) { urBorderlineMark = urCandidates[i].Marks; break; }
-            }
-
-            if (uMarks >= cutoffs["UR"]) {
-                let urAbove = 0;
-                urCandidates.forEach(row => { if(row.Marks > uMarks + EPSILON) urAbove += row.Count; });
-                let urPerc = ((urTotal - urAbove) / Math.max(1, urTotal)) * 100;
+            // 3. Fallback Probability Execution
+            if (isURQualified && globalStats.percentile >= 60) {
+                // Safely secures UR Seat
+                renderStatus(globalStats.percentile, "UR Merit");
+                safeBox.style.display = "block";
+                document.getElementById('safeScoreVal').innerText = `${urSafeMark60} (UR)`;
+                document.getElementById('borderScoreVal').innerText = `${urBorderMark50} (UR)`;
                 
-                if (urPerc >= 65) {
-                    finalStatusHtml = `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge shimmer" style="background:var(--success); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);">Excellent</span><span style="font-size:0.85rem; font-weight:800; color:var(--success);">Final selection expected in UR</span></div>`;
-                } else if (urPerc >= 55) {
-                    finalStatusHtml = `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge" style="background:var(--warning); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4);">Borderline</span><span style="font-size:0.85rem; font-weight:800; color:var(--warning);">Final selection dependent on UR typing pass rate</span></div>`;
-                } else {
-                    finalStatusHtml = getFallbackStatus(uMarks, uCat, urBorderlineMark); 
-                }
+                addPBox("UR Percentile", globalStats.percentile, "var(--success)");
+                addPBox(`${uCat} Percentile<br>(Incl UR)`, rawCatStats.percentile, "var(--primary)");
+                
             } else {
-                finalStatusHtml = getFallbackStatus(uMarks, uCat, urBorderlineMark); 
+                // FALLBACK ACTIVATED: Evaluate against Category Merit
+                if (isURQualified) {
+                    fallbackAlert.style.display = "block";
+                    fallbackAlert.innerHTML = `⚠️ You cleared UR Tier-1, but are below the UR Safe Zone. <strong>You have fallen back to ${uCat} merit.</strong> Top ${uCat} candidates securing UR seats are removed from your competition!`;
+                    addPBox("UR Percentile", globalStats.percentile, "var(--danger)");
+                }
+
+                renderStatus(trueCatStats.percentile, `${uCat} Merit`);
+                
+                safeBox.style.display = "block";
+                document.getElementById('safeScoreVal').innerText = `${catSafeMark60} (${uCat})`;
+                document.getElementById('borderScoreVal').innerText = `${catBorderMark50} (${uCat})`;
+
+                addPBox(`${uCat} Percentile<br>(Incl. UR)`, rawCatStats.percentile, "var(--primary)");
+                addPBox(`${uCat} TRUE Percentile<br>(Excl. UR Migrants)`, trueCatStats.percentile, "var(--success)");
             }
         }
 
-        document.getElementById('probFinalStatus').innerHTML = finalStatusHtml;
-
+        // QUALIFICATION STATUS BADGE
         const statusDiv = document.getElementById('qualificationStatus');
         const myCatCutoff = cutoffs[uCat];
         let cutoffText = (uCat !== 'OVERALL' && uCat !== 'NONE' && myCatCutoff) ? `<div style="margin-top: 8px; font-size:0.9rem; font-weight:700; color: var(--text-color); opacity: 0.8;">Your category cutoff: ${myCatCutoff}</div>` : '';
 
         if (uMarks >= cutoffs["UR"]) {
-            statusDiv.innerHTML = `<span class="badge" style="background-color: #22c55e; color: #000;">✔️ Qualified in UR</span><div style="font-weight: 700; margin-top: 5px; color: #16a34a;">(Subject to Typing Test)</div>${cutoffText}`;
+            statusDiv.innerHTML = `<span class="badge" style="background-color: #22c55e; color: #000; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);">✔️ Qualified in UR</span><div style="font-weight: 800; margin-top: 8px; color: #16a34a;">(Subject to Typing Test)</div>${cutoffText}`;
             statusDiv.style.borderColor = "#22c55e"; statusDiv.style.backgroundColor = "rgba(34, 197, 94, 0.1)";
         } else if (uCat !== 'OVERALL' && uCat !== 'NONE' && myCatCutoff && uMarks >= myCatCutoff) {
-            statusDiv.innerHTML = `<span class="badge" style="background-color: #3b82f6; color: #fff;">✔️ Qualified in ${uCat}</span><div style="font-weight: 700; margin-top: 5px; color: #2563eb;">(Subject to Typing Test)</div>${cutoffText}`;
+            statusDiv.innerHTML = `<span class="badge" style="background-color: #3b82f6; color: #fff; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);">✔️ Qualified in ${uCat}</span><div style="font-weight: 800; margin-top: 8px; color: #2563eb;">(Subject to Typing Test)</div>${cutoffText}`;
             statusDiv.style.borderColor = "#3b82f6"; statusDiv.style.backgroundColor = "rgba(59, 130, 246, 0.1)";
         } else {
-            statusDiv.innerHTML = `<span class="badge" style="background-color: #ef4444; color: #fff;">❌ Not Qualified</span><div style="font-weight: 700; margin-top: 5px; color: #dc2626;">Marks are below required cutoff</div>${cutoffText}`;
+            statusDiv.innerHTML = `<span class="badge" style="background-color: #ef4444; color: #fff; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);">❌ Not Qualified</span><div style="font-weight: 800; margin-top: 8px; color: #dc2626;">Marks are below required cutoff</div>${cutoffText}`;
             statusDiv.style.borderColor = "#ef4444"; statusDiv.style.backgroundColor = "rgba(239, 68, 68, 0.1)";
         }
 
-        document.getElementById('downloadScorecardBtn').style.display = 'flex';
         renderDynamicTables(uCat);
     });
 
-    function getFallbackStatus(uMarks, uCat, urBorderlineMark) {
-        let catPoolTotal = 0, catPoolAbove = 0;
-        cleanData.forEach(row => {
-            if(row.Category.toUpperCase() === uCat && row.Marks < urBorderlineMark) { 
-                catPoolTotal += row.Count;
-                if (row.Marks > uMarks + 0.0001) catPoolAbove += row.Count;
-            }
-        });
-        
-        if(uMarks < cutoffs[uCat]) {
-            return `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge" style="background:var(--danger); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);">Tough (Not Qualified)</span><span style="font-size:0.85rem; font-weight:800; color:var(--danger);">Marks below minimum cutoff</span></div>`;
-        }
-        
-        if(catPoolTotal === 0) {
-            return `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge shimmer" style="background:var(--warning); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">Data Pending</span><span style="font-size:0.85rem; font-weight:800; color:var(--warning);">Need more data for ${uCat}</span></div>`;
-        }
-
-        let catPerc = ((catPoolTotal - catPoolAbove) / Math.max(1, catPoolTotal)) * 100;
-        
-        if (catPerc >= 65) {
-            return `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge shimmer" style="background:var(--success); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);">Excellent</span><span style="font-size:0.85rem; font-weight:800; color:var(--success);">Final selection expected in ${uCat}</span></div>`;
-        } else if (catPerc >= 55) {
-            return `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge" style="background:var(--warning); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4);">Borderline</span><span style="font-size:0.85rem; font-weight:800; color:var(--warning);">Final selection dependent on ${uCat} typing pass rate</span></div>`;
-        } else {
-            return `<div style="display:flex; flex-direction:column; align-items:center; gap:6px;"><span class="badge" style="background:var(--danger); color:#fff; font-size:1.1rem; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);">Tough</span><span style="font-size:0.85rem; font-weight:800; color:var(--danger);">Final selection chances are low</span></div>`;
-        }
-    }
-
     // ==========================================
-    // 5. SHARE & HD EXPORT (VIRAL ENGINE)
+    // 6. MODAL & EXPORT ENGINE
     // ==========================================
+    const modal = document.getElementById("methodModal");
+    document.getElementById("openMethodBtn").onclick = () => modal.style.display = "block";
+    document.getElementById("closeModal").onclick = () => modal.style.display = "none";
+    window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; }
+
     shareBtn.addEventListener('click', async () => {
         gtag('event', 'share', {'event_category': 'engagement', 'event_label': 'Share Button Clicked'});
         const shareData = {
@@ -822,15 +748,9 @@
             url: 'https://tinyurl.com/dsssb-rank'
         };
         try {
-            if (navigator.share) {
-                await navigator.share(shareData);
-            } else {
-                navigator.clipboard.writeText(shareData.text + "\n" + shareData.url);
-                alert("Link copied to clipboard! Please share it in your Telegram and WhatsApp groups to improve data accuracy.");
-            }
-        } catch (err) {
-            console.error('Error sharing:', err);
-        }
+            if (navigator.share) { await navigator.share(shareData); } 
+            else { navigator.clipboard.writeText(shareData.text + "\n" + shareData.url); alert("Link copied to clipboard!"); }
+        } catch (err) { console.error('Error sharing:', err); }
     });
 
     downloadBtn.addEventListener('click', () => {
@@ -843,7 +763,8 @@
         watermark.style.display = "block";
         downloadBtn.innerHTML = "Rendering HD Scorecard...";
 
-        html2canvas(area, { scale: 3, useCORS: true, backgroundColor: getComputedStyle(document.body).getPropertyValue('--card-bg') }).then(canvas => {
+        // scale: 4 for super crisp high-res image
+        html2canvas(area, { scale: 4, useCORS: true, backgroundColor: getComputedStyle(document.body).getPropertyValue('--card-bg') }).then(canvas => {
             const link = document.createElement('a');
             link.download = `DSSSB_LDC_Rank_${document.getElementById('marksInput').value}.jpg`;
             link.href = canvas.toDataURL('image/jpeg', 0.9);
@@ -856,81 +777,12 @@
     });
 
     // ==========================================
-    // PANACEA 3: ZERO-WAIT SECURE IMAGE UPLOAD
-    // ==========================================
-   document.getElementById('nativeSubmitBtn').addEventListener('click', async () => {
-        const rollNo = document.getElementById('submitRoll').value.trim();
-        const name = document.getElementById('submitName').value.trim();
-        const marks = document.getElementById('submitMarks').value;
-        const category = document.getElementById('submitCat').value;
-        const fileInput = document.getElementById('submitFile');
-        const btn = document.getElementById('nativeSubmitBtn');
-        const successMsg = document.getElementById('uploadSuccessMsg');
-
-        if (!rollNo || !name || !marks || !fileInput.files[0]) {
-            alert("All fields (Roll No, Name, Marks, and Screenshot) are mandatory!");
-            return;
-        }
-
-        // Constraints check
-        if (parseFloat(marks) > 200) { alert("Marks cannot exceed 200."); return; }
-        if (rollNo.length > 20) { alert("Roll Number is too long."); return; }
-
-        btn.innerText = "Processing Image...";
-        btn.disabled = true;
-
-        const reader = new FileReader();
-        reader.readAsDataURL(fileInput.files[0]);
-        reader.onload = function(e) {
-            const img = new Image();
-            img.src = e.target.result;
-            img.onload = function() {
-                const canvas = document.createElement('canvas');
-                const MAX_WIDTH = 500; // Small size = Lightning fast upload
-                const scale = MAX_WIDTH / img.width;
-                canvas.width = MAX_WIDTH;
-                canvas.height = img.height * scale;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                
-                const compressedBase64 = canvas.toDataURL('image/jpeg', 0.6);
-                
-                btn.innerText = "Uploading... Please Wait";
-                successMsg.style.display = 'none';
-
-                fetch(API_URL, {
-                    method: "POST",
-                    mode: "no-cors", // This prevents the "Failed to Fetch" network error
-                    body: JSON.stringify({
-                        rollNo: rollNo,
-                        name: name,
-                        marks: marks,
-                        category: category,
-                        fileBase64: compressedBase64
-                    })
-                }).then(() => {
-                    // With "no-cors", we assume success if the request finishes
-                    btn.style.display = 'none';
-                    successMsg.style.display = 'block';
-                    successMsg.innerHTML = "✅ Submitted! Your rank will update after manual verification.";
-                    alert("Submission Successful! Refresh page in 5 mins to see pending status.");
-                }).catch(err => {
-                    console.error(err);
-                    alert("Submission error. Please check internet and try again.");
-                    btn.disabled = false;
-                    btn.innerText = "Retry Submission";
-                });
-            };
-        };
-    });
-
-    // ==========================================
-    // 6. DYNAMIC TABLES (VERTICAL) & CHARTS
+    // 7. DYNAMIC TABLES & CHARTS
     // ==========================================
     function renderDynamicTables(uCat) {
         renderHTMLTable('overallRankersTable', topRankers.slice(0, 20));
 
-        if (uCat === 'OVERALL' || uCat === 'NONE' || !uCat) {
+        if (uCat === 'OVERALL' || uCat === 'NONE' || !uCat || uCat === 'UR') {
             document.getElementById('categoryRankersInclCard').style.display = 'none';
             document.getElementById('categoryRankersExclCard').style.display = 'none';
         } else {
@@ -940,8 +792,8 @@
             document.getElementById('catTableTitleIncl').innerText = uCat;
             document.getElementById('catTableTitleExcl').innerText = uCat;
             
-            let inclData = topRankers.filter(row => row.Category.toUpperCase() === uCat && row.Marks >= cutoffs["UR"]).slice(0, 10);
-            let exclData = topRankers.filter(row => row.Category.toUpperCase() === uCat && row.Marks < cutoffs["UR"]).slice(0, 10);
+            let inclData = topRankers.filter(row => row.Category.toUpperCase() === uCat && row.Marks >= cutoffs["UR"]).slice(0, 15);
+            let exclData = topRankers.filter(row => row.Category.toUpperCase() === uCat && row.Marks < cutoffs["UR"]).slice(0, 15);
 
             renderHTMLTable('categoryRankersInclTable', inclData);
             renderHTMLTable('categoryRankersExclTable', exclData);
@@ -956,7 +808,6 @@
         data.forEach((row, index) => {
             const tr = document.createElement('tr');
             let badgeHtml = (row.Verified && row.Verified.toLowerCase() === 'yes') ? `<span class="verified-badge">✔️ Verified</span>` : '';
-            
             let safeName = maskName(row.Name);
             let safeRoll = maskRoll(row.RollNo);
             let rollDisplay = safeRoll ? `<span style="font-size:0.75rem; opacity:0.6; display:block;">(${safeRoll})</span>` : '';

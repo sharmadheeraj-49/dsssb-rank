@@ -49,6 +49,8 @@
         .fallback-banner { background: linear-gradient(135deg, rgba(79,70,229,0.1), rgba(139,92,246,0.1)); border: 2px solid var(--primary); padding: 18px; border-radius: 12px; margin-bottom: 25px; text-align: center; box-shadow: var(--shadow); }
         .fallback-banner h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 8px; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
+        .genuine-banner { background-color: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--success); padding: 14px 18px; margin-bottom: 25px; border-radius: 0 8px 8px 0; }
+
         .grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 24px; }
         @media (min-width: 1024px) { .grid { grid-template-columns: 1fr 1fr; } } 
         
@@ -66,6 +68,7 @@
         .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); animation: pulse-green 2s infinite; }
         .share-btn { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; }
         .method-btn { background: linear-gradient(135deg, #a855f7, #7e22ce); color: white; }
+        .feedback-btn { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
         @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
 
         /* Scorecard Elements */
@@ -82,6 +85,10 @@
 
         .status-legend { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 15px; padding: 10px; border-radius: 8px; background: var(--bg-color); border: 1px dashed var(--border); }
         .legend-item { font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; gap: 5px; color: var(--text-color); }
+
+        .panic-box { background: linear-gradient(135deg, #fffbeb, #fef3c7); border-left: 6px solid var(--warning); padding: 18px; margin-bottom: 20px; border-radius: 8px 12px 12px 8px; display: none; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15); animation: pulse-border 2s infinite; }
+        body.dark-mode .panic-box { background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05)); }
+        @keyframes pulse-border { 0% { border-color: rgba(245, 158, 11, 0.4); } 50% { border-color: rgba(245, 158, 11, 1); } 100% { border-color: rgba(245, 158, 11, 0.4); } }
 
         /* New Percentile UI */
         .percentile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 15px; margin-bottom: 20px; }
@@ -162,7 +169,7 @@
             <h1>DSSSB Rank Predictor (802/23)</h1>
             <p style="font-size: 0.95rem; font-weight: 600; opacity: 0.7; margin-top: 4px;">Dynamic Probability & Fallback Engine</p>
         </div>
-        <button id="themeToggle">Toggle Light Mode</button>
+        <button id="themeToggle" style="background: var(--card-bg); color: var(--text-color); border: 2px solid var(--border);">Toggle Theme</button>
     </header>
 
     <div id="loading">
@@ -175,13 +182,19 @@
             <div>🛡️ Valid Entries: <span class="transparency-val" id="td-entries">-</span></div>
             <div style="color: #fca5a5;">⏳ Pending Verification: <span class="transparency-val" style="color: #fca5a5;" id="td-pending">-</span></div>
             <div style="color: #fca5a5;">🗑️ Fakes Cleaned: <span class="transparency-val" style="color: #fca5a5;" id="td-fakes">-</span></div>
-            <div style="opacity: 0.8; width: 100%; text-align: right; font-size: 0.75rem;">Last Database Update: <span id="td-updated" style="font-weight: 800; color: #fff;">-</span></div>
+            <div style="opacity: 0.8; width: 100%; text-align: right; font-size: 0.75rem;">Last Fake/Duplicate Data Removal: <span id="td-updated" style="font-weight: 800; color: #fff;">-</span></div>
+        </div>
+
+        <div class="genuine-banner">
+            <p style="font-size: 0.95rem; font-weight: 800; color: var(--success); margin-bottom: 6px;">🛡️ 100% Genuine Data: Fake entries are actively deleted.</p>
+            <p style="font-size: 0.85rem; font-weight: 600; color: var(--text-color); margin-bottom: 4px;">For highly accurate predictions, please push every candidate to fill the form. Share this Website Link in your Telegram/WhatsApp groups.</p>
+            <p style="font-size: 0.85rem; font-weight: 700; color: var(--primary);">कृपया इस वेबसाइट और गूगल फॉर्म को ज्यादा से ज्यादा शेयर करें ताकि डेटा 100% सटीक हो सके!</p>
         </div>
 
         <div class="fallback-banner">
             <h3><span style="font-size: 1.4rem;">🧠</span> How "Fallback" Works (The Magic of Real Percentiles)</h3>
-            <p style="font-weight: 600; font-size: 0.9rem; margin-bottom: 8px;">Students of reserved categories who clear the UR (General) cutoff consume UR seats. Our engine removes them from your category list to calculate your REAL, higher percentile!</p>
-            <p style="font-weight: 800; font-size: 0.85rem; color: var(--success);">💡 हिंदी में: जो रिजर्व कैटेगरी के छात्र जनरल (UR) की कटऑफ पार करेंगे, वे UR की सीट लेंगे। हमारा सिस्टम उन्हें आपकी कैटेगरी से हटाकर आपका 'असली' और 'बेहतर' परसेंटाइल निकालता है!</p>
+            <p style="font-weight: 600; font-size: 0.9rem; margin-bottom: 8px;">Students of reserved categories who clear the Final UR (General) cutoff consume UR seats. Our engine removes them from your category list to calculate your REAL, higher percentile!</p>
+            <p style="font-weight: 800; font-size: 0.85rem; color: var(--success);">💡 हिंदी में: जो रिजर्व कैटेगरी के छात्र फाइनल जनरल (UR) की कटऑफ पार करेंगे, वे UR की सीट लेंगे। हमारा सिस्टम उन्हें आपकी कैटेगरी से हटाकर आपका 'असली' और 'बेहतर' परसेंटाइल निकालता है!</p>
         </div>
 
         <div class="card" style="border: 2px solid var(--success); background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), transparent); margin-bottom: 25px;">
@@ -195,10 +208,8 @@
             </div>
             <div class="btn-container">
                 <button id="openMethodBtn" class="action-btn method-btn">📚 Read Scientific Methodology</button>
-                <button id="shareSiteBtn" class="action-btn share-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-                    Share Website
-                </button>
+                <button id="shareSiteBtn" class="action-btn share-btn">📢 Share Website</button>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBJGzNixMP8xaSWMwNPJXjyoNdoDRMFOjaJ0EWD7sqt93ITg/viewform?usp=header" target="_blank" class="action-btn feedback-btn">💡 Give Feedback / Suggestion</a>
             </div>
         </div>
 
@@ -206,10 +217,6 @@
             <div class="card">
                 <h2>Step 2: Check Rank & Probability</h2>
                 
-                <div class="form-group">
-                    <label for="rollInput">Roll Number (To Auto-Fetch Verification Status)</label>
-                    <input type="text" id="rollInput" placeholder="Enter submitted Roll No">
-                </div>
                 <div class="form-group">
                     <label for="marksInput">Your Exact Marks</label>
                     <input type="number" id="marksInput" placeholder="Enter exactly, e.g. 155.24" step="0.01">
@@ -236,8 +243,6 @@
                         Analytics Report
                         <span id="scorecard-watermark" style="display: none; font-size: 0.8rem; color: var(--primary); font-weight: 800; text-transform: uppercase;">🔍 tinyurl.com/dsssb-rank</span>
                     </h2>
-                    
-                    <div id="verificationStatusDiv" style="margin-bottom: 15px; display: none; text-align: center;"></div>
 
                     <div id="qualificationStatus" style="margin-bottom: 18px; padding: 15px; border-radius: 10px; background-color: var(--bg-color); text-align: center; border: 2px dashed var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center;">
                         <span style="font-weight: 700; opacity: 0.6;">Enter marks & category to see status.</span>
@@ -248,12 +253,21 @@
                         <span id="resOverallRank" style="display: flex; justify-content: center; align-items: baseline;">-</span>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px;">
-                        <div class="result-box" style="padding: 12px 5px;"><span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; opacity: 0.8;">Above</span><strong id="resOverallAbove" style="font-size: 1.2rem; color: var(--rank-black);">-</strong></div>
-                        <div class="result-box" style="padding: 12px 5px;"><span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; opacity: 0.8;">Below</span><strong id="resOverallBelow" style="font-size: 1.2rem; color: var(--rank-black);">-</strong></div>
-                        <div class="result-box" style="padding: 12px 5px;"><span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; opacity: 0.8;">Same</span><strong id="resOverallSame" style="font-size: 1.2rem; color: var(--rank-black);">-</strong></div>
+                    <div style="display: flex; gap: 15px; margin-bottom: 12px;">
+                        <div class="result-box" style="flex: 1; padding: 15px 5px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; opacity: 0.8; margin-bottom: 5px;">Above</span>
+                            <strong id="resOverallAbove" style="font-size: 1.4rem; color: var(--rank-black); line-height: 1;">-</strong>
+                        </div>
+                        <div class="result-box" style="flex: 1; padding: 15px 5px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; opacity: 0.8; margin-bottom: 5px;">Below</span>
+                            <strong id="resOverallBelow" style="font-size: 1.4rem; color: var(--rank-black); line-height: 1;">-</strong>
+                        </div>
+                        <div class="result-box" style="flex: 1; padding: 15px 5px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; opacity: 0.8; margin-bottom: 5px;">Same</span>
+                            <strong id="resOverallSame" style="font-size: 1.4rem; color: var(--rank-black); line-height: 1;">-</strong>
+                        </div>
                     </div>
-                    <div id="sameMarksMessage" style="text-align: center; font-size: 0.85rem; margin-bottom: 15px; font-weight: 800; color: var(--danger);"></div>
+                    <div id="sameMarksMessage" style="text-align: center; font-size: 0.9rem; margin-bottom: 15px; font-weight: 800; color: var(--danger);"></div>
 
                     <div id="probabilitySection" style="display: none; border-top: 2px solid var(--border); padding-top: 15px; margin-top: 15px;">
                         
@@ -263,14 +277,26 @@
                             <div class="legend-item"><span style="color: var(--danger); font-size: 1rem;">🔴</span> Tough (&lt;50%ile)</div>
                         </div>
 
+                        <div class="panic-box" id="smallPoolMsg">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                <span style="font-size: 1.2rem;">⚠️</span>
+                                <h4 style="margin: 0; color: var(--warning); font-size: 1rem; font-weight: 900; letter-spacing: 0.5px;">CRITICAL NOTE</h4>
+                            </div>
+                            <p style="font-weight: 700;">Because our current sample size is growing, non-serious candidates haven't entered their data yet. This makes final chances appear mathematically tougher than reality.</p>
+                            <p style="font-weight: 800; color: var(--text-color);">Your percentile and chances WILL dynamically improve as more genuine data is collected. Please do not panic, and keep sharing!</p>
+                            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(245, 158, 11, 0.3);">
+                                <p style="font-size: 0.85rem; color: var(--warning); font-weight: 800;">💡 हिंदी में: कम डेटा होने के कारण आपके चांस अभी कम/कठिन दिख सकते हैं। जैसे-जैसे अधिक असली डेटा जुड़ेगा, इसमें लगातार सुधार होगा। कृपया घबराएं नहीं, वेबसाइट शेयर करें!</p>
+                            </div>
+                        </div>
+
                         <div id="finalStatusBanner" style="padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 20px; font-weight: 900; font-size: 1.2rem; border: 2px solid transparent;">-</div>
 
                         <div id="fallbackAlert" style="display:none; background: rgba(59,130,246,0.1); border-left: 4px solid var(--primary); padding: 12px; border-radius: 0 8px 8px 0; margin-bottom: 15px; font-size: 0.85rem; font-weight: 600;"></div>
 
                         <div id="safeScoreBox" class="score-box" style="display: none;">
-                            <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--text-color);">Data-Backed Safe Score (60%ile)</span>
+                            <span style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; color: var(--text-color);">Current Data Based Safe Score (60%ile)</span>
                             <span id="safeScoreVal" class="score-val">-</span>
-                            <span style="font-size: 0.85rem; font-weight: 800; color: var(--warning); display: block; margin-top: 5px;">Borderline Score (50%ile): <span id="borderScoreVal">-</span></span>
+                            <span style="font-size: 0.9rem; font-weight: 800; color: var(--warning); display: block; margin-top: 5px;">Borderline Score (50%ile): <span id="borderScoreVal">-</span></span>
                         </div>
 
                         <h3 style="font-size: 0.95rem; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-top: 20px; text-align: center;">Competition Percentiles</h3>
@@ -281,16 +307,21 @@
                             <div class="category-rank-row"><span>Original Category Rank</span><div class="category-rank-val" id="resCatOrig">-</div></div>
                             <div class="category-rank-row"><span>Cat. Rank <span style="font-size: 0.7rem; background: var(--border); padding: 2px 6px; border-radius: 4px; margin-left: 4px;">Excl. UR Qualified</span></span><div class="category-rank-val" id="resCatExclUR">-</div></div>
                             <div class="category-rank-row" style="margin-bottom: 0;"><span>Cat. Rank <span style="font-size: 0.7rem; background: var(--border); padding: 2px 6px; border-radius: 4px; margin-left: 4px;">Incl. UR Qualified</span></span><div class="category-rank-val" id="resCatInclUR">-</div></div>
-                            <div id="catSummaryMessage" style="text-align: center; font-size: 0.85rem; margin-top: 15px; font-weight: 700; opacity: 0.9; display: none; padding: 12px; border: 2px dashed var(--border); border-radius: 8px; background-color: var(--bg-color);"></div>
+                            
+                            <div id="catSummaryMessage" style="text-align: center; font-size: 0.9rem; margin-top: 15px; font-weight: 700; opacity: 0.9; display: none; padding: 12px; border: 2px dashed var(--border); border-radius: 8px; background-color: var(--bg-color);"></div>
+                            
                             <p id="scrollHindiMsg" style="text-align: center; font-size: 0.95rem; font-weight: 900; color: var(--warning); margin-top: 20px; display: none; background: rgba(245, 158, 11, 0.15); padding: 15px; border-radius: 8px; border: 2px dashed var(--warning); animation: pulse-border 2s infinite;">
                                 👇 अपनी कैटेगरी के टॉपर्स की लिस्ट देखने के लिए सबसे नीचे स्क्रॉल करें 👇
                             </p>
                         </div>
 
                     </div>
+                    
+                    <div id="idleState" style="padding: 30px; text-align: center; opacity: 0.5; font-weight: 800;">
+                        Enter details to generate Analytics
+                    </div>
                 </div>
-
-                <div style="padding: 15px; background-color: var(--bg-color); border-top: 1px solid var(--border);">
+                <div style="padding: 15px; background: var(--bg-color); border-top: 1px solid var(--border);">
                     <button id="downloadScorecardBtn" class="download-btn" data-html2canvas-ignore="true" style="display: none; width: 100%;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                         Download HD Shareable Scorecard
@@ -328,7 +359,7 @@
                     <h2 id="overallRankersCardTitle">Top Rankers (Overall)</h2>
                     <div class="table-container">
                         <table id="overallRankersTable">
-                            <thead><tr><th>Rank</th><th>Name & Roll</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr></thead>
+                            <thead><tr><th>Rank</th><th>Candidate Name</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr></thead>
                             <tbody></tbody>
                         </table>
                     </div>
@@ -338,7 +369,7 @@
                     <h2>Top Rankers (<span id="catTableTitleIncl"></span> - UR Qualified)</h2>
                     <div class="table-container">
                         <table id="categoryRankersInclTable">
-                            <thead><tr><th>Rank</th><th>Name & Roll</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr></thead>
+                            <thead><tr><th>Rank</th><th>Candidate Name</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr></thead>
                             <tbody></tbody>
                         </table>
                     </div>
@@ -348,7 +379,7 @@
                     <h2>Top Rankers (<span id="catTableTitleExcl"></span> - Below UR Cutoff)</h2>
                     <div class="table-container">
                         <table id="categoryRankersExclTable">
-                            <thead><tr><th>Rank</th><th>Name & Roll</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr></thead>
+                            <thead><tr><th>Rank</th><th>Candidate Name</th><th>Marks</th><th>Category</th><th>Typing Speed</th></tr></thead>
                             <tbody></tbody>
                         </table>
                     </div>
@@ -398,16 +429,9 @@
         return clean.substring(0, 2) + '*'.repeat(clean.length - 4) + clean.substring(clean.length - 2);
     }
 
-    function maskRoll(roll) {
-        if (!roll || roll === "-" || roll === "") return '';
-        let r = String(roll).trim();
-        if (r.length <= 6) return r;
-        return r.substring(0, 2) + '*'.repeat(r.length - 6) + r.substring(r.length - 4);
-    }
-
     function formatManualTime(timeStr) {
         if (!timeStr || timeStr === "-") return "Just Now";
-        if (timeStr.toLowerCase().includes('am') || timeStr.toLowerCase().includes('pm')) return timeStr; // Already formatted
+        if (timeStr.toLowerCase().includes('am') || timeStr.toLowerCase().includes('pm')) return timeStr; 
         let parts = timeStr.split(':');
         if (parts.length >= 2) {
             let h = parseInt(parts[0], 10);
@@ -429,7 +453,6 @@
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const data = await response.json();
 
-            // Populate globals safely
             if (data.cleanData) {
                 cleanData = data.cleanData.map(row => ({
                     Marks: parseFloat(row["Marks"]), Category: row["Category"], Count: parseInt(row["count Marks"] || row["Count"], 10), Rank: parseInt(row["Rank"], 10)
@@ -440,7 +463,7 @@
                 topRankers = data.topRankers.map(row => ({
                     Marks: parseFloat(row["Marks"]), Name: row["NAME"] || row["Name"], Category: row["Category"],
                     TypingSpeed: row["CURRENT TYPING SPEED"] || row["  CURRENT TYPING SPEED"] || "-", 
-                    Verified: row["Verified"], RollNo: row["Roll No"] || row["RollNo"] || row["Roll Number"] || "" 
+                    Verified: row["Verified"]
                 })).filter(row => !isNaN(row.Marks));
             }
             
@@ -526,37 +549,9 @@
     // 5. MAIN PREDICT & FALLBACK ENGINE
     // ==========================================
     predictBtn.addEventListener('click', () => {
-        const uRoll = document.getElementById('rollInput').value.trim();
         let uMarksRaw = document.getElementById('marksInput').value;
         let uCat = document.getElementById('categoryInput').value.toUpperCase();
         
-        const vDiv = document.getElementById('verificationStatusDiv');
-        vDiv.style.display = 'none';
-
-        // Roll Number Verification Check
-        if (uRoll) {
-            const foundUser = allCandidates.find(c => String(c.roll) === uRoll);
-            if (foundUser) {
-                uMarksRaw = foundUser.marks;
-                document.getElementById('marksInput').value = foundUser.marks;
-                uCat = foundUser.cat.toUpperCase();
-                document.getElementById('categoryInput').value = (uCat === 'OTHER') ? 'OTHER' : uCat;
-                
-                let s = String(foundUser.status).toLowerCase();
-                if (s === "yes") {
-                    vDiv.innerHTML = `<span class="badge" style="background:var(--success); color:#fff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);">✔️ SCORE VERIFIED</span>`;
-                } else if (s === "no") {
-                    vDiv.innerHTML = `<span class="badge" style="background:var(--danger); color:#fff; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);">❌ ENTRY REJECTED</span><div style="font-size:0.8rem; font-weight:700; opacity:0.8; margin-top:5px;">Invalid screenshot or fake marks detected. Showing temp analysis.</div>`;
-                } else {
-                    vDiv.innerHTML = `<span class="badge" style="background:var(--warning); color:#fff; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">⏳ PENDING VERIFICATION</span><div style="font-size:0.8rem; font-weight:700; opacity:0.8; margin-top:5px;">We are reviewing your screenshot. Showing temp analysis.</div>`;
-                }
-                vDiv.style.display = 'block';
-            } else {
-                vDiv.innerHTML = `<span class="badge" style="background:#64748b; color:#fff;">🚫 ROLL NO NOT FOUND</span><div style="font-size:0.8rem; font-weight:700; opacity:0.8; margin-top:5px;">Please submit your data via Google Form above.</div>`;
-                vDiv.style.display = 'block';
-            }
-        }
-
         if (!uMarksRaw || isNaN(uMarksRaw) || parseFloat(uMarksRaw) > 200 || parseFloat(uMarksRaw) < 0) { alert("Please enter a valid decimal number strictly under 200."); return; }
 
         const uMarks = parseFloat(uMarksRaw);
@@ -578,17 +573,22 @@
         document.getElementById('displayUserCat').innerText = (uCat === 'OVERALL' || uCat === 'NONE') ? 'All' : uCat;
 
         // Reset UI Contexts
+        document.getElementById('idleState').style.display = 'none';
+        document.getElementById('dynamicAnalysisSection').style.display = 'block';
         document.getElementById('probabilitySection').style.display = 'block';
         document.getElementById('downloadScorecardBtn').style.display = 'block';
+        
         const pGrid = document.getElementById('percentileGrid');
         const banner = document.getElementById('finalStatusBanner');
         const safeBox = document.getElementById('safeScoreBox');
         const fallbackAlert = document.getElementById('fallbackAlert');
         pGrid.innerHTML = ""; fallbackAlert.style.display = "none"; safeBox.style.display = "none";
 
-        // Global UR Math Boundaries
-        const urSafeMark60 = getMarkAtPercentile(cleanData, 60);
-        const urBorderMark50 = getMarkAtPercentile(cleanData, 50);
+        // Global UR Math Boundaries (Includes everyone above UR cutoff)
+        const urCutoff = cutoffs["UR"];
+        const urClearers = cleanData.filter(r => parseFloat(r.Marks) >= urCutoff);
+        const urSafeMark60 = getMarkAtPercentile(urClearers, 60);
+        const urBorderMark50 = getMarkAtPercentile(urClearers, 50);
         const globalStats = getPercentileStats(cleanData, uMarks);
 
         // HELPER: Status Banner UI
@@ -607,7 +607,7 @@
 
         // HELPER: Percentile Box UI
         const addPBox = (title, val, colorHex) => {
-            pGrid.innerHTML += `<div class="p-box"><div class="p-title">${title}</div><div class="p-val" style="color:${colorHex}">${val.toFixed(2)}%</div></div>`;
+            pGrid.innerHTML += `<div class="p-box"><div class="p-title">${title}</div><div class="p-val" style="color:${colorHex}">${val.toFixed(2)} <span style="font-size:0.4em;">%ile</span></div></div>`;
         };
 
         // ---------------------------------------------
@@ -642,7 +642,6 @@
         } else {
             // RESERVED CATEGORY LOGIC
             document.getElementById('scrollHindiMsg').style.display = 'block'; 
-            const urCutoff = cutoffs["UR"];
             const myCatCutoff = cutoffs[uCat] || 0;
             const isURQualified = uMarks >= urCutoff;
 
@@ -680,7 +679,8 @@
             }
 
             const catSummaryMsg = document.getElementById('catSummaryMessage');
-            catSummaryMsg.innerHTML = `Out of <strong style="color:var(--primary); font-size: 1.1em;">${catTotalQualified}</strong> candidates qualified in <strong>${uCat}</strong>, <strong style="color:var(--success); font-size: 1.1em;">${catQualifiedUR}</strong> have qualified on UR cut off and <strong style="color:var(--primary); font-size: 1.1em;">${catQualifiedOwn}</strong> in your category.`;
+            let urQualPercent = catTotalQualified > 0 ? ((catQualifiedUR / catTotalQualified) * 100).toFixed(1) : 0;
+            catSummaryMsg.innerHTML = `Out of <strong style="color:var(--primary); font-size: 1.1em;">${catTotalQualified}</strong> qualified candidates of <strong>${uCat}</strong>, <strong style="color:var(--success); font-size: 1.1em;">${catQualifiedUR}</strong> qualified in UR and <strong style="color:var(--primary); font-size: 1.1em;">${catQualifiedOwn}</strong> in ${uCat}.<br><span style="color:var(--danger); font-weight:800; display:block; margin-top:8px;">(${urQualPercent}% of your category qualify UR cutoff)</span>`;
             catSummaryMsg.style.display = 'block';
 
             // 3. Fallback Probability Execution
@@ -698,7 +698,7 @@
                 // FALLBACK ACTIVATED: Evaluate against Category Merit
                 if (isURQualified) {
                     fallbackAlert.style.display = "block";
-                    fallbackAlert.innerHTML = `⚠️ You cleared UR Tier-1, but are below the UR Safe Zone. <strong>You have fallen back to ${uCat} merit.</strong> Top ${uCat} candidates securing UR seats are removed from your competition!`;
+                    fallbackAlert.innerHTML = `⚠️ You cleared the Final UR cutoff, but are below the UR Safe Zone. <strong>You have fallen back to ${uCat} merit.</strong> Top ${uCat} candidates securing UR seats are removed from your competition!`;
                     addPBox("UR Percentile", globalStats.percentile, "var(--danger)");
                 }
 
@@ -729,6 +729,7 @@
             statusDiv.style.borderColor = "#ef4444"; statusDiv.style.backgroundColor = "rgba(239, 68, 68, 0.1)";
         }
 
+        document.getElementById('smallPoolMsg').style.display = totalCandidates < 5000 ? 'block' : 'none';
         renderDynamicTables(uCat);
     });
 
@@ -763,7 +764,6 @@
         watermark.style.display = "block";
         downloadBtn.innerHTML = "Rendering HD Scorecard...";
 
-        // scale: 4 for super crisp high-res image
         html2canvas(area, { scale: 4, useCORS: true, backgroundColor: getComputedStyle(document.body).getPropertyValue('--card-bg') }).then(canvas => {
             const link = document.createElement('a');
             link.download = `DSSSB_LDC_Rank_${document.getElementById('marksInput').value}.jpg`;
@@ -809,12 +809,10 @@
             const tr = document.createElement('tr');
             let badgeHtml = (row.Verified && row.Verified.toLowerCase() === 'yes') ? `<span class="verified-badge">✔️ Verified</span>` : '';
             let safeName = maskName(row.Name);
-            let safeRoll = maskRoll(row.RollNo);
-            let rollDisplay = safeRoll ? `<span style="font-size:0.75rem; opacity:0.6; display:block;">(${safeRoll})</span>` : '';
 
             tr.innerHTML = `
                 <td style="font-weight: 800; color: var(--text-color);">${index + 1}</td>
-                <td style="font-weight: 700;">${safeName} ${rollDisplay} ${badgeHtml}</td>
+                <td style="font-weight: 700;">${safeName} ${badgeHtml}</td>
                 <td style="font-weight: 900; color: var(--primary);">${row.Marks}</td>
                 <td><span style="background: var(--border); padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-weight: 800;">${row.Category}</span></td>
                 <td><span style="font-weight: 700; opacity: 0.8;">${row.TypingSpeed || '-'}</span></td>

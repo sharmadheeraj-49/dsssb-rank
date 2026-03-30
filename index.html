@@ -189,7 +189,7 @@
             <div>🛡️ Valid Entries: <span class="transparency-val" id="td-entries">-</span></div>
             <div style="color: #fca5a5;">⏳ Pending Verification: <span class="transparency-val" style="color: #fca5a5;" id="td-pending">-</span></div>
             <div style="color: #fca5a5;">🗑️ Fakes Cleaned: <span class="transparency-val" style="color: #fca5a5;" id="td-fakes">-</span></div>
-            <div style="opacity: 0.8; width: 100%; text-align: right; font-size: 0.75rem;">Last Fake/Duplicate Deleted Update: <span id="td-updated" style="font-weight: 800; color: #fff;">-</span></div>
+            <div style="opacity: 0.8; width: 100%; text-align: right; font-size: 0.75rem;">Last Fake/Duplicates Deleted: <span id="td-updated" style="font-weight: 800; color: #fff;">-</span></div>
         </div>
 
         <div class="genuine-banner">
@@ -715,7 +715,7 @@
             catSummaryMsg.innerHTML = `Out of <strong style="color:var(--primary); font-size: 1.1em;">${catTotalQualified}</strong> qualified candidates of <strong>${uCat}</strong>, <strong style="color:var(--success); font-size: 1.1em;">${catQualifiedUR}</strong> qualified in UR and <strong style="color:var(--primary); font-size: 1.1em;">${catQualifiedOwn}</strong> in ${uCat}.<br><span style="color:var(--danger); font-weight:800; display:block; margin-top:8px;">(${urQualPercent}% of your category qualify UR cutoff)</span>`;
             catSummaryMsg.style.display = 'block';
 
-            // 3. Fallback Probability Execution (Now evaluating against urStats)
+            // 3. Fallback Probability Execution (Evaluating against urStats for safe zone)
             if (isURQualified && urStats.percentile >= 60) {
                 renderStatus(urStats.percentile, "UR Merit");
                 safeBox.style.display = "block";

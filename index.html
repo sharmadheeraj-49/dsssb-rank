@@ -189,7 +189,7 @@
             <div>🛡️ Valid Entries: <span class="transparency-val" id="td-entries">-</span></div>
             <div style="color: #fca5a5;">⏳ Pending Verification: <span class="transparency-val" style="color: #fca5a5;" id="td-pending">-</span></div>
             <div style="color: #fca5a5;">🗑️ Fakes Cleaned: <span class="transparency-val" style="color: #fca5a5;" id="td-fakes">-</span></div>
-            <div style="opacity: 0.8; width: 100%; text-align: right; font-size: 0.75rem;">Last Fakes/Duplicates deleted: <span id="td-updated" style="font-weight: 800; color: #fff;">-</span></div>
+            <div style="opacity: 0.8; width: 100%; text-align: right; font-size: 0.75rem;">Last Fake/Duplicate data cleaned: <span id="td-updated" style="font-weight: 800; color: #fff;">-</span></div>
         </div>
 
         <div class="genuine-banner">
@@ -538,7 +538,7 @@
     }
 
     // ==========================================
-    // 4. MATHEMATICAL PERCENTILE FUNCTIONS
+    // 4. MATHEMATICAL PERCENTILE FUNCTIONS (CORRECTED)
     // ==========================================
     function getPercentileStats(poolArray, targetMarks) {
         let total = 0, above = 0;
@@ -548,7 +548,12 @@
             if (m > targetMarks + 0.0001) above += c;
         });
         if (total === 0) return { percentile: 0, rank: 0, total: 0 };
-        return { percentile: ((total - above) / total) * 100, rank: above + 1, total: total };
+        
+        let rank = above + 1;
+        let percentile = ((total - rank) / total) * 100;
+        if (percentile < 0) percentile = 0; // Fallback safety
+        
+        return { percentile: percentile, rank: rank, total: total };
     }
 
     function getMarkAtPercentile(poolArray, targetPercentile) {
@@ -598,6 +603,7 @@
         // Reveal Dynamic Sections
         document.getElementById('idleState').style.display = 'none';
         document.getElementById('dynamicAnalysisSection').style.display = 'block';
+        document.getElementById('probabilitySection').style.display = 'block';
         document.getElementById('downloadScorecardBtn').style.display = 'block';
         
         const pGrid = document.getElementById('percentileGrid');

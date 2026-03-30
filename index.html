@@ -189,7 +189,7 @@
             <div>🛡️ Valid Entries: <span class="transparency-val" id="td-entries">-</span></div>
             <div style="color: #fca5a5;">⏳ Pending Verification: <span class="transparency-val" style="color: #fca5a5;" id="td-pending">-</span></div>
             <div style="color: #fca5a5;">🗑️ Fakes Cleaned: <span class="transparency-val" style="color: #fca5a5;" id="td-fakes">-</span></div>
-            <div style="opacity: 0.8; width: 100%; text-align: right; font-size: 0.75rem;">Last Fake/Duplicates Deleted: <span id="td-updated" style="font-weight: 800; color: #fff;">-</span></div>
+            <div style="opacity: 0.8; width: 100%; text-align: right; font-size: 0.75rem;">Last Fake/Duplicate Cleaning: <span id="td-updated" style="font-weight: 800; color: #fff;">-</span></div>
         </div>
 
         <div class="genuine-banner">
@@ -489,13 +489,16 @@
             if (data.siteData && Object.keys(data.siteData).length > 0) {
                 siteData = data.siteData;
                 
-                let tot = parseInt(siteData["Total Entries"]) || 0;
-                let pnd = parseInt(siteData["Pending Verification"]) || 0;
-                let verifiedCount = tot - pnd;
-                
-                document.getElementById('verifiedCandidatesDisplay').innerText = isNaN(verifiedCount) ? "0" : verifiedCount;
-                document.getElementById('td-entries').innerText = siteData["Total Entries"] || "-";
-                document.getElementById('td-pending').innerText = siteData["Pending Verification"] || "0";
+                // MATHEMATICAL PENDING FIX
+                const totalVerified = cleanData.reduce((sum, row) => sum + row.Count, 0);
+                document.getElementById('verifiedCandidatesDisplay').innerText = totalVerified;
+
+                let totEntries = parseInt(siteData["Total Entries"]) || 0;
+                let pendingCalc = totEntries - totalVerified;
+                if (pendingCalc < 0) pendingCalc = 0; // Fallback
+
+                document.getElementById('td-entries').innerText = totEntries;
+                document.getElementById('td-pending').innerText = pendingCalc;
                 document.getElementById('td-fakes').innerText = siteData["Fakes Removed"] || "-";
                 document.getElementById('td-updated').innerText = formatManualTime(siteData["Manual Time"]);
             }
@@ -538,7 +541,7 @@
     }
 
     // ==========================================
-    // 4. MATHEMATICAL PERCENTILE FUNCTIONS (CORRECTED)
+    // 4. MATHEMATICAL PERCENTILE FUNCTIONS
     // ==========================================
     function getPercentileStats(poolArray, targetMarks) {
         let total = 0, above = 0;
@@ -551,7 +554,7 @@
         
         let rank = above + 1;
         let percentile = ((total - rank) / total) * 100;
-        if (percentile < 0) percentile = 0; // Fallback safety
+        if (percentile < 0) percentile = 0; 
         
         return { percentile: percentile, rank: rank, total: total };
     }
@@ -655,7 +658,7 @@
             banner.innerHTML = "Select Category to see Probability"; banner.style.border = "none"; banner.style.background = "transparent";
             
         } else if (uCat === 'UR') {
-            // 🚨 PURE UR LOGIC (Using urStats, not globalStats)
+            // PURE UR LOGIC (Using urStats)
             renderStatus(urStats.percentile, "UR Merit");
             safeBox.style.display = "block";
             document.getElementById('safeScoreVal').innerText = urSafeMark60;

@@ -43,13 +43,16 @@
         button:hover { transform: translateY(-2px); opacity: 0.95; }
 
         /* Banners */
-        .transparency-banner { background: linear-gradient(90deg, #1e293b, #0f172a); color: #f8fafc; padding: 12px 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-size: 0.85rem; font-weight: 600; border: 1px solid #334155; }
+        .transparency-banner { background: linear-gradient(90deg, #1e293b, #0f172a); color: #f8fafc; padding: 12px 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-size: 0.85rem; font-weight: 600; border: 1px solid #334155; }
         .transparency-val { color: #38bdf8; font-weight: 900; font-size: 1.05rem; }
         
+        .verified-header-banner { background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), transparent); border: 2px solid var(--primary); padding: 15px 20px; border-radius: 12px; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow); }
+        .verified-header-banner h3 { color: var(--primary); font-size: 1.4rem; font-weight: 900; margin: 0; }
+        
+        .genuine-banner { background-color: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--success); padding: 14px 18px; margin-bottom: 25px; border-radius: 0 8px 8px 0; }
+
         .fallback-banner { background: linear-gradient(135deg, rgba(79,70,229,0.1), rgba(139,92,246,0.1)); border: 2px solid var(--primary); padding: 18px; border-radius: 12px; margin-bottom: 25px; text-align: center; box-shadow: var(--shadow); }
         .fallback-banner h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 8px; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 8px; }
-
-        .genuine-banner { background-color: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--success); padding: 14px 18px; margin-bottom: 25px; border-radius: 0 8px 8px 0; }
 
         .grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 24px; }
         @media (min-width: 1024px) { .grid { grid-template-columns: 1fr 1fr; } } 
@@ -64,15 +67,15 @@
         
         /* Action Buttons */
         .btn-container { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
-        .action-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 22px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 0.95rem; border: none; cursor: pointer; flex: 1; min-width: 200px;}
-        .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); animation: pulse-green 2s infinite; }
+        .action-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 22px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 0.95rem; border: none; cursor: pointer; flex: 1; min-width: 200px; text-align: center;}
+        .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); animation: pulse-green 2s infinite; font-size: 1.1rem; padding: 18px;}
         .share-btn { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; }
         .method-btn { background: linear-gradient(135deg, #a855f7, #7e22ce); color: white; }
         .feedback-btn { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
         @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
 
         /* Scorecard Elements */
-        .result-box { text-align: center; padding: 15px; background-color: var(--bg-color); border-radius: 12px; margin-bottom: 10px; flex: 1; border: 1px solid var(--border); }
+        .result-box { text-align: center; padding: 15px; background-color: var(--bg-color); border-radius: 12px; border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .result-box.highlight { background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), transparent); border: 2px solid var(--primary); }
         
         .rank-numerator { font-size: 2.2rem; font-weight: 900; color: var(--rank-red); }
@@ -86,11 +89,11 @@
         .status-legend { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 15px; padding: 10px; border-radius: 8px; background: var(--bg-color); border: 1px dashed var(--border); }
         .legend-item { font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; gap: 5px; color: var(--text-color); }
 
-        .panic-box { background: linear-gradient(135deg, #fffbeb, #fef3c7); border-left: 6px solid var(--warning); padding: 18px; margin-bottom: 20px; border-radius: 8px 12px 12px 8px; display: none; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15); animation: pulse-border 2s infinite; }
+        .panic-box { background: linear-gradient(135deg, #fffbeb, #fef3c7); border-left: 6px solid var(--warning); padding: 18px; margin-bottom: 20px; border-radius: 8px 12px 12px 8px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15); animation: pulse-border 2s infinite; }
         body.dark-mode .panic-box { background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05)); }
         @keyframes pulse-border { 0% { border-color: rgba(245, 158, 11, 0.4); } 50% { border-color: rgba(245, 158, 11, 1); } 100% { border-color: rgba(245, 158, 11, 0.4); } }
 
-        /* New Percentile UI */
+        /* Percentile UI */
         .percentile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 15px; margin-bottom: 20px; }
         .p-box { background: var(--bg-color); border: 2px solid var(--border); padding: 15px; border-radius: 12px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
         .p-title { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; opacity: 0.8; margin-bottom: 8px; line-height: 1.3; }
@@ -109,7 +112,6 @@
         body.dark-mode tr:hover td { background-color: rgba(255,255,255,0.02); }
         
         .verified-badge { background-color: rgba(16, 185, 129, 0.15); color: var(--success); padding: 3px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 800; margin-left: 8px; border: 1px solid rgba(16, 185, 129, 0.3); }
-        .badge { display: inline-block; padding: 8px 14px; border-radius: 8px; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
 
         .chart-container { position: relative; height: 380px; width: 100%; }
         
@@ -178,11 +180,16 @@
     </div>
 
     <div id="app">
+        <div class="verified-header-banner">
+            <span style="font-size: 2rem;">📊</span>
+            <h3>Analysis based on <span id="verifiedCandidatesDisplay" style="color: var(--rank-red);">0</span> verified candidates</h3>
+        </div>
+
         <div class="transparency-banner">
             <div>🛡️ Valid Entries: <span class="transparency-val" id="td-entries">-</span></div>
             <div style="color: #fca5a5;">⏳ Pending Verification: <span class="transparency-val" style="color: #fca5a5;" id="td-pending">-</span></div>
             <div style="color: #fca5a5;">🗑️ Fakes Cleaned: <span class="transparency-val" style="color: #fca5a5;" id="td-fakes">-</span></div>
-            <div style="opacity: 0.8; width: 100%; text-align: right; font-size: 0.75rem;">Last Fake/Duplicate Data Removal: <span id="td-updated" style="font-weight: 800; color: #fff;">-</span></div>
+            <div style="opacity: 0.8; width: 100%; text-align: right; font-size: 0.75rem;">Last Fakes/Duplicates deleted: <span id="td-updated" style="font-weight: 800; color: #fff;">-</span></div>
         </div>
 
         <div class="genuine-banner">
@@ -202,7 +209,7 @@
             <p style="text-align: center; font-weight: 600; margin-bottom: 20px;">To ensure 100% accuracy in Safe Scores, you must submit your marks. Only verified candidates build the merit list.</p>
             
             <div class="btn-container" style="justify-content: center; margin-bottom: 15px;">
-                <a href="https://forms.gle/39KtHEdFt5dSjBF87" target="_blank" class="action-btn submit-btn" style="max-width: 400px; padding: 18px;">
+                <a href="https://forms.gle/39KtHEdFt5dSjBF87" target="_blank" class="action-btn submit-btn" style="max-width: 400px;">
                     📝 Submit Marks via Google Form
                 </a>
             </div>
@@ -248,73 +255,76 @@
                         <span style="font-weight: 700; opacity: 0.6;">Enter marks & category to see status.</span>
                     </div>
 
-                    <div class="result-box highlight" style="margin-bottom: 12px; padding: 15px 10px;">
-                        <span style="font-weight: 800; font-size: 0.9rem; letter-spacing: 0.5px; color: var(--text-color); margin-bottom: 5px; text-transform: uppercase;">Overall Rank</span>
-                        <span id="resOverallRank" style="display: flex; justify-content: center; align-items: baseline;">-</span>
-                    </div>
-
-                    <div style="display: flex; gap: 15px; margin-bottom: 12px;">
-                        <div class="result-box" style="flex: 1; padding: 15px 5px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                            <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; opacity: 0.8; margin-bottom: 5px;">Above</span>
-                            <strong id="resOverallAbove" style="font-size: 1.4rem; color: var(--rank-black); line-height: 1;">-</strong>
-                        </div>
-                        <div class="result-box" style="flex: 1; padding: 15px 5px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                            <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; opacity: 0.8; margin-bottom: 5px;">Below</span>
-                            <strong id="resOverallBelow" style="font-size: 1.4rem; color: var(--rank-black); line-height: 1;">-</strong>
-                        </div>
-                        <div class="result-box" style="flex: 1; padding: 15px 5px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                            <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; opacity: 0.8; margin-bottom: 5px;">Same</span>
-                            <strong id="resOverallSame" style="font-size: 1.4rem; color: var(--rank-black); line-height: 1;">-</strong>
-                        </div>
-                    </div>
-                    <div id="sameMarksMessage" style="text-align: center; font-size: 0.9rem; margin-bottom: 15px; font-weight: 800; color: var(--danger);"></div>
-
-                    <div id="probabilitySection" style="display: none; border-top: 2px solid var(--border); padding-top: 15px; margin-top: 15px;">
+                    <div id="dynamicAnalysisSection" style="display: none;">
                         
-                        <div class="status-legend">
-                            <div class="legend-item"><span style="color: var(--success); font-size: 1rem;">🟢</span> Excellent (>60%ile)</div>
-                            <div class="legend-item"><span style="color: var(--warning); font-size: 1rem;">🟠</span> Borderline (50-60%ile)</div>
-                            <div class="legend-item"><span style="color: var(--danger); font-size: 1rem;">🔴</span> Tough (&lt;50%ile)</div>
+                        <div class="result-box highlight" style="margin-bottom: 12px; padding: 15px 10px;">
+                            <span style="font-weight: 800; font-size: 0.9rem; letter-spacing: 0.5px; color: var(--text-color); margin-bottom: 5px; text-transform: uppercase;">Overall Rank</span>
+                            <span id="resOverallRank" style="display: flex; justify-content: center; align-items: baseline;">-</span>
                         </div>
 
-                        <div class="panic-box" id="smallPoolMsg">
-                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                                <span style="font-size: 1.2rem;">⚠️</span>
-                                <h4 style="margin: 0; color: var(--warning); font-size: 1rem; font-weight: 900; letter-spacing: 0.5px;">CRITICAL NOTE</h4>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 15px;">
+                            <div class="result-box" style="padding: 15px 5px; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; opacity: 0.7; margin-bottom: 5px;">Above</span>
+                                <strong id="resOverallAbove" style="font-size: 1.4rem; color: var(--rank-black); line-height: 1;">-</strong>
                             </div>
-                            <p style="font-weight: 700;">Because our current sample size is growing, non-serious candidates haven't entered their data yet. This makes final chances appear mathematically tougher than reality.</p>
-                            <p style="font-weight: 800; color: var(--text-color);">Your percentile and chances WILL dynamically improve as more genuine data is collected. Please do not panic, and keep sharing!</p>
-                            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(245, 158, 11, 0.3);">
-                                <p style="font-size: 0.85rem; color: var(--warning); font-weight: 800;">💡 हिंदी में: कम डेटा होने के कारण आपके चांस अभी कम/कठिन दिख सकते हैं। जैसे-जैसे अधिक असली डेटा जुड़ेगा, इसमें लगातार सुधार होगा। कृपया घबराएं नहीं, वेबसाइट शेयर करें!</p>
+                            <div class="result-box" style="padding: 15px 5px; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; opacity: 0.7; margin-bottom: 5px;">Below</span>
+                                <strong id="resOverallBelow" style="font-size: 1.4rem; color: var(--rank-black); line-height: 1;">-</strong>
+                            </div>
+                            <div class="result-box" style="padding: 15px 5px; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; opacity: 0.7; margin-bottom: 5px;">Same</span>
+                                <strong id="resOverallSame" style="font-size: 1.4rem; color: var(--rank-black); line-height: 1;">-</strong>
                             </div>
                         </div>
+                        <div id="sameMarksMessage" style="text-align: center; font-size: 0.9rem; margin-bottom: 15px; font-weight: 800; color: var(--danger);"></div>
 
-                        <div id="finalStatusBanner" style="padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 20px; font-weight: 900; font-size: 1.2rem; border: 2px solid transparent;">-</div>
-
-                        <div id="fallbackAlert" style="display:none; background: rgba(59,130,246,0.1); border-left: 4px solid var(--primary); padding: 12px; border-radius: 0 8px 8px 0; margin-bottom: 15px; font-size: 0.85rem; font-weight: 600;"></div>
-
-                        <div id="safeScoreBox" class="score-box" style="display: none;">
-                            <span style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; color: var(--text-color);">Current Data Based Safe Score (60%ile)</span>
-                            <span id="safeScoreVal" class="score-val">-</span>
-                            <span style="font-size: 0.9rem; font-weight: 800; color: var(--warning); display: block; margin-top: 5px;">Borderline Score (50%ile): <span id="borderScoreVal">-</span></span>
-                        </div>
-
-                        <h3 style="font-size: 0.95rem; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-top: 20px; text-align: center;">Competition Percentiles</h3>
-                        <div id="percentileGrid" class="percentile-grid"></div>
-
-                        <h3 style="margin-top: 25px; font-size: 0.95rem; font-weight: 800; color: var(--primary); text-transform: uppercase;">Category Ranks (<span id="displayUserCat">...</span>)</h3>
-                        <div style="display: flex; flex-direction: column; margin-top: 10px;">
-                            <div class="category-rank-row"><span>Original Category Rank</span><div class="category-rank-val" id="resCatOrig">-</div></div>
-                            <div class="category-rank-row"><span>Cat. Rank <span style="font-size: 0.7rem; background: var(--border); padding: 2px 6px; border-radius: 4px; margin-left: 4px;">Excl. UR Qualified</span></span><div class="category-rank-val" id="resCatExclUR">-</div></div>
-                            <div class="category-rank-row" style="margin-bottom: 0;"><span>Cat. Rank <span style="font-size: 0.7rem; background: var(--border); padding: 2px 6px; border-radius: 4px; margin-left: 4px;">Incl. UR Qualified</span></span><div class="category-rank-val" id="resCatInclUR">-</div></div>
+                        <div id="probabilitySection" style="border-top: 2px solid var(--border); padding-top: 15px; margin-top: 15px;">
                             
-                            <div id="catSummaryMessage" style="text-align: center; font-size: 0.9rem; margin-top: 15px; font-weight: 700; opacity: 0.9; display: none; padding: 12px; border: 2px dashed var(--border); border-radius: 8px; background-color: var(--bg-color);"></div>
-                            
-                            <p id="scrollHindiMsg" style="text-align: center; font-size: 0.95rem; font-weight: 900; color: var(--warning); margin-top: 20px; display: none; background: rgba(245, 158, 11, 0.15); padding: 15px; border-radius: 8px; border: 2px dashed var(--warning); animation: pulse-border 2s infinite;">
-                                👇 अपनी कैटेगरी के टॉपर्स की लिस्ट देखने के लिए सबसे नीचे स्क्रॉल करें 👇
-                            </p>
-                        </div>
+                            <div class="status-legend">
+                                <div class="legend-item"><span style="color: var(--success); font-size: 1rem;">🟢</span> Excellent (>60%ile)</div>
+                                <div class="legend-item"><span style="color: var(--warning); font-size: 1rem;">🟠</span> Borderline (50-60%ile)</div>
+                                <div class="legend-item"><span style="color: var(--danger); font-size: 1rem;">🔴</span> Tough (&lt;50%ile)</div>
+                            </div>
 
+                            <div class="panic-box" id="smallPoolMsg">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                    <span style="font-size: 1.2rem;">⚠️</span>
+                                    <h4 style="margin: 0; color: var(--warning); font-size: 1rem; font-weight: 900; letter-spacing: 0.5px;">CRITICAL NOTE</h4>
+                                </div>
+                                <p style="font-weight: 700;">Because our current sample size is growing, non-serious candidates haven't entered their data yet. This makes final chances appear mathematically tougher than reality.</p>
+                                <p style="font-weight: 800; color: var(--text-color);">Your percentile and chances WILL dynamically improve as more genuine data is collected. Please do not panic, and keep sharing!</p>
+                                <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(245, 158, 11, 0.3);">
+                                    <p style="font-size: 0.85rem; color: var(--warning); font-weight: 800;">💡 हिंदी में: कम डेटा होने के कारण आपके चांस अभी कम/कठिन दिख सकते हैं। जैसे-जैसे अधिक असली डेटा जुड़ेगा, इसमें लगातार सुधार होगा। कृपया घबराएं नहीं, वेबसाइट शेयर करें!</p>
+                                </div>
+                            </div>
+
+                            <div id="finalStatusBanner" style="padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 20px; font-weight: 900; font-size: 1.2rem; border: 2px solid transparent;">-</div>
+
+                            <div id="fallbackAlert" style="display:none; background: rgba(59,130,246,0.1); border-left: 4px solid var(--primary); padding: 12px; border-radius: 0 8px 8px 0; margin-bottom: 15px; font-size: 0.85rem; font-weight: 600;"></div>
+
+                            <div id="safeScoreBox" class="score-box" style="display: none;">
+                                <span style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; color: var(--text-color);">Current Data Based Safe Score (60%ile)</span>
+                                <span id="safeScoreVal" class="score-val">-</span>
+                                <span style="font-size: 0.9rem; font-weight: 800; color: var(--warning); display: block; margin-top: 5px;">Borderline Score (50%ile): <span id="borderScoreVal">-</span></span>
+                            </div>
+
+                            <h3 style="font-size: 0.95rem; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-top: 20px; text-align: center;">Competition Percentiles</h3>
+                            <div id="percentileGrid" class="percentile-grid"></div>
+
+                            <h3 style="margin-top: 25px; font-size: 0.95rem; font-weight: 800; color: var(--primary); text-transform: uppercase;">Category Ranks (<span id="displayUserCat">...</span>)</h3>
+                            <div style="display: flex; flex-direction: column; margin-top: 10px;">
+                                <div class="category-rank-row"><span>Original Category Rank</span><div class="category-rank-val" id="resCatOrig">-</div></div>
+                                <div class="category-rank-row"><span>Cat. Rank <span style="font-size: 0.7rem; background: var(--border); padding: 2px 6px; border-radius: 4px; margin-left: 4px;">Excl. UR Qualified</span></span><div class="category-rank-val" id="resCatExclUR">-</div></div>
+                                <div class="category-rank-row" style="margin-bottom: 0;"><span>Cat. Rank <span style="font-size: 0.7rem; background: var(--border); padding: 2px 6px; border-radius: 4px; margin-left: 4px;">Incl. UR Qualified</span></span><div class="category-rank-val" id="resCatInclUR">-</div></div>
+                                
+                                <div id="catSummaryMessage" style="text-align: center; font-size: 0.9rem; margin-top: 15px; font-weight: 700; opacity: 0.9; display: none; padding: 12px; border: 2px dashed var(--border); border-radius: 8px; background-color: var(--bg-color);"></div>
+                                
+                                <p id="scrollHindiMsg" style="text-align: center; font-size: 0.95rem; font-weight: 900; color: var(--warning); margin-top: 20px; display: none; background: rgba(245, 158, 11, 0.15); padding: 15px; border-radius: 8px; border: 2px dashed var(--warning); animation: pulse-border 2s infinite;">
+                                    👇 अपनी कैटेगरी के टॉपर्स की लिस्ट देखने के लिए सबसे नीचे स्क्रॉल करें 👇
+                                </p>
+                            </div>
+
+                        </div>
                     </div>
                     
                     <div id="idleState" style="padding: 30px; text-align: center; opacity: 0.5; font-weight: 800;">
@@ -405,7 +415,7 @@
     const API_URL = "https://script.google.com/macros/s/AKfycbwONrBT-KcwYs6TG7w9X2RMXbIIW6BIUqxEKQMK2yqOUzP3gZzhTkIAaCA84KEuDTd8/exec"; 
     const cutoffs = { "UR": 149.15, "EWS": 119.62, "SC": 120.36, "OBC DELHI": 84.77, "ST": 104.75, "OTHER": 61.97 };
 
-    let cleanData = [], topRankers = [], allCandidates = [], siteData = {};
+    let cleanData = [], topRankers = [], siteData = {};
     let chartInstance = null;
 
     const themeToggle = document.getElementById('themeToggle');
@@ -431,16 +441,25 @@
 
     function formatManualTime(timeStr) {
         if (!timeStr || timeStr === "-") return "Just Now";
-        if (timeStr.toLowerCase().includes('am') || timeStr.toLowerCase().includes('pm')) return timeStr; 
+        
+        const d = new Date();
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const dateString = d.getDate() + " " + months[d.getMonth()] + " " + d.getFullYear();
+
         let parts = timeStr.split(':');
-        if (parts.length >= 2) {
+        if (parts.length >= 2 && !timeStr.toLowerCase().includes('am') && !timeStr.toLowerCase().includes('pm')) {
             let h = parseInt(parts[0], 10);
-            let m = parts[1];
+            let m = parts[1].replace(/[^0-9]/g, ''); 
             let ampm = h >= 12 ? 'PM' : 'AM';
             h = h % 12;
             h = h ? h : 12;
-            return h + ":" + m + " " + ampm + " IST";
+            return dateString + ", " + h + ":" + m + " " + ampm + " IST";
         }
+        
+        if ((timeStr.toLowerCase().includes('am') || timeStr.toLowerCase().includes('pm')) && !timeStr.includes(d.getFullYear().toString())) {
+            return dateString + ", " + timeStr + (timeStr.includes('IST') ? "" : " IST");
+        }
+
         return timeStr;
     }
 
@@ -467,10 +486,14 @@
                 })).filter(row => !isNaN(row.Marks));
             }
             
-            allCandidates = data.allCandidates || [];
-            
             if (data.siteData && Object.keys(data.siteData).length > 0) {
                 siteData = data.siteData;
+                
+                let tot = parseInt(siteData["Total Entries"]) || 0;
+                let pnd = parseInt(siteData["Pending Verification"]) || 0;
+                let verifiedCount = tot - pnd;
+                
+                document.getElementById('verifiedCandidatesDisplay').innerText = isNaN(verifiedCount) ? "0" : verifiedCount;
                 document.getElementById('td-entries').innerText = siteData["Total Entries"] || "-";
                 document.getElementById('td-pending').innerText = siteData["Pending Verification"] || "0";
                 document.getElementById('td-fakes').innerText = siteData["Fakes Removed"] || "-";
@@ -572,10 +595,9 @@
         document.getElementById('sameMarksMessage').innerText = overallSame > 0 ? `🔥 ${overallSame} candidate(s) have the exact same marks as you` : "";
         document.getElementById('displayUserCat').innerText = (uCat === 'OVERALL' || uCat === 'NONE') ? 'All' : uCat;
 
-        // Reset UI Contexts
+        // Reveal Dynamic Sections
         document.getElementById('idleState').style.display = 'none';
         document.getElementById('dynamicAnalysisSection').style.display = 'block';
-        document.getElementById('probabilitySection').style.display = 'block';
         document.getElementById('downloadScorecardBtn').style.display = 'block';
         
         const pGrid = document.getElementById('percentileGrid');
@@ -607,7 +629,7 @@
 
         // HELPER: Percentile Box UI
         const addPBox = (title, val, colorHex) => {
-            pGrid.innerHTML += `<div class="p-box"><div class="p-title">${title}</div><div class="p-val" style="color:${colorHex}">${val.toFixed(2)} <span style="font-size:0.4em;">%ile</span></div></div>`;
+            pGrid.innerHTML += `<div class="p-box"><div class="p-title">${title}</div><div class="p-val" style="color:${colorHex}">${val.toFixed(2)}<span style="font-size:0.5em;">%ile</span></div></div>`;
         };
 
         // ---------------------------------------------
@@ -617,7 +639,6 @@
         let catTotalQualified = 0, catQualifiedUR = 0, catQualifiedOwn = 0;
 
         if (uCat === 'OVERALL' || uCat === 'NONE' || uCat === '') {
-            // General / No Category Selected
             document.getElementById('resCatOrig').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
             document.getElementById('resCatInclUR').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
             document.getElementById('resCatExclUR').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
@@ -647,7 +668,7 @@
 
             // 1. Generate True Category Pools
             let catDataRaw = cleanData.filter(r => r.Category.toUpperCase() === uCat);
-            let catTruePool = catDataRaw.filter(r => parseFloat(r.Marks) < urSafeMark60); // Purge those >= UR 60%ile safe zone
+            let catTruePool = catDataRaw.filter(r => parseFloat(r.Marks) < urSafeMark60); 
             
             let rawCatStats = getPercentileStats(catDataRaw, uMarks);
             let trueCatStats = getPercentileStats(catTruePool, uMarks);
@@ -655,7 +676,7 @@
             const catSafeMark60 = getMarkAtPercentile(catTruePool, 60);
             const catBorderMark50 = getMarkAtPercentile(catTruePool, 50);
 
-            // 2. Old Rank Displays (Original, Excl UR, Incl UR)
+            // 2. Old Rank Displays
             cleanData.forEach(row => {
                 if (row.Category.toUpperCase() === uCat) {
                     totalInCat += row.Count;
@@ -685,7 +706,6 @@
 
             // 3. Fallback Probability Execution
             if (isURQualified && globalStats.percentile >= 60) {
-                // Safely secures UR Seat
                 renderStatus(globalStats.percentile, "UR Merit");
                 safeBox.style.display = "block";
                 document.getElementById('safeScoreVal').innerText = `${urSafeMark60} (UR)`;
@@ -695,7 +715,6 @@
                 addPBox(`${uCat} Percentile<br>(Incl UR)`, rawCatStats.percentile, "var(--primary)");
                 
             } else {
-                // FALLBACK ACTIVATED: Evaluate against Category Merit
                 if (isURQualified) {
                     fallbackAlert.style.display = "block";
                     fallbackAlert.innerHTML = `⚠️ You cleared the Final UR cutoff, but are below the UR Safe Zone. <strong>You have fallen back to ${uCat} merit.</strong> Top ${uCat} candidates securing UR seats are removed from your competition!`;
@@ -719,7 +738,7 @@
         let cutoffText = (uCat !== 'OVERALL' && uCat !== 'NONE' && myCatCutoff) ? `<div style="margin-top: 8px; font-size:0.9rem; font-weight:700; color: var(--text-color); opacity: 0.8;">Your category cutoff: ${myCatCutoff}</div>` : '';
 
         if (uMarks >= cutoffs["UR"]) {
-            statusDiv.innerHTML = `<span class="badge" style="background-color: #22c55e; color: #000; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);">✔️ Qualified in UR</span><div style="font-weight: 800; margin-top: 8px; color: #16a34a;">(Subject to Typing Test)</div>${cutoffText}`;
+            statusDiv.innerHTML = `<span class="badge" style="background-color: #22c55e; color: #000; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);">✔️ Qualified in Final UR Cutoff</span><div style="font-weight: 800; margin-top: 8px; color: #16a34a;">(Subject to Typing Test)</div>${cutoffText}`;
             statusDiv.style.borderColor = "#22c55e"; statusDiv.style.backgroundColor = "rgba(34, 197, 94, 0.1)";
         } else if (uCat !== 'OVERALL' && uCat !== 'NONE' && myCatCutoff && uMarks >= myCatCutoff) {
             statusDiv.innerHTML = `<span class="badge" style="background-color: #3b82f6; color: #fff; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);">✔️ Qualified in ${uCat}</span><div style="font-weight: 800; margin-top: 8px; color: #2563eb;">(Subject to Typing Test)</div>${cutoffText}`;

@@ -189,7 +189,7 @@
             <div>🛡️ Valid Entries: <span class="transparency-val" id="td-entries">-</span></div>
             <div style="color: #fca5a5;">⏳ Pending Verification: <span class="transparency-val" style="color: #fca5a5;" id="td-pending">-</span></div>
             <div style="color: #fca5a5;">🗑️ Fakes Cleaned: <span class="transparency-val" style="color: #fca5a5;" id="td-fakes">-</span></div>
-            <div style="opacity: 0.8; width: 100%; text-align: right; font-size: 0.75rem;">Last Fake/Duplicate data cleaned: <span id="td-updated" style="font-weight: 800; color: #fff;">-</span></div>
+            <div style="opacity: 0.8; width: 100%; text-align: right; font-size: 0.75rem;">Last Fake/Duplicate Deleted Update: <span id="td-updated" style="font-weight: 800; color: #fff;">-</span></div>
         </div>
 
         <div class="genuine-banner">
@@ -412,7 +412,7 @@
     // ==========================================
     // 1. SYSTEM CONFIGURATION & DATA GLOBALS
     // ==========================================
-    const API_URL = "https://script.google.com/macros/s/AKfycbwONrBT-KcwYs6TG7w9X2RMXbIIW6BIUqxEKQMK2yqOUzP3gZzhTkIAaCA84KEuDTd8/exec"; 
+    const API_URL = "https://script.google.com/macros/s/AKfycby6YbOTq-j6y6odPk0DsPvkH4T3VyJADALB5oG3v4otk2ACt_t4PgHg_a5m1_4V2gxV/exec"; 
     const cutoffs = { "UR": 149.15, "EWS": 119.62, "SC": 120.36, "OBC DELHI": 84.77, "ST": 104.75, "OTHER": 61.97 };
 
     let cleanData = [], topRankers = [], siteData = {};
@@ -615,9 +615,11 @@
         // Global UR Math Boundaries (Includes everyone above UR cutoff)
         const urCutoff = cutoffs["UR"];
         const urClearers = cleanData.filter(r => parseFloat(r.Marks) >= urCutoff);
+        
+        // 🚨 UR STATS (Strictly evaluating the user against the UR CLEARING POOL)
         const urSafeMark60 = getMarkAtPercentile(urClearers, 60);
         const urBorderMark50 = getMarkAtPercentile(urClearers, 50);
-        const globalStats = getPercentileStats(cleanData, uMarks);
+        const urStats = getPercentileStats(urClearers, uMarks);
 
         // HELPER: Status Banner UI
         const renderStatus = (percentile, poolName) => {
@@ -653,17 +655,20 @@
             banner.innerHTML = "Select Category to see Probability"; banner.style.border = "none"; banner.style.background = "transparent";
             
         } else if (uCat === 'UR') {
-            // PURE UR LOGIC
-            renderStatus(globalStats.percentile, "UR Merit");
+            // 🚨 PURE UR LOGIC (Using urStats, not globalStats)
+            renderStatus(urStats.percentile, "UR Merit");
             safeBox.style.display = "block";
             document.getElementById('safeScoreVal').innerText = urSafeMark60;
             document.getElementById('borderScoreVal').innerText = urBorderMark50;
-            addPBox("UR Percentile", globalStats.percentile, "var(--primary)");
+            addPBox("UR Percentile", urStats.percentile, "var(--primary)");
 
-            document.getElementById('resCatOrig').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
-            document.getElementById('resCatInclUR').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
+            document.getElementById('resCatOrig').innerHTML = formatRank(urStats.rank, urStats.total);
+            document.getElementById('resCatInclUR').innerHTML = formatRank(urStats.rank, urStats.total);
             document.getElementById('resCatExclUR').innerHTML = `<span style="font-weight: 800;">N/A</span>`;
-            document.getElementById('catSummaryMessage').style.display = 'none';
+            
+            const catSummaryMsg = document.getElementById('catSummaryMessage');
+            catSummaryMsg.innerHTML = `Your Category Rank here represents your standing among <strong style="color:var(--primary); font-size: 1.1em;">ALL ${urStats.total} candidates</strong> who have cleared the UR Tier-1 Cutoff.`;
+            catSummaryMsg.style.display = 'block';
             document.getElementById('scrollHindiMsg').style.display = 'block';
 
         } else {
@@ -710,21 +715,21 @@
             catSummaryMsg.innerHTML = `Out of <strong style="color:var(--primary); font-size: 1.1em;">${catTotalQualified}</strong> qualified candidates of <strong>${uCat}</strong>, <strong style="color:var(--success); font-size: 1.1em;">${catQualifiedUR}</strong> qualified in UR and <strong style="color:var(--primary); font-size: 1.1em;">${catQualifiedOwn}</strong> in ${uCat}.<br><span style="color:var(--danger); font-weight:800; display:block; margin-top:8px;">(${urQualPercent}% of your category qualify UR cutoff)</span>`;
             catSummaryMsg.style.display = 'block';
 
-            // 3. Fallback Probability Execution
-            if (isURQualified && globalStats.percentile >= 60) {
-                renderStatus(globalStats.percentile, "UR Merit");
+            // 3. Fallback Probability Execution (Now evaluating against urStats)
+            if (isURQualified && urStats.percentile >= 60) {
+                renderStatus(urStats.percentile, "UR Merit");
                 safeBox.style.display = "block";
                 document.getElementById('safeScoreVal').innerText = `${urSafeMark60} (UR)`;
                 document.getElementById('borderScoreVal').innerText = `${urBorderMark50} (UR)`;
                 
-                addPBox("UR Percentile", globalStats.percentile, "var(--success)");
+                addPBox("UR Percentile", urStats.percentile, "var(--success)");
                 addPBox(`${uCat} Percentile<br>(Incl UR)`, rawCatStats.percentile, "var(--primary)");
                 
             } else {
                 if (isURQualified) {
                     fallbackAlert.style.display = "block";
                     fallbackAlert.innerHTML = `⚠️ You cleared the Final UR cutoff, but are below the UR Safe Zone. <strong>You have fallen back to ${uCat} merit.</strong> Top ${uCat} candidates securing UR seats are removed from your competition!`;
-                    addPBox("UR Percentile", globalStats.percentile, "var(--danger)");
+                    addPBox("UR Percentile", urStats.percentile, "var(--danger)");
                 }
 
                 renderStatus(trueCatStats.percentile, `${uCat} Merit`);
